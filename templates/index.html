@@ -5,284 +5,250 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ahmed Attia | Network & Cloud Security Engineer</title>
   
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
   <style>
     :root {
-      --bg-dark: #050814;
-      --bg-card: rgba(13, 20, 38, 0.7);
-      --border: rgba(56, 189, 248, 0.18);
-      --border-glow: rgba(56, 189, 248, 0.45);
+      --bg: #030712;
+      --card-bg: rgba(15, 23, 42, 0.75);
+      --card-hover: rgba(30, 41, 59, 0.85);
+      --border: rgba(56, 189, 248, 0.2);
+      --border-glow: rgba(56, 189, 248, 0.5);
       --cyan: #38bdf8;
-      --blue: #6366f1;
       --purple: #a855f7;
+      --blue: #6366f1;
       --emerald: #10b981;
       --text: #f8fafc;
       --text-muted: #94a3b8;
-      --font-code: 'Fira Code', monospace;
-      --font-main: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+    body { background-color: var(--bg); color: var(--text); font-family: var(--font-sans); overflow-x: hidden; line-height: 1.6; }
 
-    body {
-      background-color: var(--bg-dark);
-      color: var(--text);
-      font-family: var(--font-main);
-      overflow-x: hidden;
-      line-height: 1.6;
-    }
+    /* Canvas Background */
+    canvas#bg-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
 
-    canvas#bg-canvas {
-      position: fixed; top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      z-index: -1; pointer-events: none;
-      transform: translateZ(0);
+    /* Floating Navigation */
+    .nav-wrapper {
+      position: fixed; top: 1.2rem; left: 0; width: 100%;
+      display: flex; justify-content: center; z-index: 1000; padding: 0 1rem;
     }
 
     nav {
-      position: fixed; top: 0; width: 100%;
       display: flex; justify-content: space-between; align-items: center;
-      padding: 1rem 8%;
-      background: rgba(5, 8, 20, 0.85); backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      z-index: 1000;
+      width: 100%; max-width: 1100px; padding: 0.75rem 1.8rem;
+      background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(16px);
+      border: 1px solid var(--border); border-radius: 50px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(56, 189, 248, 0.1);
+      transition: all 0.3s ease;
     }
 
     .nav-logo {
-      font-family: var(--font-code);
-      font-weight: 700; font-size: 1.1rem;
-      color: var(--text); text-decoration: none;
-      display: flex; align-items: center; gap: 10px;
+      font-family: var(--font-mono); font-weight: 800; font-size: 1.05rem;
+      color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 8px;
     }
-
     .nav-logo span {
       background: linear-gradient(90deg, var(--cyan), var(--purple));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
 
-    .nav-links { display: flex; gap: 1.8rem; list-style: none; align-items: center; }
+    .nav-links { display: flex; gap: 1.6rem; list-style: none; align-items: center; }
     .nav-links a {
-      color: var(--text-muted); text-decoration: none;
-      font-family: var(--font-code); font-size: 0.9rem;
-      transition: color 0.2s ease;
+      color: var(--text-muted); text-decoration: none; font-family: var(--font-mono);
+      font-size: 0.88rem; font-weight: 500; transition: all 0.2s ease;
     }
-    .nav-links a:hover { color: var(--cyan); }
+    .nav-links a:hover { color: var(--cyan); text-shadow: 0 0 8px rgba(56, 189, 248, 0.4); }
 
     .btn-cv-nav {
-      background: rgba(56, 189, 248, 0.1);
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(168, 85, 247, 0.15));
       border: 1px solid var(--cyan); color: var(--cyan) !important;
-      padding: 6px 16px; border-radius: 8px; cursor: pointer;
+      padding: 6px 16px; border-radius: 30px; cursor: pointer;
     }
-    .btn-cv-nav:hover { background: var(--cyan); color: #050814 !important; }
-
-    section { padding: 6.5rem 8% 3rem; max-width: 1300px; margin: 0 auto; }
-
-    .hero-centered {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      min-height: calc(100vh - 120px);
-      justify-content: center;
+    .btn-cv-nav:hover {
+      background: var(--cyan); color: #030712 !important;
+      box-shadow: 0 0 15px var(--cyan);
     }
 
-    /* Fully Visible Head Avatar Wrapper */
-    .avatar-wrapper {
-      position: relative;
-      width: 270px;
-      height: 270px;
-      margin-bottom: 2.2rem;
-    }
+    /* Hero Section */
+    section { padding: 8rem 8% 3rem; max-width: 1200px; margin: 0 auto; }
+    .hero-centered { display: flex; flex-direction: column; align-items: center; text-align: center; min-height: calc(100vh - 150px); justify-content: center; }
 
+    /* Profile Avatar */
+    .avatar-wrapper { position: relative; width: 260px; height: 260px; margin-bottom: 2rem; }
     .avatar-halo {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      padding: 6px;
+      width: 100%; height: 100%; border-radius: 50%; padding: 6px;
       background: linear-gradient(135deg, var(--cyan), var(--purple), var(--blue));
-      box-shadow: 0 0 45px rgba(56, 189, 248, 0.45), 0 0 80px rgba(168, 85, 247, 0.25);
+      box-shadow: 0 0 45px rgba(56, 189, 248, 0.35), 0 0 80px rgba(168, 85, 247, 0.2);
       overflow: hidden;
     }
-
     .avatar-img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      object-position: 50% 0%; /* Aligns image directly to top so top of head is 100% visible */
-      transform: scale(0.94); /* Gives room around head and shoulders */
-      background: #0d1326;
-      border: 3px solid #050814;
-      display: block;
+      width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+      object-position: 50% 0%; transform: scale(0.95); background: #0d1326;
+      border: 3px solid #030712; display: block;
     }
-
     .status-ping-corner {
-      position: absolute;
-      bottom: 16px;
-      right: 18px;
-      width: 24px;
-      height: 24px;
-      background: var(--emerald);
-      border: 4px solid #050814;
-      border-radius: 50%;
-      box-shadow: 0 0 14px var(--emerald);
-      z-index: 10;
+      position: absolute; bottom: 16px; right: 18px; width: 22px; height: 22px;
+      background: var(--emerald); border: 4px solid #030712; border-radius: 50%;
+      box-shadow: 0 0 12px var(--emerald); z-index: 10;
     }
 
     .status-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 6px 18px; background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 25px;
-      color: var(--emerald); font-family: var(--font-code); font-size: 0.85rem; margin-bottom: 1.2rem;
+      display: inline-flex; align-items: center; gap: 8px; padding: 6px 18px;
+      background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 30px; color: var(--emerald); font-family: var(--font-mono); font-size: 0.85rem; margin-bottom: 1.2rem;
     }
-    .status-ping { width: 8px; height: 8px; background: var(--emerald); border-radius: 50%; }
 
-    .hero-text h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.15; margin-bottom: 1rem; }
-    .hero-text h1 span { background: linear-gradient(90deg, var(--cyan), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-text h1 { font-size: 3.4rem; font-weight: 800; line-height: 1.15; margin-bottom: 0.8rem; }
+    .hero-text h1 span {
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .typewriter-text { font-family: var(--font-mono); font-size: 1.25rem; color: var(--cyan); margin-bottom: 1.2rem; min-height: 1.8rem; }
+    .hero-desc { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 2rem; max-width: 650px; }
 
-    .typewriter-text { font-family: var(--font-code); font-size: 1.35rem; color: var(--cyan); margin-bottom: 1.2rem; min-height: 2rem; }
-    .hero-desc { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2.2rem; max-width: 680px; }
-
-    .hero-cta { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
-    .btn { padding: 0.85rem 1.6rem; border-radius: 8px; font-family: var(--font-code); font-size: 0.95rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; border: none; transition: 0.2s ease; }
-    .btn-primary { background: linear-gradient(90deg, var(--cyan), var(--blue)); color: #050814; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 25px rgba(56, 189, 248, 0.5); }
+    .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      padding: 0.85rem 1.6rem; border-radius: 30px; font-family: var(--font-mono);
+      font-size: 0.92rem; font-weight: 600; text-decoration: none; display: inline-flex;
+      align-items: center; gap: 8px; cursor: pointer; border: none; transition: all 0.25s ease;
+    }
+    .btn-primary { background: linear-gradient(90deg, var(--cyan), var(--blue)); color: #030712; box-shadow: 0 0 20px rgba(56, 189, 248, 0.3); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(56, 189, 248, 0.5); }
     .btn-glass { background: rgba(255, 255, 255, 0.05); color: var(--text); border: 1px solid var(--border); }
-    .btn-glass:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-2px); }
+    .btn-glass:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-2px); background: rgba(56, 189, 248, 0.08); }
 
-    .terminal-section { max-width: 900px; margin: 3rem auto 4rem; }
-    .terminal-box {
-      background: rgba(10, 16, 32, 0.9); border: 1px solid var(--border-glow); border-radius: 12px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-      font-family: var(--font-code); overflow: hidden; text-align: left;
+    /* Embedded In-Page CV Section */
+    .cv-inpage-container {
+      background: var(--card-bg); border: 1px solid var(--border-glow); border-radius: 16px;
+      overflow: hidden; backdrop-filter: blur(16px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(56, 189, 248, 0.1);
     }
-    .terminal-header { padding: 12px 18px; background: #0a0e1c; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
-    .terminal-dots { display: flex; gap: 7px; }
-    .t-dot { width: 12px; height: 12px; border-radius: 50%; }
-    .t-red { background: #ff5f56; } .t-yellow { background: #ffbd2e; } .t-green { background: #27c93f; }
-    .terminal-body { padding: 1.5rem; min-height: 200px; font-size: 0.88rem; overflow-y: auto; }
+    .cv-inpage-header {
+      padding: 1rem 1.5rem; background: rgba(8, 14, 28, 0.95);
+      border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;
+    }
+    .cv-inpage-body {
+      width: 100%; height: 750px; background: #02040a; position: relative;
+    }
+    .cv-inpage-body iframe {
+      width: 100%; height: 100%; border: none;
+    }
+
+    /* Terminal */
+    .terminal-section { max-width: 850px; margin: 3rem auto 4rem; }
+    .terminal-box {
+      background: rgba(10, 15, 30, 0.85); border: 1px solid var(--border); border-radius: 12px;
+      font-family: var(--font-mono); overflow: hidden; text-align: left;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+    .terminal-header { padding: 10px 16px; background: rgba(6, 10, 22, 0.9); display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+    .terminal-body { padding: 1.2rem; min-height: 180px; font-size: 0.85rem; overflow-y: auto; }
     .term-out { color: var(--text-muted); white-space: pre-wrap; margin-bottom: 0.8rem; }
     .term-prompt-line { display: flex; gap: 10px; }
     .term-user { color: var(--cyan); font-weight: 700; }
-    .term-input { flex: 1; background: transparent; border: none; outline: none; color: var(--text); font-family: var(--font-code); }
+    .term-input { flex: 1; background: transparent; border: none; outline: none; color: var(--text); font-family: var(--font-mono); }
 
-    .sec-head { text-align: center; margin-bottom: 3rem; }
-    .sec-head h2 { font-size: 2.3rem; font-weight: 800; margin-bottom: 0.5rem; }
+    /* Cards */
+    .sec-head { text-align: center; margin-bottom: 2.8rem; }
+    .sec-head h2 { font-size: 2.3rem; font-weight: 800; margin-bottom: 0.4rem; }
     .sec-head h2 span { color: var(--cyan); }
-    .sec-head p { color: var(--text-muted); font-family: var(--font-code); font-size: 0.95rem; }
-    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .sec-head p { color: var(--text-muted); font-family: var(--font-mono); font-size: 0.9rem; }
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
     
     .card {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
-      padding: 2rem; backdrop-filter: blur(12px); transition: all 0.25s ease;
-      display: flex; flex-direction: column;
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px;
+      padding: 1.8rem; display: flex; flex-direction: column; backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
     }
-    .card:hover { border-color: var(--cyan); transform: translateY(-4px); background: rgba(17, 26, 48, 0.85); }
-    .card-icon { font-size: 2.2rem; color: var(--cyan); margin-bottom: 1.2rem; }
-    .card h3 { font-size: 1.35rem; margin-bottom: 0.8rem; }
-    .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.2rem; }
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
-    .tag { font-family: var(--font-code); font-size: 0.78rem; padding: 4px 10px; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 6px; color: var(--cyan); }
+    .card:hover { border-color: var(--cyan); transform: translateY(-4px); background: var(--card-hover); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); }
+    .card h3 { font-size: 1.25rem; margin-bottom: 0.6rem; }
+    .card p { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.2rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+    .tag { font-family: var(--font-mono); font-size: 0.75rem; padding: 4px 10px; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 6px; color: var(--cyan); }
 
-    .modal-overlay {
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(3, 6, 16, 0.92); backdrop-filter: blur(8px);
-      z-index: 2000; display: none; justify-content: center; align-items: center; padding: 2rem;
-    }
+    /* Modal */
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(3, 7, 18, 0.92); backdrop-filter: blur(10px); z-index: 2000; display: none; justify-content: center; align-items: center; padding: 1.5rem; }
     .modal-overlay.active { display: flex; }
-    .modal-content {
-      background: #0b1120; border: 1px solid var(--border-glow); border-radius: 14px;
-      width: 100%; max-width: 950px; height: 85vh; display: flex; flex-direction: column; overflow: hidden;
-    }
-    .modal-header { padding: 1rem 1.5rem; background: #060913; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
-    .modal-header h3 { font-family: var(--font-code); color: var(--cyan); font-size: 1.1rem; }
-    .modal-actions { display: flex; gap: 10px; }
+    .modal-content { background: #0b1120; border: 1px solid var(--border); border-radius: 14px; width: 100%; max-width: 900px; height: 85vh; display: flex; flex-direction: column; overflow: hidden; }
+    .modal-header { padding: 0.9rem 1.4rem; background: #060913; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
     .modal-body { flex: 1; position: relative; }
     .modal-body iframe { width: 100%; height: 100%; border: none; }
 
-    .contact-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
-    .form-ctrl { width: 100%; padding: 0.9rem; border-radius: 8px; background: #050814; border: 1px solid var(--border); color: var(--text); margin-bottom: 1rem; outline: none; }
+    /* Contact */
+    .contact-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    .form-ctrl { width: 100%; padding: 0.85rem 1rem; border-radius: 8px; background: #060a17; border: 1px solid var(--border); color: var(--text); margin-bottom: 0.8rem; outline: none; }
     .form-ctrl:focus { border-color: var(--cyan); }
 
-    footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); font-family: var(--font-code); font-size: 0.88rem; color: var(--text-muted); margin-top: 3rem; }
+    footer { text-align: center; padding: 2.5rem; border-top: 1px solid var(--border); font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); margin-top: 4rem; }
 
-    @media (max-width: 950px) {
+    @media (max-width: 850px) {
+      .nav-wrapper { top: 0.8rem; }
+      nav { border-radius: 14px; }
       .hero-text h1 { font-size: 2.4rem; }
       .nav-links { display: none; }
       .contact-box { grid-template-columns: 1fr; }
-      .avatar-wrapper { width: 230px; height: 230px; }
+      .avatar-wrapper { width: 220px; height: 220px; }
+      .cv-inpage-body { height: 500px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Dynamic Cyber Canvas -->
   <canvas id="bg-canvas"></canvas>
 
-  <nav>
-    <a href="#home" class="nav-logo">
-      <i class="fa-solid fa-shield-halved" style="color:var(--cyan);"></i> <span>AHMED ATTIA</span> // INFRA_SEC
-    </a>
-    <ul class="nav-links">
-      <li><a href="#home">// home</a></li>
-      <li><a href="#skills">// skills</a></li>
-      <li><a href="#projects">// labs</a></li>
-      <li><a href="#contact">// contact</a></li>
-      <li><a href="/login" class="nav-link" style="color:var(--text-muted);"><i class="fa-solid fa-lock"></i> Admin</a></li>
-      <li><a href="javascript:void(0)" onclick="openCV()" class="btn-cv-nav"><i class="fa-solid fa-file-pdf"></i> Read CV</a></li>
-    </ul>
-  </nav>
+  <!-- Modern Floating Navigation Bar -->
+  <div class="nav-wrapper">
+    <nav>
+      <a href="#home" class="nav-logo">> <span>AHMED ATTIA</span> // OPS</a>
+      <ul class="nav-links">
+        <li><a href="#home">// home</a></li>
+        <li><a href="#cv-section">// cv</a></li>
+        <li><a href="#skills">// skills</a></li>
+        <li><a href="#projects">// labs</a></li>
+        <li><a href="#contact">// contact</a></li>
+        <li><a href="/login">// admin</a></li>
+        <li><a href="#cv-section" class="btn-cv-nav">View CV</a></li>
+      </ul>
+    </nav>
+  </div>
 
+  <!-- Hero Section -->
   <section id="home">
     <div class="hero-centered">
-      
-      <!-- Center Avatar with Top-Head Visibility Fix -->
       <div class="avatar-wrapper">
         <div class="avatar-halo">
           {% if profile.profile_base64 %}
-            <img src="data:image/jpeg;base64,{{ profile.profile_base64 }}" alt="Ahmed Attia" class="avatar-img">
+            <img src="data:image/jpeg;base64,{{ profile.profile_base64 }}" alt="Ahmed Attia" class="avatar-img" loading="eager">
           {% else %}
             <img src="https://api.dicebear.com/7.x/bottts/svg?seed=AhmedAttia" alt="Ahmed Attia Avatar" class="avatar-img">
           {% endif %}
         </div>
-        <div class="status-ping-corner" title="System Online"></div>
+        <div class="status-ping-corner" title="Online"></div>
       </div>
 
       <div class="hero-text">
-        <div class="status-tag">
-          <div class="status-ping"></div>
-          <span>● STATUS: ACTIVE // OPEN_TO_WORK</span>
-        </div>
+        <div class="status-tag">● STATUS: ACTIVE // OPEN_TO_WORK</div>
         <h1>I'm <span>Ahmed Attia Mohamed</span></h1>
         <div class="typewriter-text" id="typewriter"></div>
         <p class="hero-desc">
           Specialized in enterprise computer networks, AWS cloud VPC architecture, automated Linux system administration, and zero-trust security infrastructure.
         </p>
         <div class="hero-cta">
-          <button onclick="openCV()" class="btn btn-primary"><i class="fa-solid fa-file-pdf"></i> Read & View CV (PDF)</button>
-          <a href="#projects" class="btn btn-glass"><i class="fa-solid fa-flask-vial"></i> Explore Labs</a>
+          <a href="#cv-section" class="btn btn-primary">Explore CV In-Page</a>
+          <a href="{{ url_for('download_cv') }}" class="btn btn-glass" download>Download CV (PDF)</a>
+          <a href="#projects" class="btn btn-glass">Explore Labs</a>
         </div>
       </div>
-
     </div>
 
-    <!-- Terminal -->
     <div class="terminal-section">
       <div class="terminal-box">
         <div class="terminal-header">
-          <div class="terminal-dots">
-            <span class="t-dot t-red"></span><span class="t-dot t-yellow"></span><span class="t-dot t-green"></span>
-          </div>
-          <div style="font-size:0.8rem; color:var(--text-muted);">ahmed@enterprise-core-switch:~</div>
+          <span style="font-size:0.8rem; color:var(--text-muted);">ahmed@switch-core:~</span>
         </div>
         <div class="terminal-body" id="term-box">
-          <div class="term-out">Attia Security Workstation CLI [Version 2026.4]
-Type <span style="color:var(--cyan);">'help'</span> or <span style="color:var(--cyan);">'cv'</span> to execute commands.
-─────────────────────────────────────────────</div>
+          <div class="term-out">Attia Workstation CLI [Ready]. Type 'help' or 'cv'.</div>
           <div class="term-prompt-line">
             <span class="term-user">visitor@ahmed-ops#</span>
             <input type="text" class="term-input" id="term-cmd" autocomplete="off">
@@ -292,7 +258,30 @@ Type <span style="color:var(--cyan);">'help'</span> or <span style="color:var(--
     </div>
   </section>
 
-  <!-- Technical Competencies -->
+  <!-- Embedded In-Page CV Section -->
+  <section id="cv-section">
+    <div class="sec-head">
+      <h2>Curriculum <span>Vitae</span></h2>
+      <p>// Direct embedded interactive PDF & verified digital resume</p>
+    </div>
+
+    <div class="cv-inpage-container">
+      <div class="cv-inpage-header">
+        <div style="font-family:var(--font-mono); color:var(--cyan); font-size:0.95rem;">
+          > {{ profile.cv_filename }}
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button onclick="openCVModal()" class="btn btn-glass" style="padding:4px 14px; font-size:0.8rem;">Fullscreen</button>
+          <a href="{{ url_for('download_cv') }}" download="{{ profile.cv_filename }}" class="btn btn-primary" style="padding:4px 14px; font-size:0.8rem;">Download PDF</a>
+        </div>
+      </div>
+      <div class="cv-inpage-body">
+        <iframe src="{{ url_for('download_cv') }}#toolbar=1"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
   <section id="skills">
     <div class="sec-head">
       <h2>Technical <span>Competencies</span></h2>
@@ -300,27 +289,24 @@ Type <span style="color:var(--cyan);">'help'</span> or <span style="color:var(--
     </div>
     <div class="cards-grid">
       <div class="card">
-        <i class="fa-solid fa-network-wired card-icon"></i>
         <h3>Enterprise Networks</h3>
-        <p>In-depth management of Routing & Switching topologies, STP loop prevention, VLSM subnetting, and EtherChannel aggregation.</p>
+        <p>Layer 2/3 switching, STP loop prevention, VLSM subnetting, and EtherChannel aggregation.</p>
         <div class="tags">
-          <span class="tag">CCNA / CCNP Track</span><span class="tag">OSPFv2 / OSPFv3</span><span class="tag">VLAN & Trunking</span><span class="tag">RSTP</span><span class="tag">ACLs & NAT</span>
+          <span class="tag">CCNA/CCNP</span><span class="tag">OSPFv2/v3</span><span class="tag">VLAN</span><span class="tag">ACLs</span>
         </div>
       </div>
       <div class="card">
-        <i class="fa-solid fa-cloud-arrow-up card-icon"></i>
         <h3>Cloud & Systems</h3>
-        <p>Architecting multi-tier AWS environments (VPC, Subnets, EC2, IAM) with secure segmentation and automated deployments.</p>
+        <p>Architecting multi-tier AWS environments (VPC, Subnets, EC2, IAM) with automated deployments.</p>
         <div class="tags">
-          <span class="tag">AWS VPC</span><span class="tag">Security Groups</span><span class="tag">Linux Admin</span><span class="tag">Bash Scripting</span>
+          <span class="tag">AWS VPC</span><span class="tag">EC2</span><span class="tag">Linux Admin</span><span class="tag">Bash</span>
         </div>
       </div>
       <div class="card">
-        <i class="fa-solid fa-shield-halved card-icon"></i>
-        <h3>Recon & Packet Analysis</h3>
-        <p>Executing deep packet analysis using Wireshark, identifying protocol anomalies, and hardening network endpoints.</p>
+        <h3>Recon & Security</h3>
+        <p>Executing deep packet analysis using Wireshark, identifying protocol anomalies, and endpoint hardening.</p>
         <div class="tags">
-          <span class="tag">Wireshark</span><span class="tag">Protocol Analysis</span><span class="tag">Traffic Inspection</span><span class="tag">Nmap</span>
+          <span class="tag">Wireshark</span><span class="tag">Packet Analysis</span><span class="tag">Nmap</span>
         </div>
       </div>
     </div>
@@ -330,7 +316,7 @@ Type <span style="color:var(--cyan);">'help'</span> or <span style="color:var(--
   <section id="projects">
     <div class="sec-head">
       <h2>Hands-on <span>Labs & Projects</span></h2>
-      <p>// Database-driven implementations & simulations</p>
+      <p>// Verified technical implementations</p>
     </div>
     <div class="cards-grid">
       {% if projects %}
@@ -350,17 +336,13 @@ Type <span style="color:var(--cyan);">'help'</span> or <span style="color:var(--
       {% else %}
         <div class="card">
           <h3>Enterprise Campus Network</h3>
-          <p>Designed and deployed a simulated campus network featuring multi-area OSPF routing, redundant core switches, and LACP EtherChannels.</p>
-          <div class="tags">
-            <span class="tag">OSPF</span><span class="tag">EtherChannel</span><span class="tag">VLAN</span>
-          </div>
+          <p>Multi-area OSPF routing, redundant core switches, and LACP EtherChannels simulation.</p>
+          <div class="tags"><span class="tag">OSPF</span><span class="tag">EtherChannel</span></div>
         </div>
         <div class="card">
           <h3>AWS Multi-Tier VPC</h3>
-          <p>Built a custom VPC on AWS with public and private subnets, Bastion Host access control, and private EC2 instances behind a NAT Gateway.</p>
-          <div class="tags">
-            <span class="tag">AWS VPC</span><span class="tag">EC2</span><span class="tag">Route Tables</span>
-          </div>
+          <p>Custom VPC with public/private subnets, Bastion Host, and NAT Gateway routing.</p>
+          <div class="tags"><span class="tag">AWS VPC</span><span class="tag">EC2</span></div>
         </div>
       {% endif %}
     </div>
@@ -370,51 +352,38 @@ Type <span style="color:var(--cyan);">'help'</span> or <span style="color:var(--
   <section id="contact">
     <div class="sec-head">
       <h2>Get In <span>Touch</span></h2>
-      <p>// Direct communication channel initialization</p>
+      <p>// Direct communication</p>
     </div>
     <div class="contact-box card">
       <div>
-        <h3 style="margin-bottom: 0.8rem;">Ready for Infrastructure Roles</h3>
-        <p style="color:var(--text-muted); margin-bottom: 1.5rem;">
-          Whether you have a technical query, project collaboration, or full-time role, feel free to drop a transmission.
-        </p>
-        <div style="font-family:var(--font-code); font-size:0.95rem; color:var(--text); margin-bottom: 1.2rem;">
+        <h3 style="margin-bottom:0.6rem;">Infrastructure Roles</h3>
+        <p style="color:var(--text-muted); margin-bottom:1rem; font-size:0.95rem;">
           > ahmed.eng.ccna@example.com <br>
           > Borg El Arab / Alexandria, Egypt
-        </div>
-        <span class="tag" style="background:rgba(16, 185, 129, 0.1); border-color:#10b981; color:#10b981;"><i class="fa-solid fa-circle-nodes"></i> Open for Local & Remote Roles</span>
+        </p>
+        <span class="tag" style="color:var(--emerald); border-color:var(--emerald);">Open for Roles</span>
       </div>
-      <form onsubmit="event.preventDefault(); alert('Transmission Received!');">
-        <input type="text" class="form-ctrl" placeholder="Your Name / Organization" required>
-        <input type="email" class="form-ctrl" placeholder="Your Connection Email" required>
-        <textarea rows="3" class="form-ctrl" placeholder="Message details..." required></textarea>
-        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+      <form onsubmit="event.preventDefault(); alert('Message sent!');">
+        <input type="text" class="form-ctrl" placeholder="Your Name" required>
+        <input type="email" class="form-ctrl" placeholder="Your Email" required>
+        <textarea rows="3" class="form-ctrl" placeholder="Message..." required></textarea>
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Send Message</button>
       </form>
     </div>
   </section>
 
-  <!-- PDF CV Modal -->
+  <!-- Fullscreen Modal CV -->
   <div class="modal-overlay" id="cvModal">
     <div class="modal-content">
       <div class="modal-header">
-        <h3><i class="fa-solid fa-file-pdf"></i> Read CV // {{ profile.cv_filename }}</h3>
-        <div class="modal-actions">
-          {% if profile.has_cv %}
-            <a href="{{ url_for('download_cv') }}" download="{{ profile.cv_filename }}" class="btn btn-glass" style="padding:4px 10px; font-size:0.8rem;">
-              <i class="fa-solid fa-download"></i> Download PDF
-            </a>
-          {% endif %}
-          <button onclick="closeCV()" class="btn btn-glass" style="padding:4px 10px; font-size:0.8rem;"><i class="fa-solid fa-xmark"></i></button>
+        <h3 style="font-family:var(--font-mono); color:var(--cyan); font-size:1rem;">CV Viewer // {{ profile.cv_filename }}</h3>
+        <div style="display:flex; gap:8px;">
+          <a href="{{ url_for('download_cv') }}" download="{{ profile.cv_filename }}" class="btn btn-glass" style="padding:4px 10px; font-size:0.75rem;">Download</a>
+          <button onclick="closeCVModal()" class="btn btn-glass" style="padding:4px 10px; font-size:0.75rem;">✕</button>
         </div>
       </div>
       <div class="modal-body">
-        {% if profile.has_cv %}
-          <iframe src="{{ url_for('download_cv') }}#toolbar=1"></iframe>
-        {% else %}
-          <div style="display:flex; justify-content:center; align-items:center; height:100%; color:var(--text-muted); font-family:var(--font-code);">
-            No CV PDF uploaded yet. Upload it from the Admin dashboard.
-          </div>
-        {% endif %}
+        <iframe id="cvModalIframe" src="{{ url_for('download_cv') }}#toolbar=1"></iframe>
       </div>
     </div>
   </div>
@@ -424,53 +393,58 @@ Type <span style="color:var(--cyan);">'help'</span> or <span style="color:var(--
   </footer>
 
   <script>
-    const roles = ["Cisco Certified Routing & Switching Specialist", "AWS Cloud Infrastructure Engineer", "Linux DevOps & Security Enthusiast"];
+    /* Typewriter */
+    const roles = ["Cisco Routing & Switching Specialist", "AWS Cloud Infrastructure Engineer", "Linux DevOps & Security Enthusiast"];
     let rIdx = 0, cIdx = 0, isDel = false;
     const typeEl = document.getElementById("typewriter");
     function typeEffect() {
       const current = roles[rIdx];
       typeEl.textContent = "❯ " + (isDel ? current.substring(0, cIdx--) : current.substring(0, cIdx++));
-      let speed = isDel ? 25 : 55;
+      let speed = isDel ? 20 : 45;
       if (!isDel && cIdx === current.length + 1) { speed = 2000; isDel = true; }
-      else if (isDel && cIdx === 0) { isDel = false; rIdx = (rIdx + 1) % roles.length; speed = 300; }
+      else if (isDel && cIdx === 0) { isDel = false; rIdx = (rIdx + 1) % roles.length; speed = 250; }
       setTimeout(typeEffect, speed);
     }
     typeEffect();
 
-    function openCV() { document.getElementById("cvModal").classList.add("active"); }
-    function closeCV() { document.getElementById("cvModal").classList.remove("active"); }
+    function openCVModal() { document.getElementById("cvModal").classList.add("active"); }
+    function closeCVModal() { document.getElementById("cvModal").classList.remove("active"); }
 
+    /* Interactive Terminal */
     const termInput = document.getElementById("term-cmd");
     const termBox = document.getElementById("term-box");
     const commands = {
-      help: "Commands list:\n- skills : List tech stack\n- labs   : Verified lab tasks\n- cv     : Open PDF viewer\n- clear  : Clean terminal",
-      skills: "Networks: CCNA, CCNP track, OSPF, STP, LACP\nCloud   : AWS VPC, EC2, Linux CLI, Bash Scripting",
-      labs: "1. Campus OSPF Architecture\n2. AWS Multi-Tier VPC\n3. Linux Server Hardening",
-      cv: "Opening CV viewer..."
+      help: "Commands: skills, labs, cv, clear",
+      skills: "Networks: CCNA/CCNP, OSPF, STP, LACP | Cloud: AWS VPC, EC2, Linux",
+      labs: "1. Campus OSPF Architecture | 2. AWS Multi-Tier VPC",
+      cv: "Navigating to in-page CV section..."
     };
     termInput.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
-        const raw = termInput.value.trim();
-        const cmd = raw.toLowerCase();
-        
-        if (cmd === "clear") {
-          termBox.innerHTML = '<div class="term-out">Screen wiped. Type \'help\' for domains.</div><div class="term-prompt-line"><span class="term-user">visitor@ahmed-ops#</span><input type="text" class="term-input" id="term-cmd" autocomplete="off"></div>';
+        const raw = termInput.value.trim().toLowerCase();
+        if (raw === "clear") {
+          termBox.innerHTML = '<div class="term-out">Screen cleared.</div><div class="term-prompt-line"><span class="term-user">visitor@ahmed-ops#</span><input type="text" class="term-input" id="term-cmd" autocomplete="off"></div>';
           return;
         }
-
-        const hLine = document.createElement("div"); hLine.className = "term-out"; hLine.style.color = "#f8fafc"; hLine.textContent = `visitor@ahmed-ops# ${raw}`;
-        const rLine = document.createElement("div"); rLine.className = "term-out";
-        rLine.textContent = commands[cmd] || `Domain not found: ${raw}. Type 'help' for available domains.`;
-        termInput.parentElement.before(hLine); termInput.parentElement.before(rLine);
-
-        if (cmd === "cv" || cmd === "read cv") { openCV(); }
+        const h = document.createElement("div"); h.className = "term-out"; h.style.color = "#f8fafc"; h.textContent = `visitor@ahmed-ops# ${raw}`;
+        const r = document.createElement("div"); r.className = "term-out"; r.textContent = commands[raw] || "Command not found. Type 'help'.";
+        termInput.parentElement.before(h); termInput.parentElement.before(r);
+        
+        if (raw === "cv" || raw === "read cv") {
+          window.location.href = "#cv-section";
+        }
         termInput.value = ""; termBox.scrollTop = termBox.scrollHeight;
       }
     });
 
+    /* Refined Constellation Canvas Background */
     const canvas = document.getElementById("bg-canvas");
     const ctx = canvas.getContext("2d");
     let pts = [];
+    let mouse = { x: null, y: null };
+
+    window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+    window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
@@ -479,28 +453,27 @@ Type <span style="color:var(--cyan);">'help'</span> or <span style="color:var(--
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
 
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 35; i++) {
       pts.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         vx: (Math.random() - 0.5) * 0.4,
         vy: (Math.random() - 0.5) * 0.4,
-        r: Math.random() * 2 + 1
+        r: Math.random() * 1.8 + 1,
+        color: Math.random() > 0.4 ? "rgba(56, 189, 248," : "rgba(168, 85, 247,"
       });
     }
 
-    function drawMesh() {
+    function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "rgba(56, 189, 248, 0.4)";
-      
       for (let i = 0; i < pts.length; i++) {
         let p = pts[i];
-        p.x += p.vx;
-        p.y += p.vy;
+        p.x += p.vx; p.y += p.vy;
 
         if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
         if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
 
+        ctx.fillStyle = p.color + " 0.6)";
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
@@ -508,8 +481,10 @@ Type <span style="color:var(--cyan);">'help'</span> or <span style="color:var(--
         for (let j = i + 1; j < pts.length; j++) {
           let p2 = pts[j];
           let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-          if (dist < 120) {
-            ctx.strokeStyle = `rgba(56, 189, 248, ${0.12 - dist / 1000})`;
+          if (dist < 130) {
+            let alpha = (1 - dist / 130) * 0.2;
+            ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
+            ctx.lineWidth = 0.6;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
@@ -517,9 +492,9 @@ Type <span style="color:var(--cyan);">'help'</span> or <span style="color:var(--
           }
         }
       }
-      requestAnimationFrame(drawMesh);
+      requestAnimationFrame(draw);
     }
-    drawMesh();
+    draw();
   </script>
 </body>
 </html>
