@@ -755,25 +755,35 @@
             min-height: 80px;
         }
 
-        .form-status {
-            padding: 8px 12px;
-            border-radius: var(--radius-sm);
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            margin-bottom: 0.8rem;
+        /* Success Card Confirmation */
+        .success-box {
             display: none;
-        }
-        .form-status.success {
-            display: block;
-            background: rgba(16, 185, 129, 0.15);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(56, 189, 248, 0.08));
             border: 1px solid rgba(16, 185, 129, 0.3);
-            color: var(--emerald);
+            border-radius: var(--radius-sm);
+            padding: 1.8rem 1.2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.1);
+            animation: fadeIn 0.4s ease;
         }
-        .form-status.error {
-            display: block;
-            background: rgba(239, 68, 68, 0.15);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            color: #f87171;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .success-box .check-icon {
+            font-size: 2rem;
+            color: var(--emerald);
+            margin-bottom: 0.4rem;
+        }
+        .success-box h4 {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+        .success-box p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.6;
         }
 
         .modal-overlay {
@@ -1231,14 +1241,23 @@
                 </div>
             </div>
 
-            <!-- Formspree Direct Gmail Integration Form -->
-            <form id="contactForm" action="https://formspree.io/f/mgaeaweq" method="POST">
-                <div id="formStatus" class="form-status"></div>
-                <input type="text" name="name" class="form-ctrl" placeholder="Your Name" required>
-                <input type="email" name="email" class="form-ctrl" placeholder="Your Email" required>
-                <textarea name="message" rows="3" class="form-ctrl" placeholder="Message details..." required></textarea>
-                <button type="submit" id="submitBtn" class="btn btn-primary" style="width:100%; justify-content:center;">Send Message</button>
-            </form>
+            <div id="contactFormContainer">
+                <!-- Contact Form -->
+                <form id="contactForm" action="https://formspree.io/f/mgaeaweq" method="POST">
+                    <input type="text" name="name" id="senderName" class="form-ctrl" placeholder="Your Name" required>
+                    <input type="email" name="email" class="form-ctrl" placeholder="Your Email" required>
+                    <textarea name="message" rows="3" class="form-ctrl" placeholder="Message details..." required></textarea>
+                    <button type="submit" id="submitBtn" class="btn btn-primary" style="width:100%; justify-content:center;">Send Message</button>
+                </form>
+
+                <!-- Professional Confirmation Card -->
+                <div id="successBox" class="success-box">
+                    <div class="check-icon">✓</div>
+                    <h4>Thank You, <span id="confirmedName" style="color:var(--cyan);"></span>!</h4>
+                    <p>Your message has been securely transmitted and delivered to <strong>Ahmed Attia's</strong> direct inbox.</p>
+                    <button type="button" onclick="resetContactForm()" class="btn btn-glass" style="margin-top:1rem; padding:4px 16px; font-size:0.75rem;">Send Another Transmission</button>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1265,16 +1284,17 @@
 
     <!-- ─── SCRIPTS ─── -->
     <script>
-        /* ── Formspree AJAX Submit (Direct Email to Gmail) ────────── */
+        /* ── Formspree Submission & Instant Confirmation ── */
         const form = document.getElementById('contactForm');
-        const formStatus = document.getElementById('formStatus');
+        const successBox = document.getElementById('successBox');
         const submitBtn = document.getElementById('submitBtn');
+        const senderName = document.getElementById('senderName');
+        const confirmedName = document.getElementById('confirmedName');
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            formStatus.className = 'form-status';
-            formStatus.style.display = 'none';
-            submitBtn.textContent = 'Sending...';
+            const nameVal = senderName.value.trim();
+            submitBtn.textContent = 'Transmitting Payload...';
             submitBtn.disabled = true;
 
             const formData = new FormData(form);
@@ -1287,22 +1307,25 @@
                 });
 
                 if (response.ok) {
-                    formStatus.textContent = '✓ Message sent successfully to Ahmed Attia!';
-                    formStatus.className = 'form-status success';
+                    confirmedName.textContent = nameVal || 'Visitor';
+                    form.style.display = 'none';
+                    successBox.style.display = 'block';
                     form.reset();
                 } else {
-                    const data = await response.json();
-                    formStatus.textContent = data.errors ? data.errors.map(err => err.message).join(', ') : 'Failed to send message. Please try again.';
-                    formStatus.className = 'form-status error';
+                    alert('Transmission failed. Please check connection and retry.');
                 }
             } catch (error) {
-                formStatus.textContent = 'Network error. Please check your connection.';
-                formStatus.className = 'form-status error';
+                alert('Network connection error. Please try again.');
             } finally {
                 submitBtn.textContent = 'Send Message';
                 submitBtn.disabled = false;
             }
         });
+
+        function resetContactForm() {
+            successBox.style.display = 'none';
+            form.style.display = 'block';
+        }
 
         /* ── Typewriter ─────────────────────────────────────────── */
         (function() {
