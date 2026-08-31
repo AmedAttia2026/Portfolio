@@ -5,20 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ahmed Attia | Network & Cloud Security Engineer</title>
   
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   
-  <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
     :root {
-      --bg-dark: #030712;
-      --bg-card: rgba(15, 23, 42, 0.65);
-      --border: rgba(56, 189, 248, 0.2);
-      --border-glow: rgba(56, 189, 248, 0.5);
+      --bg-dark: #050814;
+      --bg-card: rgba(13, 20, 38, 0.7);
+      --border: rgba(56, 189, 248, 0.18);
+      --border-glow: rgba(56, 189, 248, 0.45);
       --cyan: #38bdf8;
       --blue: #6366f1;
       --purple: #a855f7;
@@ -39,19 +37,18 @@
       line-height: 1.6;
     }
 
-    /* Ambient Dynamic Mesh Canvas */
     canvas#bg-canvas {
       position: fixed; top: 0; left: 0;
       width: 100vw; height: 100vh;
       z-index: -1; pointer-events: none;
+      transform: translateZ(0);
     }
 
-    /* Navbar */
     nav {
       position: fixed; top: 0; width: 100%;
       display: flex; justify-content: space-between; align-items: center;
-      padding: 1.1rem 8%;
-      background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(18px);
+      padding: 1rem 8%;
+      background: rgba(5, 8, 20, 0.85); backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
       z-index: 1000;
     }
@@ -72,18 +69,17 @@
     .nav-links a {
       color: var(--text-muted); text-decoration: none;
       font-family: var(--font-code); font-size: 0.9rem;
-      transition: all 0.3s ease;
+      transition: color 0.2s ease;
     }
-    .nav-links a:hover { color: var(--cyan); text-shadow: 0 0 10px var(--cyan); }
+    .nav-links a:hover { color: var(--cyan); }
 
     .btn-cv-nav {
       background: rgba(56, 189, 248, 0.1);
       border: 1px solid var(--cyan); color: var(--cyan) !important;
       padding: 6px 16px; border-radius: 8px; cursor: pointer;
     }
-    .btn-cv-nav:hover { background: var(--cyan); color: #030712 !important; box-shadow: 0 0 20px var(--cyan); }
+    .btn-cv-nav:hover { background: var(--cyan); color: #050814 !important; }
 
-    /* Hero Section (Centered Profile Focal Point) */
     section { padding: 6.5rem 8% 3rem; max-width: 1300px; margin: 0 auto; }
 
     .hero-centered {
@@ -93,15 +89,14 @@
       text-align: center;
       min-height: calc(100vh - 120px);
       justify-content: center;
-      position: relative;
     }
 
-    /* Glowing Halo Avatar */
+    /* Fully Visible Head Avatar Wrapper */
     .avatar-wrapper {
       position: relative;
-      width: 180px;
-      height: 180px;
-      margin-bottom: 2rem;
+      width: 270px;
+      height: 270px;
+      margin-bottom: 2.2rem;
     }
 
     .avatar-halo {
@@ -110,13 +105,8 @@
       border-radius: 50%;
       padding: 6px;
       background: linear-gradient(135deg, var(--cyan), var(--purple), var(--blue));
-      box-shadow: 0 0 45px rgba(56, 189, 248, 0.4), 0 0 80px rgba(168, 85, 247, 0.25);
-      animation: floatEffect 4s ease-in-out infinite alternate;
-    }
-
-    @keyframes floatEffect {
-      0% { transform: translateY(0) scale(1); }
-      100% { transform: translateY(-8px) scale(1.02); }
+      box-shadow: 0 0 45px rgba(56, 189, 248, 0.45), 0 0 80px rgba(168, 85, 247, 0.25);
+      overflow: hidden;
     }
 
     .avatar-img {
@@ -124,21 +114,24 @@
       height: 100%;
       border-radius: 50%;
       object-fit: cover;
+      object-position: 50% 0%; /* Aligns image directly to top so top of head is 100% visible */
+      transform: scale(0.94); /* Gives room around head and shoulders */
       background: #0d1326;
-      border: 3px solid #030712;
+      border: 3px solid #050814;
       display: block;
     }
 
     .status-ping-corner {
       position: absolute;
-      bottom: 12px;
-      right: 14px;
-      width: 20px;
-      height: 20px;
+      bottom: 16px;
+      right: 18px;
+      width: 24px;
+      height: 24px;
       background: var(--emerald);
-      border: 3px solid #030712;
+      border: 4px solid #050814;
       border-radius: 50%;
-      box-shadow: 0 0 15px var(--emerald);
+      box-shadow: 0 0 14px var(--emerald);
+      z-index: 10;
     }
 
     .status-tag {
@@ -149,67 +142,62 @@
     }
     .status-ping { width: 8px; height: 8px; background: var(--emerald); border-radius: 50%; }
 
-    .hero-text h1 { font-size: 3.6rem; font-weight: 800; line-height: 1.15; margin-bottom: 1rem; }
+    .hero-text h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.15; margin-bottom: 1rem; }
     .hero-text h1 span { background: linear-gradient(90deg, var(--cyan), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
     .typewriter-text { font-family: var(--font-code); font-size: 1.35rem; color: var(--cyan); margin-bottom: 1.2rem; min-height: 2rem; }
-
     .hero-desc { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2.2rem; max-width: 680px; }
 
     .hero-cta { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
-    .btn { padding: 0.85rem 1.6rem; border-radius: 8px; font-family: var(--font-code); font-size: 0.95rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; border: none; transition: 0.3s ease; }
-    .btn-primary { background: linear-gradient(90deg, var(--cyan), var(--blue)); color: #030712; box-shadow: 0 0 25px rgba(56, 189, 248, 0.35); }
-    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 35px rgba(56, 189, 248, 0.65); color: #030712; }
+    .btn { padding: 0.85rem 1.6rem; border-radius: 8px; font-family: var(--font-code); font-size: 0.95rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; border: none; transition: 0.2s ease; }
+    .btn-primary { background: linear-gradient(90deg, var(--cyan), var(--blue)); color: #050814; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 25px rgba(56, 189, 248, 0.5); }
     .btn-glass { background: rgba(255, 255, 255, 0.05); color: var(--text); border: 1px solid var(--border); }
-    .btn-glass:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(56, 189, 248, 0.08); transform: translateY(-3px); }
+    .btn-glass:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-2px); }
 
-    /* Terminal Section */
-    .terminal-section { max-width: 900px; margin: 3rem auto 5rem; }
+    .terminal-section { max-width: 900px; margin: 3rem auto 4rem; }
     .terminal-box {
-      background: rgba(10, 15, 29, 0.9); border: 1px solid var(--border-glow); border-radius: 12px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(56, 189, 248, 0.15);
+      background: rgba(10, 16, 32, 0.9); border: 1px solid var(--border-glow); border-radius: 12px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
       font-family: var(--font-code); overflow: hidden; text-align: left;
     }
-    .terminal-header { padding: 12px 18px; background: #0b1120; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+    .terminal-header { padding: 12px 18px; background: #0a0e1c; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
     .terminal-dots { display: flex; gap: 7px; }
     .t-dot { width: 12px; height: 12px; border-radius: 50%; }
     .t-red { background: #ff5f56; } .t-yellow { background: #ffbd2e; } .t-green { background: #27c93f; }
-    .terminal-body { padding: 1.5rem; min-height: 220px; font-size: 0.88rem; overflow-y: auto; }
+    .terminal-body { padding: 1.5rem; min-height: 200px; font-size: 0.88rem; overflow-y: auto; }
     .term-out { color: var(--text-muted); white-space: pre-wrap; margin-bottom: 0.8rem; }
     .term-prompt-line { display: flex; gap: 10px; }
     .term-user { color: var(--cyan); font-weight: 700; }
     .term-input { flex: 1; background: transparent; border: none; outline: none; color: var(--text); font-family: var(--font-code); }
 
-    /* Section Headers & Cards */
-    .sec-head { text-align: center; margin-bottom: 3.5rem; }
-    .sec-head h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .sec-head { text-align: center; margin-bottom: 3rem; }
+    .sec-head h2 { font-size: 2.3rem; font-weight: 800; margin-bottom: 0.5rem; }
     .sec-head h2 span { color: var(--cyan); }
     .sec-head p { color: var(--text-muted); font-family: var(--font-code); font-size: 0.95rem; }
-    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.8rem; }
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
     
     .card {
       background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
-      padding: 2.2rem; backdrop-filter: blur(14px); transition: all 0.35s ease;
-      position: relative; overflow: hidden; display: flex; flex-direction: column;
+      padding: 2rem; backdrop-filter: blur(12px); transition: all 0.25s ease;
+      display: flex; flex-direction: column;
     }
-    .card:hover { border-color: var(--cyan); transform: translateY(-6px); box-shadow: 0 15px 35px rgba(56, 189, 248, 0.15); background: rgba(15, 23, 42, 0.85); }
-    .card-icon { font-size: 2.4rem; color: var(--cyan); margin-bottom: 1.4rem; }
-    .card h3 { font-size: 1.4rem; margin-bottom: 0.8rem; }
-    .card p { color: var(--text-muted); font-size: 0.98rem; margin-bottom: 1.2rem; }
+    .card:hover { border-color: var(--cyan); transform: translateY(-4px); background: rgba(17, 26, 48, 0.85); }
+    .card-icon { font-size: 2.2rem; color: var(--cyan); margin-bottom: 1.2rem; }
+    .card h3 { font-size: 1.35rem; margin-bottom: 0.8rem; }
+    .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.2rem; }
     .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
     .tag { font-family: var(--font-code); font-size: 0.78rem; padding: 4px 10px; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 6px; color: var(--cyan); }
 
-    /* PDF CV Modal */
     .modal-overlay {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(3, 7, 18, 0.92); backdrop-filter: blur(12px);
+      background: rgba(3, 6, 16, 0.92); backdrop-filter: blur(8px);
       z-index: 2000; display: none; justify-content: center; align-items: center; padding: 2rem;
     }
     .modal-overlay.active { display: flex; }
     .modal-content {
       background: #0b1120; border: 1px solid var(--border-glow); border-radius: 14px;
       width: 100%; max-width: 950px; height: 85vh; display: flex; flex-direction: column; overflow: hidden;
-      box-shadow: 0 0 50px rgba(56, 189, 248, 0.3);
     }
     .modal-header { padding: 1rem 1.5rem; background: #060913; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
     .modal-header h3 { font-family: var(--font-code); color: var(--cyan); font-size: 1.1rem; }
@@ -217,27 +205,24 @@
     .modal-body { flex: 1; position: relative; }
     .modal-body iframe { width: 100%; height: 100%; border: none; }
 
-    /* Contact Box */
-    .contact-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
-    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
-    .form-ctrl { width: 100%; padding: 1rem; border-radius: 8px; background: #030712; border: 1px solid var(--border); color: var(--text); margin-bottom: 1.2rem; outline: none; transition: 0.3s; font-size: 0.95rem; }
-    .form-ctrl:focus { border-color: var(--cyan); box-shadow: 0 0 12px rgba(56, 189, 248, 0.25); }
+    .contact-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    .form-ctrl { width: 100%; padding: 0.9rem; border-radius: 8px; background: #050814; border: 1px solid var(--border); color: var(--text); margin-bottom: 1rem; outline: none; }
+    .form-ctrl:focus { border-color: var(--cyan); }
 
-    footer { text-align: center; padding: 2.5rem; border-top: 1px solid var(--border); font-family: var(--font-code); font-size: 0.88rem; color: var(--text-muted); margin-top: 4rem; }
+    footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); font-family: var(--font-code); font-size: 0.88rem; color: var(--text-muted); margin-top: 3rem; }
 
     @media (max-width: 950px) {
-      .hero-text h1 { font-size: 2.5rem; }
+      .hero-text h1 { font-size: 2.4rem; }
       .nav-links { display: none; }
       .contact-box { grid-template-columns: 1fr; }
+      .avatar-wrapper { width: 230px; height: 230px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Dynamic Constellation Mesh Background -->
   <canvas id="bg-canvas"></canvas>
 
-  <!-- Navbar -->
   <nav>
     <a href="#home" class="nav-logo">
       <i class="fa-solid fa-shield-halved" style="color:var(--cyan);"></i> <span>AHMED ATTIA</span> // INFRA_SEC
@@ -252,11 +237,10 @@
     </ul>
   </nav>
 
-  <!-- Hero Section (Centered Profile Focal Point) -->
   <section id="home">
     <div class="hero-centered">
       
-      <!-- Focal Center Avatar -->
+      <!-- Center Avatar with Top-Head Visibility Fix -->
       <div class="avatar-wrapper">
         <div class="avatar-halo">
           {% if profile.profile_base64 %}
@@ -286,7 +270,7 @@
 
     </div>
 
-    <!-- Terminal Command Line (No autofocus to avoid auto-scroll) -->
+    <!-- Terminal -->
     <div class="terminal-section">
       <div class="terminal-box">
         <div class="terminal-header">
@@ -389,29 +373,27 @@ Type <span style="color:var(--cyan);">'help'</span> or <span style="color:var(--
       <p>// Direct communication channel initialization</p>
     </div>
     <div class="contact-box card">
-      <div class="contact-info">
-        <h3>Infrastructure Engineer Ready to Integrate</h3>
-        <p style="color:var(--text-muted);">
-          Whether you have a technical query, collaboration opportunity, or full-time infrastructure role, feel free to drop a transmission.
+      <div>
+        <h3 style="margin-bottom: 0.8rem;">Ready for Infrastructure Roles</h3>
+        <p style="color:var(--text-muted); margin-bottom: 1.5rem;">
+          Whether you have a technical query, project collaboration, or full-time role, feel free to drop a transmission.
         </p>
-        <div style="font-family:var(--font-code); font-size:0.95rem; color:var(--text);">
+        <div style="font-family:var(--font-code); font-size:0.95rem; color:var(--text); margin-bottom: 1.2rem;">
           > ahmed.eng.ccna@example.com <br>
           > Borg El Arab / Alexandria, Egypt
         </div>
-        <div class="tags">
-          <span class="tag" style="background:rgba(16, 185, 129, 0.1); border-color:#10b981; color:#10b981;"><i class="fa-solid fa-circle-nodes"></i> Ready for Local & Remote Roles</span>
-        </div>
+        <span class="tag" style="background:rgba(16, 185, 129, 0.1); border-color:#10b981; color:#10b981;"><i class="fa-solid fa-circle-nodes"></i> Open for Local & Remote Roles</span>
       </div>
       <form onsubmit="event.preventDefault(); alert('Transmission Received!');">
         <input type="text" class="form-ctrl" placeholder="Your Name / Organization" required>
         <input type="email" class="form-ctrl" placeholder="Your Connection Email" required>
-        <textarea rows="4" class="form-ctrl" placeholder="Transmission payload / message details..." required></textarea>
-        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;"><i class="fa-solid fa-paper-plane"></i> Send Direct Message</button>
+        <textarea rows="3" class="form-ctrl" placeholder="Message details..." required></textarea>
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
       </form>
     </div>
   </section>
 
-  <!-- PDF CV Modal Viewer -->
+  <!-- PDF CV Modal -->
   <div class="modal-overlay" id="cvModal">
     <div class="modal-content">
       <div class="modal-header">
@@ -438,35 +420,26 @@ Type <span style="color:var(--cyan);">'help'</span> or <span style="color:var(--
   </div>
 
   <footer>
-    <p>© 2026 Ahmed Attia Mohamed. Engineered with High-Performance Vanilla Code.</p>
+    <p>© 2026 Ahmed Attia Mohamed. Engineered for Ultra-Fast Performance.</p>
   </footer>
 
   <script>
-    // Ensure viewport stays at the top on initial page load
-    if (history.scrollRestoration) {
-      history.scrollRestoration = 'manual';
-    }
-    window.scrollTo(0, 0);
-
-    /* Typewriter */
     const roles = ["Cisco Certified Routing & Switching Specialist", "AWS Cloud Infrastructure Engineer", "Linux DevOps & Security Enthusiast"];
     let rIdx = 0, cIdx = 0, isDel = false;
     const typeEl = document.getElementById("typewriter");
     function typeEffect() {
       const current = roles[rIdx];
       typeEl.textContent = "❯ " + (isDel ? current.substring(0, cIdx--) : current.substring(0, cIdx++));
-      let speed = isDel ? 30 : 60;
+      let speed = isDel ? 25 : 55;
       if (!isDel && cIdx === current.length + 1) { speed = 2000; isDel = true; }
-      else if (isDel && cIdx === 0) { isDel = false; rIdx = (rIdx + 1) % roles.length; speed = 350; }
+      else if (isDel && cIdx === 0) { isDel = false; rIdx = (rIdx + 1) % roles.length; speed = 300; }
       setTimeout(typeEffect, speed);
     }
     typeEffect();
 
-    /* CV Modal Controls */
     function openCV() { document.getElementById("cvModal").classList.add("active"); }
     function closeCV() { document.getElementById("cvModal").classList.remove("active"); }
 
-    /* Interactive Terminal */
     const termInput = document.getElementById("term-cmd");
     const termBox = document.getElementById("term-box");
     const commands = {
@@ -495,21 +468,9 @@ Type <span style="color:var(--cyan);">'help'</span> or <span style="color:var(--
       }
     });
 
-    /* Advanced Interactive Constellation Canvas */
     const canvas = document.getElementById("bg-canvas");
     const ctx = canvas.getContext("2d");
     let pts = [];
-    let mouse = { x: null, y: null, radius: 150 };
-
-    window.addEventListener('mousemove', (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    });
-
-    window.addEventListener('mouseout', () => {
-      mouse.x = null;
-      mouse.y = null;
-    });
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
@@ -518,19 +479,20 @@ Type <span style="color:var(--cyan);">'help'</span> or <span style="color:var(--
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
 
-    for (let i = 0; i < 55; i++) {
+    for (let i = 0; i < 25; i++) {
       pts.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.7,
-        vy: (Math.random() - 0.5) * 0.7,
-        r: Math.random() * 2.5 + 1.2,
-        color: Math.random() > 0.5 ? "rgba(56, 189, 248, " : "rgba(168, 85, 247, "
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 2 + 1
       });
     }
 
     function drawMesh() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "rgba(56, 189, 248, 0.4)";
+      
       for (let i = 0; i < pts.length; i++) {
         let p = pts[i];
         p.x += p.vx;
@@ -539,19 +501,6 @@ Type <span style="color:var(--cyan);">'help'</span> or <span style="color:var(--
         if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
         if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
 
-        // Mouse push effect
-        if (mouse.x !== null) {
-          let dx = mouse.x - p.x;
-          let dy = mouse.y - p.y;
-          let dist = Math.hypot(dx, dy);
-          if (dist < mouse.radius) {
-            let force = (mouse.radius - dist) / mouse.radius;
-            p.x -= (dx / dist) * force * 3;
-            p.y -= (dy / dist) * force * 3;
-          }
-        }
-
-        ctx.fillStyle = p.color + "0.6)";
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
@@ -559,10 +508,8 @@ Type <span style="color:var(--cyan);">'help'</span> or <span style="color:var(--
         for (let j = i + 1; j < pts.length; j++) {
           let p2 = pts[j];
           let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-          if (dist < 130) {
-            let alpha = (1 - dist / 130) * 0.22;
-            ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
-            ctx.lineWidth = 0.6;
+          if (dist < 120) {
+            ctx.strokeStyle = `rgba(56, 189, 248, ${0.12 - dist / 1000})`;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
