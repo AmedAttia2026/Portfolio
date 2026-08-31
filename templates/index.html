@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ahmed Attia | Network Engineer (CCNA & CCNP R&S)</title>
+    <title>Ahmed Attia | Network & Infrastructure Engineer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -755,7 +755,6 @@
             min-height: 80px;
         }
 
-        /* Success Card Confirmation */
         .success-box {
             display: none;
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(56, 189, 248, 0.08));
@@ -1106,8 +1105,8 @@
             <div class="highlights-bar reveal visible reveal-delay-4">
                 <div class="highlight-pill"><span class="icon">◆</span> <strong>Track:</strong> CCNA (200-301) &amp; CCNP R&amp;S</div>
                 <div class="highlight-pill"><span class="icon">◆</span> <strong>Core:</strong> Routing, Switching &amp; VLANs</div>
-                <div class="highlight-pill"><span class="icon">◆</span> <strong>HA:</strong> HSRP, VRRP, GLBP</div>
                 <div class="highlight-pill"><span class="icon">◆</span> <strong>Security:</strong> ACLs, VPN, AAA, IPS&amp;IDS</div>
+                <div class="highlight-pill"><span class="icon">◆</span> <strong>Software:</strong> Python (OOP), Java (OOP), C/C++, SQL</div>
             </div>
         </div>
     </section>
@@ -1172,12 +1171,12 @@
             <div class="card reveal reveal-delay-3">
                 <div class="icon-wrap">🛠</div>
                 <h3>Services &amp; Environment</h3>
-                <p>LAN/WAN Design, NAT/PAT, DHCP, Wireshark, Cisco Packet Tracer, Linux CLI (Ubuntu/Kali), Windows Server, and Python.</p>
+                <p>LAN/WAN Design, NAT/PAT, DHCP, Wireshark, Cisco Packet Tracer, Linux CLI (Ubuntu/Kali), Windows Server Basics, and Python Scripting.</p>
                 <div class="tags">
                     <span class="tag">Wireshark</span>
                     <span class="tag">Packet Tracer</span>
                     <span class="tag tag--gold">Linux CLI</span>
-                    <span class="tag">Python</span>
+                    <span class="tag">Win Server</span>
                 </div>
             </div>
         </div>
@@ -1242,7 +1241,6 @@
             </div>
 
             <div id="contactFormContainer">
-                <!-- Contact Form -->
                 <form id="contactForm" action="https://formspree.io/f/mgaeaweq" method="POST">
                     <input type="text" name="name" id="senderName" class="form-ctrl" placeholder="Your Name" required>
                     <input type="email" name="email" class="form-ctrl" placeholder="Your Email" required>
@@ -1250,7 +1248,6 @@
                     <button type="submit" id="submitBtn" class="btn btn-primary" style="width:100%; justify-content:center;">Send Message</button>
                 </form>
 
-                <!-- Professional Confirmation Card -->
                 <div id="successBox" class="success-box">
                     <div class="check-icon">✓</div>
                     <h4>Thank You, <span id="confirmedName" style="color:var(--cyan);"></span>!</h4>
@@ -1284,7 +1281,6 @@
 
     <!-- ─── SCRIPTS ─── -->
     <script>
-        /* ── Formspree Submission & Instant Confirmation ── */
         const form = document.getElementById('contactForm');
         const successBox = document.getElementById('successBox');
         const submitBtn = document.getElementById('submitBtn');
@@ -1327,11 +1323,10 @@
             form.style.display = 'block';
         }
 
-        /* ── Typewriter ─────────────────────────────────────────── */
         (function() {
             const roles = [
                 "Network Engineer | CCNA & CCNP R&S",
-                "Enterprise Routing & Switching Specialist",
+                "Routing & Switching Specialist",
                 "Layer 2/3 Infrastructure Engineer"
             ];
             let rIdx = 0,
@@ -1364,7 +1359,6 @@
             typeLoop();
         })();
 
-        /* ── Modal ──────────────────────────────────────────────── */
         function openCVModal() {
             document.getElementById('cvModal').classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -1382,7 +1376,6 @@
             if (e.target === e.currentTarget) closeCVModal();
         });
 
-        /* ── Mobile Nav Toggle ─────────────────────────────────── */
         const navToggle = document.getElementById('navToggle');
         const navLinks = document.getElementById('navLinks');
 
@@ -1396,7 +1389,6 @@
             });
         });
 
-        /* ── Scroll Reveal ─────────────────────────────────────── */
         (function() {
             const reveals = document.querySelectorAll('.reveal:not(.visible)');
 
@@ -1418,7 +1410,6 @@
             }
         })();
 
-        /* ── Particle Grid Background ──────────────────────────── */
         (function() {
             const canvas = document.getElementById('bg-canvas');
             const ctx = canvas.getContext('2d');
@@ -1509,7 +1500,6 @@
             draw();
         })();
 
-        /* ── Smooth Anchor Scroll ──────────────────────────────── */
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const targetId = this.getAttribute('href');
