@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Ahmed Attia</title>
+  <style>
+    :root {
+      --bg: #070a13;
+      --card-bg: rgba(15, 23, 42, 0.85);
+      --border: rgba(56, 189, 248, 0.2);
+      --primary: #38bdf8;
+      --danger: #ef4444;
+      --success: #10b981;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --font-mono: 'Consolas', 'Courier New', monospace;
+      --font-sans: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-sans); }
+    body { background: var(--bg); color: var(--text); padding-bottom: 4rem; }
+
+    header {
+      background: #0b1120; border-bottom: 1px solid var(--border);
+      padding: 1.1rem 8%; display: flex; justify-content: space-between; align-items: center;
+    }
+    .brand { font-family: var(--font-mono); font-size: 1.1rem; color: var(--primary); font-weight: 700; }
+    .btn {
+      padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 0.88rem;
+      cursor: pointer; border: 1px solid transparent; font-weight: 600; display: inline-flex;
+      align-items: center; gap: 6px; transition: 0.2s;
+    }
+    .btn-primary { background: var(--primary); color: #070a13; }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .btn-outline { background: transparent; border-color: var(--border); color: var(--text); }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+    .container { max-width: 1100px; margin: 2rem auto; padding: 0 1.5rem; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    .card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.8rem; margin-bottom: 1.5rem;
+    }
+    .card h3 { font-size: 1.15rem; margin-bottom: 1rem; color: var(--primary); font-family: var(--font-mono); }
+
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; margin-bottom: 6px; color: var(--text-muted); font-size: 0.85rem; }
+    .form-ctrl {
+      width: 100%; padding: 10px 12px; background: #05070d; border: 1px solid var(--border);
+      border-radius: 6px; color: #fff; outline: none; font-size: 0.9rem;
+    }
+    .form-ctrl:focus { border-color: var(--primary); }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+    th { color: var(--text-muted); font-family: var(--font-mono); font-size: 0.85rem; }
+
+    .flash-box {
+      background: rgba(16, 185, 129, 0.15); border: 1px solid var(--success);
+      color: var(--success); padding: 12px; border-radius: 6px; margin-bottom: 1.5rem; text-align: center;
+    }
+    @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">> ADMIN DASHBOARD // ATTIAS_SEC</div>
+    <div style="display: flex; gap: 10px;">
+      <a href="/" target="_blank" class="btn btn-outline">Live Site</a>
+      <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
+    </div>
+  </header>
+
+  <div class="container">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-box">{{ messages[0] }}</div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="grid-2">
+      <!-- Upload Profile Picture -->
+      <div class="card">
+        <h3>Profile Picture (Avatar)</h3>
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 1rem;">
+          {% if profile.profile_base64 %}
+            <img src="data:image/jpeg;base64,{{ profile.profile_base64 }}" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary);" alt="Profile">
+          {% else %}
+            <span style="color: var(--text-muted); font-size: 0.85rem;">No custom photo uploaded yet</span>
+          {% endif %}
+        </div>
+        <form action="{{ url_for('update_profile_pic') }}" method="POST" enctype="multipart/form-data">
+          <input type="file" name="profile_image" class="form-ctrl" accept="image/*" required style="margin-bottom: 10px;">
+          <button type="submit" class="btn btn-primary">Update Profile Image</button>
+        </form>
+      </div>
+
+      <!-- Upload CV -->
+      <div class="card">
+        <h3>Curriculum Vitae (PDF)</h3>
+        <div style="margin-bottom: 1rem; font-size: 0.9rem;">
+          {% if profile.has_cv %}
+            <span style="color: var(--success);">✔ Stored in DB: {{ profile.cv_filename }}</span>
+            <a href="{{ url_for('download_cv') }}" target="_blank" style="color: var(--primary); margin-left: 10px;">[Preview]</a>
+          {% else %}
+            <span style="color: var(--text-muted);">No PDF CV uploaded yet</span>
+          {% endif %}
+        </div>
+        <form action="{{ url_for('update_cv') }}" method="POST" enctype="multipart/form-data">
+          <input type="file" name="cv_file" class="form-ctrl" accept=".pdf" required style="margin-bottom: 10px;">
+          <button type="submit" class="btn btn-primary">Upload & Save PDF</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Add New Project -->
+    <div class="card">
+      <h3>Add New Lab / Project</h3>
+      <form action="{{ url_for('add_project') }}" method="POST">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="form-group">
+            <label>Project Title</label>
+            <input type="text" name="title" class="form-ctrl" placeholder="e.g., Campus OSPF & EtherChannel" required>
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <input type="text" name="category" class="form-ctrl" placeholder="e.g., Enterprise Networking">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea name="description" class="form-ctrl" rows="3" placeholder="Key technical highlights..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label>Tags (Comma separated)</label>
+          <input type="text" name="tags" class="form-ctrl" placeholder="e.g., OSPF, VLAN, CCNA">
+        </div>
+        <button type="submit" class="btn btn-primary">Publish Project</button>
+      </form>
+    </div>
+
+    <!-- Projects Table -->
+    <div class="card">
+      <h3>Managed Projects ({{ projects|length }})</h3>
+      {% if projects %}
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Tags</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for proj in projects %}
+              <tr>
+                <td><strong>{{ proj.title }}</strong></td>
+                <td>{{ proj.category }}</td>
+                <td style="font-family: var(--font-mono); color: var(--primary); font-size: 0.8rem;">
+                  {{ proj.tags|join(', ') if proj.tags else '-' }}
+                </td>
+                <td>
+                  <form action="{{ url_for('delete_project', proj_id=proj._id) }}" method="POST" onsubmit="return confirm('Confirm deletion?');">
+                    <button type="submit" class="btn btn-danger" style="padding: 4px 8px; font-size: 0.8rem;">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p style="color: var(--text-muted); text-align: center; padding: 2rem;">No projects published yet.</p>
+      {% endif %}
+    </div>
+
+  </div>
+
+</body>
+</html>

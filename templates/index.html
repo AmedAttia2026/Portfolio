@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ahmed Attia | Network & Cloud Security Engineer</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-dark: #030712;
+      --bg-card: rgba(15, 23, 42, 0.65);
+      --border: rgba(56, 189, 248, 0.2);
+      --border-glow: rgba(56, 189, 248, 0.5);
+      --cyan: #38bdf8;
+      --blue: #6366f1;
+      --purple: #a855f7;
+      --emerald: #10b981;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --font-code: 'Fira Code', monospace;
+      --font-main: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text);
+      font-family: var(--font-main);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Ambient Dynamic Mesh Canvas */
+    canvas#bg-canvas {
+      position: fixed; top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: -1; pointer-events: none;
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed; top: 0; width: 100%;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.1rem 8%;
+      background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+    }
+
+    .nav-logo {
+      font-family: var(--font-code);
+      font-weight: 700; font-size: 1.1rem;
+      color: var(--text); text-decoration: none;
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    .nav-logo span {
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; align-items: center; }
+    .nav-links a {
+      color: var(--text-muted); text-decoration: none;
+      font-family: var(--font-code); font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--cyan); text-shadow: 0 0 10px var(--cyan); }
+
+    .btn-cv-nav {
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid var(--cyan); color: var(--cyan) !important;
+      padding: 6px 16px; border-radius: 8px; cursor: pointer;
+    }
+    .btn-cv-nav:hover { background: var(--cyan); color: #030712 !important; box-shadow: 0 0 20px var(--cyan); }
+
+    /* Hero Section (Centered Profile Focal Point) */
+    section { padding: 6.5rem 8% 3rem; max-width: 1300px; margin: 0 auto; }
+
+    .hero-centered {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-height: calc(100vh - 120px);
+      justify-content: center;
+      position: relative;
+    }
+
+    /* Glowing Halo Avatar */
+    .avatar-wrapper {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      margin-bottom: 2rem;
+    }
+
+    .avatar-halo {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      padding: 6px;
+      background: linear-gradient(135deg, var(--cyan), var(--purple), var(--blue));
+      box-shadow: 0 0 45px rgba(56, 189, 248, 0.4), 0 0 80px rgba(168, 85, 247, 0.25);
+      animation: floatEffect 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatEffect {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-8px) scale(1.02); }
+    }
+
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #0d1326;
+      border: 3px solid #030712;
+      display: block;
+    }
+
+    .status-ping-corner {
+      position: absolute;
+      bottom: 12px;
+      right: 14px;
+      width: 20px;
+      height: 20px;
+      background: var(--emerald);
+      border: 3px solid #030712;
+      border-radius: 50%;
+      box-shadow: 0 0 15px var(--emerald);
+    }
+
+    .status-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 18px; background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 25px;
+      color: var(--emerald); font-family: var(--font-code); font-size: 0.85rem; margin-bottom: 1.2rem;
+    }
+    .status-ping { width: 8px; height: 8px; background: var(--emerald); border-radius: 50%; }
+
+    .hero-text h1 { font-size: 3.6rem; font-weight: 800; line-height: 1.15; margin-bottom: 1rem; }
+    .hero-text h1 span { background: linear-gradient(90deg, var(--cyan), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    .typewriter-text { font-family: var(--font-code); font-size: 1.35rem; color: var(--cyan); margin-bottom: 1.2rem; min-height: 2rem; }
+
+    .hero-desc { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2.2rem; max-width: 680px; }
+
+    .hero-cta { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
+    .btn { padding: 0.85rem 1.6rem; border-radius: 8px; font-family: var(--font-code); font-size: 0.95rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; border: none; transition: 0.3s ease; }
+    .btn-primary { background: linear-gradient(90deg, var(--cyan), var(--blue)); color: #030712; box-shadow: 0 0 25px rgba(56, 189, 248, 0.35); }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 35px rgba(56, 189, 248, 0.65); color: #030712; }
+    .btn-glass { background: rgba(255, 255, 255, 0.05); color: var(--text); border: 1px solid var(--border); }
+    .btn-glass:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(56, 189, 248, 0.08); transform: translateY(-3px); }
+
+    /* Terminal Section */
+    .terminal-section { max-width: 900px; margin: 3rem auto 5rem; }
+    .terminal-box {
+      background: rgba(10, 15, 29, 0.9); border: 1px solid var(--border-glow); border-radius: 12px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(56, 189, 248, 0.15);
+      font-family: var(--font-code); overflow: hidden; text-align: left;
+    }
+    .terminal-header { padding: 12px 18px; background: #0b1120; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+    .terminal-dots { display: flex; gap: 7px; }
+    .t-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .t-red { background: #ff5f56; } .t-yellow { background: #ffbd2e; } .t-green { background: #27c93f; }
+    .terminal-body { padding: 1.5rem; min-height: 220px; font-size: 0.88rem; overflow-y: auto; }
+    .term-out { color: var(--text-muted); white-space: pre-wrap; margin-bottom: 0.8rem; }
+    .term-prompt-line { display: flex; gap: 10px; }
+    .term-user { color: var(--cyan); font-weight: 700; }
+    .term-input { flex: 1; background: transparent; border: none; outline: none; color: var(--text); font-family: var(--font-code); }
+
+    /* Section Headers & Cards */
+    .sec-head { text-align: center; margin-bottom: 3.5rem; }
+    .sec-head h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .sec-head h2 span { color: var(--cyan); }
+    .sec-head p { color: var(--text-muted); font-family: var(--font-code); font-size: 0.95rem; }
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.8rem; }
+    
+    .card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+      padding: 2.2rem; backdrop-filter: blur(14px); transition: all 0.35s ease;
+      position: relative; overflow: hidden; display: flex; flex-direction: column;
+    }
+    .card:hover { border-color: var(--cyan); transform: translateY(-6px); box-shadow: 0 15px 35px rgba(56, 189, 248, 0.15); background: rgba(15, 23, 42, 0.85); }
+    .card-icon { font-size: 2.4rem; color: var(--cyan); margin-bottom: 1.4rem; }
+    .card h3 { font-size: 1.4rem; margin-bottom: 0.8rem; }
+    .card p { color: var(--text-muted); font-size: 0.98rem; margin-bottom: 1.2rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+    .tag { font-family: var(--font-code); font-size: 0.78rem; padding: 4px 10px; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 6px; color: var(--cyan); }
+
+    /* PDF CV Modal */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(3, 7, 18, 0.92); backdrop-filter: blur(12px);
+      z-index: 2000; display: none; justify-content: center; align-items: center; padding: 2rem;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-content {
+      background: #0b1120; border: 1px solid var(--border-glow); border-radius: 14px;
+      width: 100%; max-width: 950px; height: 85vh; display: flex; flex-direction: column; overflow: hidden;
+      box-shadow: 0 0 50px rgba(56, 189, 248, 0.3);
+    }
+    .modal-header { padding: 1rem 1.5rem; background: #060913; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+    .modal-header h3 { font-family: var(--font-code); color: var(--cyan); font-size: 1.1rem; }
+    .modal-actions { display: flex; gap: 10px; }
+    .modal-body { flex: 1; position: relative; }
+    .modal-body iframe { width: 100%; height: 100%; border: none; }
+
+    /* Contact Box */
+    .contact-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+    .form-ctrl { width: 100%; padding: 1rem; border-radius: 8px; background: #030712; border: 1px solid var(--border); color: var(--text); margin-bottom: 1.2rem; outline: none; transition: 0.3s; font-size: 0.95rem; }
+    .form-ctrl:focus { border-color: var(--cyan); box-shadow: 0 0 12px rgba(56, 189, 248, 0.25); }
+
+    footer { text-align: center; padding: 2.5rem; border-top: 1px solid var(--border); font-family: var(--font-code); font-size: 0.88rem; color: var(--text-muted); margin-top: 4rem; }
+
+    @media (max-width: 950px) {
+      .hero-text h1 { font-size: 2.5rem; }
+      .nav-links { display: none; }
+      .contact-box { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Constellation Mesh Background -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Navbar -->
+  <nav>
+    <a href="#home" class="nav-logo">
+      <i class="fa-solid fa-shield-halved" style="color:var(--cyan);"></i> <span>AHMED ATTIA</span> // INFRA_SEC
+    </a>
+    <ul class="nav-links">
+      <li><a href="#home">// home</a></li>
+      <li><a href="#skills">// skills</a></li>
+      <li><a href="#projects">// labs</a></li>
+      <li><a href="#contact">// contact</a></li>
+      <li><a href="/login" class="nav-link" style="color:var(--text-muted);"><i class="fa-solid fa-lock"></i> Admin</a></li>
+      <li><a href="javascript:void(0)" onclick="openCV()" class="btn-cv-nav"><i class="fa-solid fa-file-pdf"></i> Read CV</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section (Centered Profile Focal Point) -->
+  <section id="home">
+    <div class="hero-centered">
+      
+      <!-- Focal Center Avatar -->
+      <div class="avatar-wrapper">
+        <div class="avatar-halo">
+          {% if profile.profile_base64 %}
+            <img src="data:image/jpeg;base64,{{ profile.profile_base64 }}" alt="Ahmed Attia" class="avatar-img">
+          {% else %}
+            <img src="https://api.dicebear.com/7.x/bottts/svg?seed=AhmedAttia" alt="Ahmed Attia Avatar" class="avatar-img">
+          {% endif %}
+        </div>
+        <div class="status-ping-corner" title="System Online"></div>
+      </div>
+
+      <div class="hero-text">
+        <div class="status-tag">
+          <div class="status-ping"></div>
+          <span>● STATUS: ACTIVE // OPEN_TO_WORK</span>
+        </div>
+        <h1>I'm <span>Ahmed Attia Mohamed</span></h1>
+        <div class="typewriter-text" id="typewriter"></div>
+        <p class="hero-desc">
+          Specialized in enterprise computer networks, AWS cloud VPC architecture, automated Linux system administration, and zero-trust security infrastructure.
+        </p>
+        <div class="hero-cta">
+          <button onclick="openCV()" class="btn btn-primary"><i class="fa-solid fa-file-pdf"></i> Read & View CV (PDF)</button>
+          <a href="#projects" class="btn btn-glass"><i class="fa-solid fa-flask-vial"></i> Explore Labs</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Terminal Command Line (No autofocus to avoid auto-scroll) -->
+    <div class="terminal-section">
+      <div class="terminal-box">
+        <div class="terminal-header">
+          <div class="terminal-dots">
+            <span class="t-dot t-red"></span><span class="t-dot t-yellow"></span><span class="t-dot t-green"></span>
+          </div>
+          <div style="font-size:0.8rem; color:var(--text-muted);">ahmed@enterprise-core-switch:~</div>
+        </div>
+        <div class="terminal-body" id="term-box">
+          <div class="term-out">Attia Security Workstation CLI [Version 2026.4]
+Type <span style="color:var(--cyan);">'help'</span> or <span style="color:var(--cyan);">'cv'</span> to execute commands.
+─────────────────────────────────────────────</div>
+          <div class="term-prompt-line">
+            <span class="term-user">visitor@ahmed-ops#</span>
+            <input type="text" class="term-input" id="term-cmd" autocomplete="off">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Competencies -->
+  <section id="skills">
+    <div class="sec-head">
+      <h2>Technical <span>Competencies</span></h2>
+      <p>// Verified toolstack & architecture domains</p>
+    </div>
+    <div class="cards-grid">
+      <div class="card">
+        <i class="fa-solid fa-network-wired card-icon"></i>
+        <h3>Enterprise Networks</h3>
+        <p>In-depth management of Routing & Switching topologies, STP loop prevention, VLSM subnetting, and EtherChannel aggregation.</p>
+        <div class="tags">
+          <span class="tag">CCNA / CCNP Track</span><span class="tag">OSPFv2 / OSPFv3</span><span class="tag">VLAN & Trunking</span><span class="tag">RSTP</span><span class="tag">ACLs & NAT</span>
+        </div>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-cloud-arrow-up card-icon"></i>
+        <h3>Cloud & Systems</h3>
+        <p>Architecting multi-tier AWS environments (VPC, Subnets, EC2, IAM) with secure segmentation and automated deployments.</p>
+        <div class="tags">
+          <span class="tag">AWS VPC</span><span class="tag">Security Groups</span><span class="tag">Linux Admin</span><span class="tag">Bash Scripting</span>
+        </div>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-shield-halved card-icon"></i>
+        <h3>Recon & Packet Analysis</h3>
+        <p>Executing deep packet analysis using Wireshark, identifying protocol anomalies, and hardening network endpoints.</p>
+        <div class="tags">
+          <span class="tag">Wireshark</span><span class="tag">Protocol Analysis</span><span class="tag">Traffic Inspection</span><span class="tag">Nmap</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <div class="sec-head">
+      <h2>Hands-on <span>Labs & Projects</span></h2>
+      <p>// Database-driven implementations & simulations</p>
+    </div>
+    <div class="cards-grid">
+      {% if projects %}
+        {% for proj in projects %}
+          <div class="card">
+            <h3>{{ proj.title }}</h3>
+            <p>{{ proj.description }}</p>
+            {% if proj.tags %}
+              <div class="tags">
+                {% for tag in proj.tags %}
+                  <span class="tag">#{{ tag }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="card">
+          <h3>Enterprise Campus Network</h3>
+          <p>Designed and deployed a simulated campus network featuring multi-area OSPF routing, redundant core switches, and LACP EtherChannels.</p>
+          <div class="tags">
+            <span class="tag">OSPF</span><span class="tag">EtherChannel</span><span class="tag">VLAN</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>AWS Multi-Tier VPC</h3>
+          <p>Built a custom VPC on AWS with public and private subnets, Bastion Host access control, and private EC2 instances behind a NAT Gateway.</p>
+          <div class="tags">
+            <span class="tag">AWS VPC</span><span class="tag">EC2</span><span class="tag">Route Tables</span>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="sec-head">
+      <h2>Get In <span>Touch</span></h2>
+      <p>// Direct communication channel initialization</p>
+    </div>
+    <div class="contact-box card">
+      <div class="contact-info">
+        <h3>Infrastructure Engineer Ready to Integrate</h3>
+        <p style="color:var(--text-muted);">
+          Whether you have a technical query, collaboration opportunity, or full-time infrastructure role, feel free to drop a transmission.
+        </p>
+        <div style="font-family:var(--font-code); font-size:0.95rem; color:var(--text);">
+          > ahmed.eng.ccna@example.com <br>
+          > Borg El Arab / Alexandria, Egypt
+        </div>
+        <div class="tags">
+          <span class="tag" style="background:rgba(16, 185, 129, 0.1); border-color:#10b981; color:#10b981;"><i class="fa-solid fa-circle-nodes"></i> Ready for Local & Remote Roles</span>
+        </div>
+      </div>
+      <form onsubmit="event.preventDefault(); alert('Transmission Received!');">
+        <input type="text" class="form-ctrl" placeholder="Your Name / Organization" required>
+        <input type="email" class="form-ctrl" placeholder="Your Connection Email" required>
+        <textarea rows="4" class="form-ctrl" placeholder="Transmission payload / message details..." required></textarea>
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;"><i class="fa-solid fa-paper-plane"></i> Send Direct Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- PDF CV Modal Viewer -->
+  <div class="modal-overlay" id="cvModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-file-pdf"></i> Read CV // {{ profile.cv_filename }}</h3>
+        <div class="modal-actions">
+          {% if profile.has_cv %}
+            <a href="{{ url_for('download_cv') }}" download="{{ profile.cv_filename }}" class="btn btn-glass" style="padding:4px 10px; font-size:0.8rem;">
+              <i class="fa-solid fa-download"></i> Download PDF
+            </a>
+          {% endif %}
+          <button onclick="closeCV()" class="btn btn-glass" style="padding:4px 10px; font-size:0.8rem;"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="modal-body">
+        {% if profile.has_cv %}
+          <iframe src="{{ url_for('download_cv') }}#toolbar=1"></iframe>
+        {% else %}
+          <div style="display:flex; justify-content:center; align-items:center; height:100%; color:var(--text-muted); font-family:var(--font-code);">
+            No CV PDF uploaded yet. Upload it from the Admin dashboard.
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Ahmed Attia Mohamed. Engineered with High-Performance Vanilla Code.</p>
+  </footer>
+
+  <script>
+    // Ensure viewport stays at the top on initial page load
+    if (history.scrollRestoration) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+
+    /* Typewriter */
+    const roles = ["Cisco Certified Routing & Switching Specialist", "AWS Cloud Infrastructure Engineer", "Linux DevOps & Security Enthusiast"];
+    let rIdx = 0, cIdx = 0, isDel = false;
+    const typeEl = document.getElementById("typewriter");
+    function typeEffect() {
+      const current = roles[rIdx];
+      typeEl.textContent = "❯ " + (isDel ? current.substring(0, cIdx--) : current.substring(0, cIdx++));
+      let speed = isDel ? 30 : 60;
+      if (!isDel && cIdx === current.length + 1) { speed = 2000; isDel = true; }
+      else if (isDel && cIdx === 0) { isDel = false; rIdx = (rIdx + 1) % roles.length; speed = 350; }
+      setTimeout(typeEffect, speed);
+    }
+    typeEffect();
+
+    /* CV Modal Controls */
+    function openCV() { document.getElementById("cvModal").classList.add("active"); }
+    function closeCV() { document.getElementById("cvModal").classList.remove("active"); }
+
+    /* Interactive Terminal */
+    const termInput = document.getElementById("term-cmd");
+    const termBox = document.getElementById("term-box");
+    const commands = {
+      help: "Commands list:\n- skills : List tech stack\n- labs   : Verified lab tasks\n- cv     : Open PDF viewer\n- clear  : Clean terminal",
+      skills: "Networks: CCNA, CCNP track, OSPF, STP, LACP\nCloud   : AWS VPC, EC2, Linux CLI, Bash Scripting",
+      labs: "1. Campus OSPF Architecture\n2. AWS Multi-Tier VPC\n3. Linux Server Hardening",
+      cv: "Opening CV viewer..."
+    };
+    termInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        const raw = termInput.value.trim();
+        const cmd = raw.toLowerCase();
+        
+        if (cmd === "clear") {
+          termBox.innerHTML = '<div class="term-out">Screen wiped. Type \'help\' for domains.</div><div class="term-prompt-line"><span class="term-user">visitor@ahmed-ops#</span><input type="text" class="term-input" id="term-cmd" autocomplete="off"></div>';
+          return;
+        }
+
+        const hLine = document.createElement("div"); hLine.className = "term-out"; hLine.style.color = "#f8fafc"; hLine.textContent = `visitor@ahmed-ops# ${raw}`;
+        const rLine = document.createElement("div"); rLine.className = "term-out";
+        rLine.textContent = commands[cmd] || `Domain not found: ${raw}. Type 'help' for available domains.`;
+        termInput.parentElement.before(hLine); termInput.parentElement.before(rLine);
+
+        if (cmd === "cv" || cmd === "read cv") { openCV(); }
+        termInput.value = ""; termBox.scrollTop = termBox.scrollHeight;
+      }
+    });
+
+    /* Advanced Interactive Constellation Canvas */
+    const canvas = document.getElementById("bg-canvas");
+    const ctx = canvas.getContext("2d");
+    let pts = [];
+    let mouse = { x: null, y: null, radius: 150 };
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    window.addEventListener('mouseout', () => {
+      mouse.x = null;
+      mouse.y = null;
+    });
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    for (let i = 0; i < 55; i++) {
+      pts.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.7,
+        vy: (Math.random() - 0.5) * 0.7,
+        r: Math.random() * 2.5 + 1.2,
+        color: Math.random() > 0.5 ? "rgba(56, 189, 248, " : "rgba(168, 85, 247, "
+      });
+    }
+
+    function drawMesh() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < pts.length; i++) {
+        let p = pts[i];
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+        // Mouse push effect
+        if (mouse.x !== null) {
+          let dx = mouse.x - p.x;
+          let dy = mouse.y - p.y;
+          let dist = Math.hypot(dx, dy);
+          if (dist < mouse.radius) {
+            let force = (mouse.radius - dist) / mouse.radius;
+            p.x -= (dx / dist) * force * 3;
+            p.y -= (dy / dist) * force * 3;
+          }
+        }
+
+        ctx.fillStyle = p.color + "0.6)";
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+
+        for (let j = i + 1; j < pts.length; j++) {
+          let p2 = pts[j];
+          let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+          if (dist < 130) {
+            let alpha = (1 - dist / 130) * 0.22;
+            ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
+            ctx.lineWidth = 0.6;
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(drawMesh);
+    }
+    drawMesh();
+  </script>
+</body>
+</html>
