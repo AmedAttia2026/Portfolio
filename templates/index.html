@@ -6,7 +6,7 @@
     <title>Ahmed Attia | Network & Infrastructure Engineer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -38,7 +38,6 @@
             --text-muted: #64748b;
 
             --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-            --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 
             --radius-sm: 8px;
             --radius-md: 16px;
@@ -251,13 +250,14 @@
         }
 
         .section-label {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
+            font-family: var(--font-sans);
+            font-size: 0.72rem;
             text-transform: uppercase;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.12em;
             color: var(--cyan);
-            opacity: 0.6;
-            margin-bottom: 0.3rem;
+            font-weight: 600;
+            opacity: 0.8;
+            margin-bottom: 0.4rem;
             display: block;
         }
 
@@ -273,7 +273,7 @@
             font-weight: 800;
             letter-spacing: -0.03em;
             line-height: 1.1;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.5rem;
         }
         .sec-head h2 span {
             background: linear-gradient(135deg, var(--cyan), var(--purple), var(--blue));
@@ -282,10 +282,10 @@
             background-clip: text;
         }
         .sec-head p {
-            color: var(--text-muted);
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            opacity: 0.8;
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            font-weight: 400;
         }
 
         .hero-centered {
@@ -369,15 +369,15 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 6px 22px;
-            background: rgba(16, 185, 129, 0.06);
-            border: 1px solid rgba(16, 185, 129, 0.15);
+            padding: 6px 20px;
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.2);
             border-radius: var(--radius-full);
             color: var(--emerald);
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            font-weight: 500;
-            letter-spacing: 0.03em;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
             margin-bottom: 1.4rem;
             backdrop-filter: blur(4px);
         }
@@ -405,21 +405,20 @@
         }
 
         .typewriter-text {
-            font-family: var(--font-mono);
-            font-size: 1.15rem;
+            font-family: var(--font-sans);
+            font-size: 1.2rem;
             color: var(--cyan);
             margin-bottom: 1.2rem;
             min-height: 2rem;
-            opacity: 0.85;
-            font-weight: 400;
-            letter-spacing: 0.02em;
+            font-weight: 600;
+            letter-spacing: -0.01em;
         }
         .typewriter-text .cursor-blink {
             display: inline-block;
             width: 2px;
             height: 1.1em;
             background: var(--cyan);
-            margin-left: 2px;
+            margin-left: 4px;
             vertical-align: text-bottom;
             animation: blink 0.8s step-end infinite;
         }
@@ -506,10 +505,10 @@
         .highlight-pill {
             padding: 8px 20px;
             background: rgba(12, 20, 40, 0.50);
-            border: 1px solid rgba(56, 189, 248, 0.06);
+            border: 1px solid rgba(56, 189, 248, 0.08);
             border-radius: var(--radius-full);
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
             color: var(--text-secondary);
             display: flex;
             align-items: center;
@@ -518,7 +517,7 @@
             transition: var(--transition-smooth);
         }
         .highlight-pill:hover {
-            border-color: rgba(56, 189, 248, 0.15);
+            border-color: rgba(56, 189, 248, 0.25);
             color: var(--text-primary);
             transform: translateY(-2px);
         }
@@ -603,27 +602,29 @@
             margin-top: auto;
         }
         .tag {
-            font-family: var(--font-mono);
-            font-size: 0.68rem;
-            padding: 3px 12px;
-            background: rgba(56, 189, 248, 0.04);
-            border: 1px solid rgba(56, 189, 248, 0.06);
+            font-family: var(--font-sans);
+            font-size: 0.72rem;
+            font-weight: 500;
+            padding: 4px 12px;
+            background: rgba(56, 189, 248, 0.05);
+            border: 1px solid rgba(56, 189, 248, 0.1);
             border-radius: var(--radius-full);
             color: var(--text-secondary);
             transition: var(--transition-smooth);
-            letter-spacing: 0.01em;
         }
         .tag:hover {
-            border-color: rgba(56, 189, 248, 0.15);
+            border-color: rgba(56, 189, 248, 0.25);
             color: var(--text-primary);
         }
         .tag--emerald {
             color: var(--emerald);
-            border-color: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.2);
+            background: rgba(16, 185, 129, 0.05);
         }
         .tag--gold {
             color: var(--gold);
-            border-color: rgba(245, 158, 11, 0.15);
+            border-color: rgba(245, 158, 11, 0.2);
+            background: rgba(245, 158, 11, 0.05);
         }
 
         .cv-inpage-container {
@@ -652,9 +653,10 @@
             gap: 0.5rem;
         }
         .cv-inpage-header .file-name {
-            font-family: var(--font-mono);
+            font-family: var(--font-sans);
             color: var(--cyan);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            font-weight: 500;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -662,6 +664,7 @@
         .cv-inpage-header .file-name .ext {
             color: var(--text-muted);
             font-weight: 400;
+            font-size: 0.8rem;
         }
         .cv-inpage-header .actions {
             display: flex;
@@ -700,16 +703,16 @@
 
         .contact-item {
             margin-bottom: 0.9rem;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
         }
         .contact-item strong {
             color: var(--cyan);
             display: block;
-            font-size: 0.7rem;
+            font-size: 0.72rem;
             text-transform: uppercase;
             letter-spacing: 0.06em;
-            opacity: 0.6;
+            opacity: 0.8;
             margin-bottom: 2px;
             font-weight: 600;
         }
@@ -820,7 +823,7 @@
             flex-shrink: 0;
         }
         .modal-header h3 {
-            font-family: var(--font-mono);
+            font-family: var(--font-sans);
             color: var(--cyan);
             font-size: 0.9rem;
             font-weight: 500;
@@ -840,8 +843,8 @@
             text-align: center;
             padding: 3rem 2rem 2.5rem;
             border-top: 1px solid rgba(56, 189, 248, 0.03);
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
             color: var(--text-muted);
             margin-top: 3rem;
             position: relative;
@@ -979,7 +982,7 @@
                 gap: 0.5rem;
             }
             .highlight-pill {
-                font-size: 0.65rem;
+                font-size: 0.72rem;
                 padding: 5px 14px;
             }
             .hero-cta .btn {
@@ -1005,13 +1008,13 @@
                 height: 160px;
             }
             .typewriter-text {
-                font-size: 0.9rem;
+                font-size: 0.95rem;
             }
             .hero-desc {
                 font-size: 0.9rem;
             }
             .cv-inpage-header .file-name {
-                font-size: 0.7rem;
+                font-size: 0.75rem;
             }
             .cv-inpage-header .actions .btn {
                 font-size: 0.65rem;
@@ -1079,7 +1082,7 @@
 
             <div class="hero-text">
                 <div class="status-tag reveal visible reveal-delay-1">
-                    <span class="dot"></span> STATUS: ACTIVE // OPEN_TO_WORK
+                    <span class="dot"></span> Open to Work
                 </div>
 
                 <h1 class="reveal visible reveal-delay-2">
@@ -1104,7 +1107,7 @@
             <div class="highlights-bar reveal visible reveal-delay-4">
                 <div class="highlight-pill"><span class="icon">◆</span> <strong>Track:</strong> CCNA (200-301) &amp; CCNP R&amp;S</div>
                 <div class="highlight-pill"><span class="icon">◆</span> <strong>HA:</strong> HSRP, VRRP, GLBP</div>
-                <div class="highlight-pill"><span class="icon">◆</span> <strong>Security:</strong> ACLs, VPN, AAA, IPS&amp;IDS</div>
+                <div class="highlight-pill"><span class="icon">◆</span> <strong>Security:</strong> ACLs, VPN, AAA, IPS &amp; IDS</div>
                 <div class="highlight-pill"><span class="icon">◆</span> <strong>Software:</strong> Python (OOP), Java (OOP), C/C++, SQL</div>
             </div>
         </div>
@@ -1113,19 +1116,19 @@
     <!-- ─── CV SECTION ─── -->
     <section id="cv-section">
         <div class="sec-head reveal">
-            <span class="section-label">📄 Document</span>
+            <span class="section-label">Resume Document</span>
             <h2>Curriculum <span>Vitae</span></h2>
-            <p>// Direct embedded interactive PDF &amp; verified digital resume</p>
+            <p>Direct embedded interactive PDF and verified digital resume</p>
         </div>
 
         <div class="cv-inpage-container reveal">
             <div class="cv-inpage-header">
                 <div class="file-name">
-                    <span>📎</span> Ahmed Attia Mohamed.pdf <span class="ext">— interactive</span>
+                    <span>📄</span> Ahmed Attia Mohamed.pdf <span class="ext">— Interactive Viewer</span>
                 </div>
                 <div class="actions">
-                    <button onclick="openCVModal()" class="btn btn-glass" style="padding:4px 16px; font-size:0.75rem;">⛶ Fullscreen</button>
-                    <a href="{{ url_for('download_cv') }}" download="{{ profile.cv_filename }}" class="btn btn-primary" style="padding:4px 16px; font-size:0.75rem;">⬇ Download</a>
+                    <button onclick="openCVModal()" class="btn btn-glass" style="padding:4px 16px; font-size:0.75rem;">Fullscreen</button>
+                    <a href="{{ url_for('download_cv') }}" download="{{ profile.cv_filename }}" class="btn btn-primary" style="padding:4px 16px; font-size:0.75rem;">Download</a>
                 </div>
             </div>
             <div class="cv-inpage-body">
@@ -1137,9 +1140,9 @@
     <!-- ─── SKILLS ─── -->
     <section id="skills">
         <div class="sec-head reveal">
-            <span class="section-label">⚡ Expertise</span>
+            <span class="section-label">Technical Expertise</span>
             <h2>Technical <span>Competencies</span></h2>
-            <p>// Verified networking &amp; security domains</p>
+            <p>Core networking, security, and systems engineering domains</p>
         </div>
 
         <div class="cards-grid">
@@ -1158,7 +1161,7 @@
             <div class="card reveal reveal-delay-2">
                 <div class="icon-wrap">🔒</div>
                 <h3>Security &amp; High Availability</h3>
-                <p>ACLs, VPN, AAA, IPS&amp;IDS, Port Security, DHCP Snooping, and Redundant Gateways (HSRP, VRRP, GLBP).</p>
+                <p>ACLs, VPN, AAA, IPS &amp; IDS, Port Security, DHCP Snooping, and Redundant Gateways (HSRP, VRRP, GLBP).</p>
                 <div class="tags">
                     <span class="tag tag--emerald">Security</span>
                     <span class="tag">ACLs</span>
@@ -1184,15 +1187,15 @@
     <!-- ─── PROJECTS ─── -->
     <section id="projects">
         <div class="sec-head reveal">
-            <span class="section-label">🏗️ Implementation</span>
+            <span class="section-label">Featured Implementation</span>
             <h2>Key <span>Project</span></h2>
-            <p>// Enterprise production implementation</p>
+            <p>Enterprise production network implementation</p>
         </div>
 
         <div class="card reveal" style="max-width:1050px; margin:0 auto; padding:2.2rem 2.2rem 1.8rem;">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; margin-bottom:0.6rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; margin-bottom:0.6rem; gap:8px;">
                 <h3 style="color:var(--cyan); font-size:1.3rem; font-weight:700;">Two-Campus Enterprise Network Design</h3>
-                <span class="tag tag--emerald" style="font-size:0.7rem; padding:4px 16px;">Live Physical Implementation — 60 Devices</span>
+                <span class="tag tag--emerald" style="font-size:0.75rem; padding:4px 16px;">Live Physical Implementation — 60 Devices</span>
             </div>
             <p style="font-size:0.95rem; line-height:1.8; color:var(--text-secondary);">
                 Designed and physically implemented a scalable 2-campus network infrastructure deploying and configuring 60 physical network devices (switches/routers) across computer labs using Layer 2 switching architecture, VLAN segmentation (10-30/40-60), OSPF dynamic routing, and redundant trunk links.
@@ -1209,9 +1212,9 @@
     <!-- ─── CONTACT ─── -->
     <section id="contact">
         <div class="sec-head reveal">
-            <span class="section-label">✉️ Connect</span>
+            <span class="section-label">Connect</span>
             <h2>Get In <span>Touch</span></h2>
-            <p>// Direct communication</p>
+            <p>Direct communication and inquiries</p>
         </div>
 
         <div class="contact-box reveal">
@@ -1263,8 +1266,8 @@
             <div class="modal-header">
                 <h3>📄 {{ profile.cv_filename }}</h3>
                 <div style="display:flex; gap:8px;">
-                    <a href="{{ url_for('download_cv') }}" download="{{ profile.cv_filename }}" class="btn btn-glass" style="padding:4px 14px; font-size:0.7rem;">⬇ Download</a>
-                    <button onclick="closeCVModal()" class="btn btn-glass" style="padding:4px 14px; font-size:0.7rem;">✕ Close</button>
+                    <a href="{{ url_for('download_cv') }}" download="{{ profile.cv_filename }}" class="btn btn-glass" style="padding:4px 14px; font-size:0.75rem;">Download</a>
+                    <button onclick="closeCVModal()" class="btn btn-glass" style="padding:4px 14px; font-size:0.75rem;">Close</button>
                 </div>
             </div>
             <div class="modal-body">
@@ -1289,7 +1292,7 @@
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const nameVal = senderName.value.trim();
-            submitBtn.textContent = 'Transmitting Payload...';
+            submitBtn.textContent = 'Sending Message...';
             submitBtn.disabled = true;
 
             const formData = new FormData(form);
@@ -1307,7 +1310,7 @@
                     successBox.style.display = 'block';
                     form.reset();
                 } else {
-                    alert('Transmission failed. Please check connection and retry.');
+                    alert('Sending failed. Please check connection and retry.');
                 }
             } catch (error) {
                 alert('Network connection error. Please try again.');
