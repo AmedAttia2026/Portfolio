@@ -86,7 +86,6 @@
             border-radius: 10px;
         }
 
-        /* ─── ENGINEERING BACKGROUND CANVAS ─── */
         canvas#bg-canvas {
             position: fixed;
             top: 0;
@@ -119,7 +118,6 @@
             100% { transform: translate(20px,-20px) scale(1.04); }
         }
 
-        /* ─── NAVIGATION ─── */
         .nav-wrapper {
             position: fixed;
             top: 1rem;
@@ -233,7 +231,6 @@
             box-shadow: 0 6px 28px rgba(56,189,248,0.55);
         }
 
-        /* ─── SECTION BASICS ─── */
         section {
             padding: 5.8rem 6% 2.5rem;
             max-width: 1260px;
@@ -278,7 +275,6 @@
             font-size: 0.92rem;
         }
 
-        /* ─── HERO SECTION ─── */
         .hero-centered {
             display: flex;
             flex-direction: column;
@@ -500,7 +496,6 @@
         .highlight-pill strong { color: var(--cyan); font-weight: 600; }
         .highlight-pill .icon { opacity: 0.35; }
 
-        /* ─── CARDS & GRIDS ─── */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -733,7 +728,6 @@
             max-width: 250px;
         }
 
-        /* ─── CV VIEWER ─── */
         .cv-inpage-container {
             background: var(--bg-card);
             border: 1px solid rgba(56,189,248,0.08);
@@ -789,7 +783,6 @@
             border: none;
         }
 
-        /* ─── EDUCATION SECTION ─── */
         .education-card-pro {
             background: linear-gradient(145deg, rgba(13, 20, 36, 0.88), rgba(8, 14, 28, 0.94));
             border: 1px solid rgba(56, 189, 248, 0.16);
@@ -1032,7 +1025,6 @@
             gap: 6px;
         }
 
-        /* ─── CONTACT SECTION ─── */
         .contact-box {
             display: grid;
             grid-template-columns: 1.2fr 1fr;
@@ -1419,7 +1411,6 @@
         }
         .nav-toggle:hover { color: var(--text-primary); }
 
-        /* ─── RESPONSIVE QUERIES ─── */
         @media (max-width: 1024px) {
             section { padding: 4.5rem 5% 2rem; }
             .hero-text h1 { font-size: 3.3rem; }
@@ -1510,10 +1501,8 @@
     <div class="orb orb--3"></div>
     <div class="orb orb--4"></div>
 
-    <!-- ─── CYBER NETWORK TOPOLOGY CANVAS ─── -->
     <canvas id="bg-canvas"></canvas>
 
-    <!-- ─── NAVBAR ─── -->
     <div class="nav-wrapper">
         <nav>
             <a href="#home" class="nav-logo">
@@ -1637,12 +1626,12 @@
         </div>
     </section>
 
-    <!-- ─── 3. FEATURED PROJECTS (NETWORK-CENTRIC & SYSTEMS IMPLEMENTATION) ─── -->
+    <!-- ─── 3. FEATURED PROJECTS (PHYSICAL DEPLOYMENT & SYSTEMS AUTOMATION) ─── -->
     <section id="projects">
         <div class="sec-head reveal">
             <span class="section-label">Enterprise Infrastructure &amp; Network Automation</span>
             <h2>Flagship <span>Implementation</span></h2>
-            <p>Physical campus network deployment bridging Cisco L2/L3 switching architecture with secured fleet orchestration</p>
+            <p>Physical campus network deployment bridging Cisco switching fabric with automated fleet orchestration</p>
         </div>
 
         <div class="project-super-card reveal">
@@ -1652,26 +1641,26 @@
                     <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--cyan); font-weight:700; display:block; margin-bottom:4px;">Multi-Campus Enterprise Infrastructure</span>
                     <h3 style="font-size:1.6rem; font-weight:900; letter-spacing:-0.03em; color:#fff; line-height:1.2;">6-Lab Enterprise Campus Network &amp; NEXUS Core</h3>
                 </div>
-                <span class="tag tag--emerald" style="font-size:0.76rem; padding:6px 18px; font-weight:700; border-width:1.5px;">Physical Deployment — 60 Cisco Devices · 120 Endpoints</span>
+                <span class="tag tag--emerald" style="font-size:0.76rem; padding:6px 18px; font-weight:700; border-width:1.5px;">Physical Deployment — 3 Routers · 38 Switches · 120 Endpoints</span>
             </div>
 
             <p style="font-size:0.96rem; line-height:1.85; color:var(--text-secondary); margin-bottom:1.5rem;">
-                Architected and physically deployed an enterprise-grade hierarchical network infrastructure across <strong>6 computer laboratories supporting 120+ active workstations</strong>. Powered by <strong>60 physical Cisco switches and routers</strong>, the network integrates high-availability routing, Layer 2/3 security hardening, and a localized <strong>NEXUS management core</strong> wrapped into standalone Desktop (.EXE) and Mobile (.APK Flutter/Kotlin) native clients without browser dependencies.
+                Personally architected, cabled, and deployed the physical network infrastructure across <strong>6 computer laboratories serving 120 dedicated PC workstations</strong>. The physical switching and routing fabric utilizes <strong>3 enterprise Cisco Routers</strong>, <strong>3 Cisco Managed Distribution Switches</strong>, and <strong>35 Unmanaged bench-level switches</strong>. The environment is centrally orchestrated via the custom <strong>NEXUS software ecosystem</strong>, delivered as zero-dependency native Desktop (.EXE) and Mobile (.APK Flutter/Kotlin) management interfaces.
             </p>
 
             <!-- Quick Metrics Grid -->
             <div class="project-stats-grid">
                 <div class="stat-mini-box">
-                    <div class="stat-mini-num" style="color:var(--cyan);">60</div>
-                    <div class="stat-mini-lbl">Cisco Switches &amp; Routers</div>
+                    <div class="stat-mini-num" style="color:var(--cyan);">120 PCs</div>
+                    <div class="stat-mini-lbl">Active Lab Workstations</div>
                 </div>
                 <div class="stat-mini-box">
-                    <div class="stat-mini-num" style="color:var(--emerald);">120 Nodes</div>
-                    <div class="stat-mini-lbl">Managed Lab Endpoints</div>
+                    <div class="stat-mini-num" style="color:var(--emerald);">38 Switches</div>
+                    <div class="stat-mini-lbl">3 Managed + 35 Unmanaged</div>
                 </div>
                 <div class="stat-mini-box">
-                    <div class="stat-mini-num" style="color:var(--purple);">VLANs 10–60</div>
-                    <div class="stat-mini-lbl">Segmented Broadcast Domains</div>
+                    <div class="stat-mini-num" style="color:var(--purple);">3 Routers</div>
+                    <div class="stat-mini-lbl">OSPF Inter-Campus Links</div>
                 </div>
                 <div class="stat-mini-box">
                     <div class="stat-mini-num" style="color:var(--gold); font-size:1.25rem;">Ports 8000–9999</div>
@@ -1686,20 +1675,20 @@
                 <div style="background: rgba(11, 18, 34, 0.85); border: 1px solid rgba(56, 189, 248, 0.18); border-radius: 18px; padding: 1.4rem; display: flex; flex-direction: column;">
                     <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1.1rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(56, 189, 248, 0.12);">
                         <span style="font-size: 1.25rem; color: var(--cyan);">🌐</span>
-                        <h4 style="color: var(--cyan); font-size: 0.98rem; font-weight: 700; margin: 0; letter-spacing: -0.01em;">Cisco Switching &amp; OSPF Routing</h4>
+                        <h4 style="color: var(--cyan); font-size: 0.98rem; font-weight: 700; margin: 0; letter-spacing: -0.01em;">Cisco Core, STP &amp; Routing</h4>
                     </div>
                     <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.9rem;">
                         <li style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.65; display: flex; gap: 8px; text-align: left;">
                             <span style="color: var(--cyan); font-weight: bold; flex-shrink: 0;">▸</span>
-                            <div><strong style="color: var(--text-primary);">Hierarchical Fabric:</strong> Core-Distribution-Access architecture using 802.1Q trunking and EtherChannel (LACP) aggregation.</div>
+                            <div><strong style="color: var(--text-primary);">STP PortFast &amp; UplinkFast:</strong> Configured STP PortFast on edge ports for instant PC link transitions, backed by UplinkFast for rapid failover on distribution trunks.</div>
                         </li>
                         <li style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.65; display: flex; gap: 8px; text-align: left;">
                             <span style="color: var(--cyan); font-weight: bold; flex-shrink: 0;">▸</span>
-                            <div><strong style="color: var(--text-primary);">High Availability:</strong> Rapid PVST+ enforcement eliminating loops with guaranteed sub-second failover.</div>
+                            <div><strong style="color: var(--text-primary);">VLAN &amp; SVI Architecture:</strong> Configured 802.1Q trunking and Inter-VLAN Routing (SVI) across the managed core, isolating lab subnets 10 through 60.</div>
                         </li>
                         <li style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.65; display: flex; gap: 8px; text-align: left;">
                             <span style="color: var(--cyan); font-weight: bold; flex-shrink: 0;">▸</span>
-                            <div><strong style="color: var(--text-primary);">Dynamic Routing:</strong> Multi-area OSPF with tuned timers driving dynamic path selection and convergence.</div>
+                            <div><strong style="color: var(--text-primary);">OSPF Dynamic Routing:</strong> Deployed multi-area OSPF dynamic routing across the 3 Cisco routers for reliable multi-campus packet delivery.</div>
                         </li>
                     </ul>
                 </div>
@@ -1708,20 +1697,20 @@
                 <div style="background: rgba(11, 18, 34, 0.85); border: 1px solid rgba(16, 185, 129, 0.22); border-radius: 18px; padding: 1.4rem; display: flex; flex-direction: column;">
                     <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1.1rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(16, 185, 129, 0.14);">
                         <span style="font-size: 1.25rem; color: var(--emerald);">🛡️</span>
-                        <h4 style="color: var(--emerald); font-size: 0.98rem; font-weight: 700; margin: 0; letter-spacing: -0.01em;">L2/L3 Defense &amp; Isolation</h4>
+                        <h4 style="color: var(--emerald); font-size: 0.98rem; font-weight: 700; margin: 0; letter-spacing: -0.01em;">L2/L3 Security &amp; Isolation</h4>
                     </div>
                     <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.9rem;">
                         <li style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.65; display: flex; gap: 8px; text-align: left;">
                             <span style="color: var(--emerald); font-weight: bold; flex-shrink: 0;">▸</span>
-                            <div><strong style="color: var(--text-primary);">Port Security:</strong> MAC-sticky learning with immediate shutdown triggers on edge user interfaces.</div>
+                            <div><strong style="color: var(--text-primary);">Port Security Hardening:</strong> Restricted switch ports via MAC-sticky learning with immediate shutdown triggers against unauthorized physical device taps.</div>
                         </li>
                         <li style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.65; display: flex; gap: 8px; text-align: left;">
                             <span style="color: var(--emerald); font-weight: bold; flex-shrink: 0;">▸</span>
-                            <div><strong style="color: var(--text-primary);">Attack Mitigation:</strong> DHCP Snooping &amp; Dynamic ARP Inspection (DAI) blocking rogue DHCP and MITM attempts.</div>
+                            <div><strong style="color: var(--text-primary);">DHCP Snooping &amp; DAI:</strong> Enforced trust-boundary inspection to stop rogue DHCP injection and mitigate Man-In-The-Middle (MITM) ARP spoofing.</div>
                         </li>
                         <li style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.65; display: flex; gap: 8px; text-align: left;">
                             <span style="color: var(--emerald); font-weight: bold; flex-shrink: 0;">▸</span>
-                            <div><strong style="color: var(--text-primary);">Extended ACLs:</strong> Strict Layer 3/4 packet filtering isolating exam gateways from student subnets.</div>
+                            <div><strong style="color: var(--text-primary);">Extended ACL Enforcement:</strong> Applied Layer 3/4 filtering policies to secure the examination and administrative subnets from untrusted workstation traffic.</div>
                         </li>
                     </ul>
                 </div>
@@ -1735,15 +1724,15 @@
                     <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.9rem;">
                         <li style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.65; display: flex; gap: 8px; text-align: left;">
                             <span style="color: var(--purple); font-weight: bold; flex-shrink: 0;">▸</span>
-                            <div><strong style="color: var(--text-primary);">Ports 8080 &amp; 8000:</strong> Offline Exam &amp; Attendance system alongside zero-latency screen broadcasting.</div>
+                            <div><strong style="color: var(--text-primary);">Ports 8080 &amp; 8000:</strong> Offline Exam &amp; Attendance automation platform alongside low-latency multicast screen streaming to 120 client PCs.</div>
                         </li>
                         <li style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.65; display: flex; gap: 8px; text-align: left;">
                             <span style="color: var(--purple); font-weight: bold; flex-shrink: 0;">▸</span>
-                            <div><strong style="color: var(--text-primary);">Port 9090:</strong> Fleet orchestration for remote system reboot, task lockdown, and network adapter control.</div>
+                            <div><strong style="color: var(--text-primary);">Port 9090 (Fleet Control):</strong> Remote station management to power down, lock screens, and regulate network adapters across all labs.</div>
                         </li>
                         <li style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.65; display: flex; gap: 8px; text-align: left;">
                             <span style="color: var(--purple); font-weight: bold; flex-shrink: 0;">▸</span>
-                            <div><strong style="color: var(--text-primary);">Ports 9996–9999:</strong> Boot-level anti-tamper persistence daemon and Windows Server storage emulation.</div>
+                            <div><strong style="color: var(--text-primary);">Ports 9996–9999:</strong> Boot-level anti-tamper persistence daemon and localized Windows Server storage distribution.</div>
                         </li>
                     </ul>
                 </div>
@@ -1760,14 +1749,14 @@
                         <div class="visual-placeholder">
                             <div class="placeholder-icon">📐</div>
                             <strong>Physical Topology &amp; Cisco Fabric</strong>
-                            <p>60-Device Core/Distribution blueprint, OSPF Areas, and LACP Aggregation links</p>
+                            <p>3 Routers, 3 Managed Core Switches, 35 Distribution Switches, and PortFast/UplinkFast</p>
                             <span style="font-size:0.7rem; color:var(--cyan); margin-top:8px; font-weight:600;">[ Configurable via Admin Dashboard ]</span>
                         </div>
                     {% endif %}
                     <div class="visual-caption">
                         <div>
                             <h4>Physical Layer &amp; Switching Fabric</h4>
-                            <span>60 Physical Cisco Units · OSPF &amp; VLANs</span>
+                            <span>3 Routers · 38 Switches · OSPF &amp; VLANs</span>
                         </div>
                     </div>
                 </div>
@@ -1795,11 +1784,11 @@
 
             <!-- Tech Badges Bottom -->
             <div class="tags" style="padding-top:0.8rem; border-top:1px solid rgba(56,189,248,0.08);">
-                <span class="tag tag--emerald">60 Cisco Physical Units</span>
+                <span class="tag tag--emerald">3 Routers &amp; 38 Switches</span>
+                <span class="tag">120 PC Endpoints</span>
+                <span class="tag">STP PortFast &amp; UplinkFast</span>
                 <span class="tag">OSPF Dynamic Routing</span>
                 <span class="tag">VLANs 10–60 Segmentation</span>
-                <span class="tag">Redundant LACP EtherChannel</span>
-                <span class="tag">Inter-VLAN SVI Routing</span>
                 <span class="tag tag--gold">DHCP Snooping &amp; Extended ACLs</span>
                 <span class="tag tag--purple">Fleet Control (Port 9090)</span>
                 <span class="tag">Standalone .EXE &amp; Flutter .APK</span>
@@ -1833,7 +1822,6 @@
             </div>
 
             <div class="edu-metrics-grid">
-                <!-- KPI 1: Grade -->
                 <div class="edu-metric-box">
                     <div class="metric-header">
                         <div class="metric-icon-wrap metric-icon-wrap--emerald">⭐</div>
@@ -1845,7 +1833,6 @@
                     </div>
                 </div>
 
-                <!-- KPI 2: 4th Year Ranking -->
                 <div class="edu-metric-box">
                     <div class="metric-header">
                         <div class="metric-icon-wrap metric-icon-wrap--gold">🏆</div>
@@ -1857,7 +1844,6 @@
                     </div>
                 </div>
 
-                <!-- KPI 3: Cohort Percentile -->
                 <div class="edu-metric-box">
                     <div class="metric-header">
                         <div class="metric-icon-wrap metric-icon-wrap--purple">📊</div>
@@ -1953,7 +1939,7 @@
                     </div>
                     <div class="contact-actions">
                         <a href="tel:01274477946" class="btn-action-icon btn-action-icon--call">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
                             Call
                         </a>
                         <a href="https://wa.me/201274477946" target="_blank" rel="noopener" class="btn-action-icon btn-action-icon--wa">
@@ -2049,9 +2035,7 @@
         <p>© 2026 Ahmed Attia Hemada &nbsp;·&nbsp; Engineered for Clean Performance <span class="heart">♥</span></p>
     </footer>
 
-    <!-- ─── JAVASCRIPT LOGIC & LIVING NETWORK CANVAS ─── -->
     <script>
-        // Form Handling
         const form = document.getElementById('contactForm');
         const successBox = document.getElementById('successBox');
         const submitBtn = document.getElementById('submitBtn');
@@ -2101,7 +2085,6 @@
             }).catch(() => prompt('Copy this text:', text));
         }
 
-        // Typewriter Effect
         (function() {
             const roles = [
                 "Network & Infrastructure Engineer",
@@ -2126,7 +2109,6 @@
             typeLoop();
         })();
 
-        // Modal Controls
         function openCVModal() {
             document.getElementById('cvModal').classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -2138,13 +2120,11 @@
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeCVModal(); });
         document.getElementById('cvModal').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeCVModal(); });
 
-        // Mobile Nav Toggle
         const navToggle = document.getElementById('navToggle');
         const navLinks = document.getElementById('navLinks');
         navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
         document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('open')));
 
-        // Scroll Reveal
         (function() {
             const reveals = document.querySelectorAll('.reveal:not(.visible)');
             if ('IntersectionObserver' in window) {
@@ -2157,7 +2137,6 @@
             }
         })();
 
-        // ─── LIVING NETWORK TOPOLOGY ENGINE (CANVAS) ───
         (function() {
             const canvas = document.getElementById('bg-canvas');
             const ctx = canvas.getContext('2d');
@@ -2322,7 +2301,6 @@
             animate();
         })();
 
-        // Smooth Scroll Offset
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const targetId = this.getAttribute('href');
