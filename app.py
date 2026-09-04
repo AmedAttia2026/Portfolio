@@ -1,8 +1,8 @@
 import os
 import time
-import urllib.parse
 import base64
 from io import BytesIO
+from PIL import Image
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify, send_file
 from werkzeug.security import generate_password_hash, check_password_hash
 from pymongo import MongoClient
@@ -11,14 +11,19 @@ app = Flask(__name__)
 app.secret_key = os.urandom(32).hex()
 
 # ==========================================
-# MongoDB Connection (Optimized Pool)
+# MongoDB Connection (Stable & Optimized Pool)
 # ==========================================
-username = urllib.parse.quote_plus('ahmedosman')
-password = urllib.parse.quote_plus('i-fn@bBHV7rXMYj')
-MONGO_URI = f"mongodb+srv://{username}:{password}@cluster0.8wawfsu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+MONGO_URI = "mongodb+srv://admin:3DYZunMvuyVbvipl@aws.rhgcybe.mongodb.net/?retryWrites=true&w=majority&appName=aws"
 
 try:
-    client = MongoClient(MONGO_URI, maxPoolSize=50, connectTimeoutMS=5000, socketTimeoutMS=5000)
+    # تم رفع المهلة لتفادي انقطاع الاتصال أثناء رفع الملفات (Timeout 30s)
+    client = MongoClient(
+        MONGO_URI,
+        maxPoolSize=20,
+        connectTimeoutMS=30000,
+        socketTimeoutMS=30000,
+        serverSelectionTimeoutMS=30000
+    )
     db = client['portfolio_db']
     projects_col = db['projects']
     settings_col = db['settings']
@@ -29,15 +34,39 @@ except Exception as e:
 ADMIN_USERNAME = "Admin"
 ADMIN_PASSWORD_HASH = generate_password_hash("Ahmed123")
 
-# استعلام فائق السرعة يستثني الـ Base64 للـ PDF تماماً عند فتح الصفحة الرئيسية
+# دالة لضغط الصور تلقائياً وتصغير حجمها لتفادي مشاكل الاتصال
+def compress_and_encode_image(file_storage, max_width=1280, quality=75):
+    img = Image.open(file_storage)
+    if img.mode in ("RGBA", "P"):
+        img = img.convert("RGB")
+    
+    # تصغير الأبعاد مع الحفاظ على النسبة
+    if img.width > max_width:
+        ratio = max_width / float(img.width)
+        new_height = int(float(img.height) * float(ratio))
+        img = img.resize((max_width, new_height), Image.Resampling.LANCZOS)
+    
+    buffer = BytesIO()
+    img.save(buffer, format="JPEG", quality=quality, optimize=True)
+    buffer.seek(0)
+    return base64.b64encode(buffer.read()).decode('utf-8')
+
 def get_site_profile_fast():
     doc = settings_col.find_one({"_id": "profile_data"}, {"cv_base64": 0})
     if not doc:
-        return {"has_cv": False, "cv_filename": "", "profile_base64": ""}
+        return {
+            "has_cv": False,
+            "cv_filename": "",
+            "profile_base64": "",
+            "proj_img_topology": "",
+            "proj_img_nexus": ""
+        }
     return {
         "has_cv": bool(doc.get("has_cv_flag", False) or doc.get("cv_filename")),
         "cv_filename": doc.get("cv_filename", "Ahmed_Attia_Mohamed.pdf"),
-        "profile_base64": doc.get("profile_base64", "")
+        "profile_base64": doc.get("profile_base64", ""),
+        "proj_img_topology": doc.get("proj_img_topology", ""),
+        "proj_img_nexus": doc.get("proj_img_nexus", "")
     }
 
 # ==========================================
@@ -93,13 +122,17 @@ def update_profile_pic():
     if not session.get('admin_logged_in'): return redirect(url_for('login'))
     file = request.files.get('profile_image')
     if file and file.filename != '':
-        encoded_img = base64.b64encode(file.read()).decode('utf-8')
-        settings_col.update_one(
-            {"_id": "profile_data"},
-            {"$set": {"profile_base64": encoded_img}},
-            upsert=True
-        )
-        flash('Profile picture updated successfully!', 'success')
+        try:
+            # ضغط صورة البروفايل بحجم خفيف جداً
+            encoded_img = compress_and_encode_image(file, max_width=500, quality=80)
+            settings_col.update_one(
+                {"_id": "profile_data"},
+                {"$set": {"profile_base64": encoded_img}},
+                upsert=True
+            )
+            flash('Profile picture updated successfully!', 'success')
+        except Exception as e:
+            flash(f'Error processing image: {e}', 'error')
     return redirect(url_for('admin'))
 
 @app.route('/admin/update_cv', methods=['POST'])
@@ -118,6 +151,45 @@ def update_cv():
             upsert=True
         )
         flash('CV uploaded and saved to DB!', 'success')
+    return redirect(url_for('admin'))
+
+@app.route('/admin/update_project_images', methods=['POST'])
+def update_project_images():
+    if not session.get('admin_logged_in'): return redirect(url_for('login'))
+    
+    topology_file = request.files.get('topology_image')
+    nexus_file = request.files.get('nexus_image')
+    
+    update_fields = {}
+    try:
+        if topology_file and topology_file.filename != '':
+            update_fields["proj_img_topology"] = compress_and_encode_image(topology_file, max_width=1200, quality=75)
+        if nexus_file and nexus_file.filename != '':
+            update_fields["proj_img_nexus"] = compress_and_encode_image(nexus_file, max_width=1200, quality=75)
+            
+        if update_fields:
+            settings_col.update_one(
+                {"_id": "profile_data"},
+                {"$set": update_fields},
+                upsert=True
+            )
+            flash('Project images updated successfully!', 'success')
+        else:
+            flash('No new images selected.', 'error')
+    except Exception as e:
+        flash(f'Error processing project images: {e}', 'error')
+        
+    return redirect(url_for('admin'))
+
+@app.route('/admin/delete_project_image/<img_key>', methods=['POST'])
+def delete_project_image(img_key):
+    if not session.get('admin_logged_in'): return redirect(url_for('login'))
+    if img_key in ['proj_img_topology', 'proj_img_nexus']:
+        settings_col.update_one(
+            {"_id": "profile_data"},
+            {"$set": {img_key: ""}}
+        )
+        flash('Image removed successfully!', 'success')
     return redirect(url_for('admin'))
 
 @app.route('/admin/add_project', methods=['POST'])
@@ -150,4 +222,5 @@ def delete_project(proj_id):
     return redirect(url_for('admin'))
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8080)
+    # use_reloader=False تمنع قفل الـ socket على ويندوز وخطأ WinError 10038
+    app.run(debug=True, port=8080, use_reloader=False)
