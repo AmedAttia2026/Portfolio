@@ -33,6 +33,9 @@
             --blue: #6366f1;
             --emerald: #10b981;
             --whatsapp: #25d366;
+            --whatsapp-bright: #22c55e;
+            --linkedin-blue: #0a66c2;
+            --gmail-red: #ea4335;
             --gold: #f5c542;
             --rose: #f472b6;
             --slate: #8b9bb4;
@@ -422,7 +425,7 @@
             line-height: 1.85;
         }
 
-        /* ─── LUXURY HERO CALL TO ACTION BUTTONS ─── */
+        /* ─── الأزرار الأربعة الرئيسية المطورة والمطابقة للصورة ─── */
         .hero-cta {
             display: flex;
             gap: 1.1rem;
@@ -434,7 +437,7 @@
         .btn {
             padding: 0.85rem 1.95rem;
             border-radius: var(--radius-full);
-            font-size: 0.88rem;
+            font-size: 0.9rem;
             font-weight: 700;
             text-decoration: none;
             display: inline-flex;
@@ -448,83 +451,74 @@
             letter-spacing: 0.015em;
         }
 
-        /* 1. Featured Project: متوهج بالسيان والأزرق السماوي */
+        /* الزر 1: Featured Project (السماوي الفاخر مع أيقونة الطبقات) */
         .btn-cta-project {
             background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
-            color: #040814 !important;
-            border: 1.5px solid rgba(255, 255, 255, 0.45);
-            box-shadow: 0 6px 25px rgba(56, 189, 248, 0.45), 0 0 35px rgba(56, 189, 248, 0.25);
+            color: #040914 !important;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.45);
+        }
+        .btn-cta-project svg {
+            color: #040914;
+            stroke-width: 2.3;
         }
         .btn-cta-project:hover {
-            transform: translateY(-4px) scale(1.04);
-            box-shadow: 0 12px 40px rgba(56, 189, 248, 0.65), 0 0 50px rgba(56, 189, 248, 0.4);
-            color: #000 !important;
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 30px rgba(56, 189, 248, 0.65);
         }
 
-        /* 2. View CV: أزرق ملكي متوهج وغني */
+        /* الزر 2: View CV (الأزرق النيلي مع أيقونة المستند المفرغة) */
         .btn-cta-cv {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
+            background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
             color: #ffffff !important;
-            border: 1.5px solid rgba(255, 255, 255, 0.35);
-            box-shadow: 0 6px 25px rgba(37, 99, 235, 0.4), 0 0 30px rgba(37, 99, 235, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 4px 20px rgba(79, 70, 229, 0.4);
         }
         .btn-cta-cv svg {
             color: #93c5fd;
-            transition: var(--transition-bounce);
+            transition: var(--transition-smooth);
         }
         .btn-cta-cv:hover {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            transform: translateY(-4px) scale(1.04);
-            box-shadow: 0 12px 40px rgba(37, 99, 235, 0.6), 0 0 45px rgba(59, 130, 246, 0.35);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 30px rgba(79, 70, 229, 0.6);
         }
         .btn-cta-cv:hover svg {
             color: #ffffff;
-            transform: scale(1.15);
+            transform: scale(1.1);
         }
 
-        /* 3. Let's Connect: بنفسجي نيون ملكي ممتلئ وفخم */
+        /* الزر 3: Let's Connect (البنفسجي المتوهج مع أيقونة المحادثة) */
         .btn-cta-connect {
-            background: linear-gradient(135deg, #9333ea 0%, #7c3aed 50%, #6b21a8 100%);
+            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
             color: #ffffff !important;
-            border: 1.5px solid rgba(255, 255, 255, 0.35);
-            box-shadow: 0 6px 25px rgba(147, 51, 234, 0.42), 0 0 30px rgba(124, 58, 237, 0.22);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.45);
         }
         .btn-cta-connect svg {
             color: #e9d5ff;
-            transition: var(--transition-bounce);
+            transition: var(--transition-smooth);
         }
         .btn-cta-connect:hover {
-            background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);
-            transform: translateY(-4px) scale(1.04);
-            box-shadow: 0 12px 40px rgba(168, 85, 247, 0.65), 0 0 50px rgba(147, 51, 234, 0.4);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 30px rgba(168, 85, 247, 0.65);
         }
         .btn-cta-connect:hover svg {
             color: #ffffff;
-            transform: scale(1.15) rotate(-6deg);
+            transform: scale(1.1);
         }
 
-        /* 4. LinkedIn: أزرق لينكد إن الأصلي المتوهج */
+        /* الزر 4: LinkedIn (أزرق لينكد إن الرسمي مع الشعار الأصلي بالكامل) */
         .btn-cta-linkedin {
             background: linear-gradient(135deg, #0a66c2 0%, #004182 100%);
             color: #ffffff !important;
-            border: 1.5px solid rgba(255, 255, 255, 0.35);
-            box-shadow: 0 6px 25px rgba(10, 102, 194, 0.42), 0 0 30px rgba(10, 102, 194, 0.22);
-        }
-        .btn-cta-linkedin svg {
-            color: #ffffff;
-            transition: var(--transition-bounce);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 4px 20px rgba(10, 102, 194, 0.45);
         }
         .btn-cta-linkedin:hover {
-            background: linear-gradient(135deg, #0077b5 0%, #0a66c2 100%);
-            border-color: rgba(255, 255, 255, 0.55);
-            transform: translateY(-4px) scale(1.04);
-            box-shadow: 0 12px 40px rgba(10, 102, 194, 0.65), 0 0 45px rgba(10, 102, 194, 0.4);
-        }
-        .btn-cta-linkedin:hover svg {
-            transform: scale(1.15);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 30px rgba(10, 102, 194, 0.65);
         }
 
-        /* ─── HIGHLIGHTS BAR (ENLARGED & ENHANCED) ─── */
         .highlights-bar {
             margin: 3.2rem auto 0;
             max-width: 1080px;
@@ -564,7 +558,6 @@
             gap: 1.8rem;
         }
 
-        /* ─── INTERACTIVE SKILL CARDS WITH ADVANCED ANIMATIONS ─── */
         .card {
             background: var(--bg-card);
             border: 1px solid rgba(56,189,248,0.10);
@@ -698,7 +691,6 @@
             box-shadow: 0 0 15px rgba(168, 85, 247, 0.35);
         }
 
-        /* ─── UNIFIED & ENHANCED INTERACTIVE PROJECT SECTION ─── */
         .project-super-card {
             background: linear-gradient(145deg, rgba(13, 20, 36, 0.94), rgba(8, 14, 28, 0.98));
             border: 1px solid rgba(56, 189, 248, 0.18);
@@ -764,7 +756,6 @@
             color: #ffffff;
         }
 
-        /* ─── UNIFIED INTERACTIVE PILLARS (ENTIRE CARD AWAKENS TOGETHER) ─── */
         .pillar-card {
             background: rgba(11, 18, 34, 0.85);
             border-radius: 20px;
@@ -796,7 +787,6 @@
         .pillar-card--purple { border: 1px solid rgba(168, 85, 247, 0.20); }
         .pillar-card--purple::before { background: linear-gradient(90deg, transparent, var(--purple), transparent); }
 
-        /* عند الوقوف على الكارت: يرتفع ويتحسن كل نصه معاً ككتلة واحدة */
         .pillar-card:hover {
             transform: translateY(-9px) scale(1.02);
             background: rgba(16, 26, 52, 0.98);
@@ -843,16 +833,15 @@
             gap: 1.15rem;
         }
         .pillar-item {
-            font-size: 0.92rem;
+            font-size: 0.9rem;
             color: #94a3b8;
-            line-height: 1.75;
+            line-height: 1.7;
             display: flex;
-            align-items: baseline;
-            gap: 10px;
+            align-items: flex-start;
+            gap: 8px;
             text-align: left;
             transition: color 0.35s ease;
         }
-        /* تحسين لون الفقرة بالكامل داخل الكارت عند الـ Hover */
         .pillar-card:hover .pillar-item {
             color: #e2e8f0;
         }
@@ -860,6 +849,7 @@
             font-weight: bold;
             flex-shrink: 0;
             display: inline-block;
+            line-height: 1.7;
         }
 
         .project-visual-grid {
@@ -1247,6 +1237,7 @@
             gap: 6px;
         }
 
+        /* ─── CONTACT SECTION & LUXURY BRAND ICONS ─── */
         .contact-box {
             display: grid;
             grid-template-columns: 1.2fr 1fr;
@@ -1276,7 +1267,7 @@
             background: rgba(11,18,34,0.72);
             border: 1px solid rgba(56,189,248,0.08);
             border-radius: 20px;
-            padding: 1.4rem 1.6rem;
+            padding: 1.3rem 1.6rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -1297,40 +1288,64 @@
             min-width: 0;
         }
 
+        /* ── تصميم السكويركل الزجاجي الأنيق للأيقونات ── */
         .contact-icon-box {
-            width: 52px;
-            height: 52px;
-            border-radius: 14px;
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            background: rgba(56,189,248,0.08);
-            border: 1px solid rgba(56,189,248,0.15);
-            color: var(--cyan);
             transition: var(--transition-bounce);
+            position: relative;
         }
         .contact-card:hover .contact-icon-box {
-            transform: scale(1.08);
-            box-shadow: 0 0 18px rgba(56,189,248,0.28);
+            transform: scale(1.08) translateY(-2px);
         }
 
-        .contact-icon-box--green {
-            background: rgba(37,211,102,0.10);
-            border-color: rgba(37,211,102,0.25);
-            color: var(--whatsapp);
+        /* 1. تخصيص أيقونة Gmail الرسمية */
+        .contact-icon-box--gmail {
+            background: rgba(234, 67, 53, 0.08);
+            border: 1.5px solid rgba(234, 67, 53, 0.28);
+            box-shadow: 0 4px 18px rgba(234, 67, 53, 0.15), inset 0 0 12px rgba(234, 67, 53, 0.05);
         }
-        .contact-card:hover .contact-icon-box--green {
-            box-shadow: 0 0 18px rgba(37,211,102,0.32);
+        .contact-card:hover .contact-icon-box--gmail {
+            border-color: #ea4335;
+            box-shadow: 0 0 25px rgba(234, 67, 53, 0.45), inset 0 0 14px rgba(234, 67, 53, 0.15);
         }
 
-        .contact-icon-box--purple {
-            background: rgba(168,85,247,0.10);
-            border-color: rgba(168,85,247,0.25);
-            color: var(--purple);
+        /* 2. تخصيص أيقونة الهاتف الخضراء النيون */
+        .contact-icon-box--phone {
+            background: rgba(34, 197, 94, 0.08);
+            border: 1.5px solid rgba(34, 197, 94, 0.32);
+            box-shadow: 0 4px 18px rgba(34, 197, 94, 0.16), inset 0 0 12px rgba(34, 197, 94, 0.06);
         }
-        .contact-card:hover .contact-icon-box--purple {
-            box-shadow: 0 0 18px rgba(168,85,247,0.32);
+        .contact-card:hover .contact-icon-box--phone {
+            border-color: #22c55e;
+            box-shadow: 0 0 25px rgba(34, 197, 94, 0.45), inset 0 0 14px rgba(34, 197, 94, 0.18);
+        }
+
+        /* 3. تخصيص أيقونة LinkedIn الرسمية */
+        .contact-icon-box--linkedin {
+            background: rgba(10, 102, 194, 0.10);
+            border: 1.5px solid rgba(10, 102, 194, 0.35);
+            box-shadow: 0 4px 18px rgba(10, 102, 194, 0.20), inset 0 0 12px rgba(10, 102, 194, 0.08);
+        }
+        .contact-card:hover .contact-icon-box--linkedin {
+            border-color: #0a66c2;
+            box-shadow: 0 0 25px rgba(10, 102, 194, 0.50), inset 0 0 14px rgba(10, 102, 194, 0.20);
+        }
+
+        /* 4. تخصيص أيقونة Google Maps الأصلية */
+        .contact-icon-box--location {
+            background: rgba(26, 115, 232, 0.08);
+            border: 1.5px solid rgba(56, 189, 248, 0.30);
+            box-shadow: 0 4px 18px rgba(26, 115, 232, 0.15), inset 0 0 12px rgba(56, 189, 248, 0.06);
+        }
+        .contact-card:hover .contact-icon-box--location {
+            border-color: var(--cyan);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.45), inset 0 0 14px rgba(26, 115, 232, 0.18);
         }
 
         .contact-text-meta {
@@ -1361,71 +1376,101 @@
             color: var(--cyan);
         }
 
+        /* ─── الأزرار الدقيقة والمطابقة تماماً للصورة (Copy, Call, WhatsApp, Visit, Tag) ─── */
         .contact-actions {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             flex-shrink: 0;
         }
 
+        /* النمط المشترك للأزرار المظلمة */
         .btn-action-icon {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 10px 18px;
-            font-size: 0.8rem;
+            padding: 8px 18px;
+            font-size: 0.82rem;
             font-weight: 600;
             border-radius: var(--radius-full);
             text-decoration: none;
-            background: rgba(255,255,255,0.05);
-            color: var(--text-secondary);
-            border: 1px solid rgba(255,255,255,0.10);
             transition: var(--transition-bounce);
             cursor: pointer;
             white-space: nowrap;
         }
-        .btn-action-icon:hover {
-            color: #fff;
+
+        /* 1. زر Copy (داكن مع حد كحلي أنيق وخط رمادي فاتح) */
+        .btn-action-icon--copy {
+            background: rgba(18, 28, 50, 0.85);
+            color: #d1d5db;
+            border: 1.5px solid rgba(56, 189, 248, 0.22);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+        }
+        .btn-action-icon--copy:hover {
+            color: #ffffff;
+            border-color: var(--cyan);
+            background: rgba(24, 38, 68, 0.95);
             transform: translateY(-2px);
         }
 
+        /* 2. زر Call (داكن مع حد كحلي خفيف) */
+        .btn-action-icon--call {
+            background: rgba(18, 28, 50, 0.85);
+            color: #d1d5db;
+            border: 1.5px solid rgba(56, 189, 248, 0.22);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+        }
         .btn-action-icon--call:hover {
-            background: rgba(56,189,248,0.22);
-            border-color: var(--cyan);
-            color: var(--cyan);
-            box-shadow: 0 0 16px rgba(56,189,248,0.35);
+            color: #ffffff;
+            border-color: #22c55e;
+            background: rgba(24, 38, 68, 0.95);
+            transform: translateY(-2px);
         }
 
+        /* 3. زر WhatsApp (أخضر نيون كامل متوهج بخط أسود وأيقونة سوداء كما في الصورة تماماً) */
         .btn-action-icon--wa {
-            background: rgba(37,211,102,0.14);
-            border-color: rgba(37,211,102,0.32);
-            color: var(--whatsapp);
+            background: #22c55e;
+            color: #040914 !important;
+            font-weight: 700;
+            border: none;
+            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.55), 0 0 25px rgba(34, 197, 94, 0.35);
+        }
+        .btn-action-icon--wa svg {
+            color: #040914;
         }
         .btn-action-icon--wa:hover {
-            background: var(--whatsapp);
-            color: #030712;
-            border-color: var(--whatsapp);
-            box-shadow: 0 0 22px rgba(37,211,102,0.45);
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 8px 30px rgba(34, 197, 94, 0.75), 0 0 35px rgba(34, 197, 94, 0.5);
+            color: #000000 !important;
         }
 
-        .btn-action-icon--linkedin {
-            background: rgba(14,165,233,0.16);
-            border-color: rgba(14,165,233,0.32);
-            color: var(--cyan);
+        /* 4. زر Visit (داكن مع كتابة زرقاء وأيقونة سهم خارجي) */
+        .btn-action-icon--visit {
+            background: rgba(15, 26, 48, 0.88);
+            color: #38bdf8;
+            border: 1.5px solid rgba(56, 189, 248, 0.35);
+            padding: 8px 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
         }
-        .btn-action-icon--linkedin:hover {
-            background: linear-gradient(135deg, var(--cyan), var(--blue));
-            color: #030712;
-            border-color: transparent;
-            box-shadow: 0 4px 18px rgba(56,189,248,0.45);
+        .btn-action-icon--visit:hover {
+            color: #ffffff;
+            border-color: var(--cyan);
+            background: rgba(10, 102, 194, 0.4);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+            transform: translateY(-2px);
         }
 
-        .btn-action-icon--copy:hover {
-            background: rgba(168,85,247,0.22);
-            border-color: var(--purple);
-            color: #fff;
-            box-shadow: 0 0 16px rgba(168,85,247,0.35);
+        /* 5. تاج Open to Relocation (داكن بحد وكتابة خضراء زمردية) */
+        .tag--relocation {
+            background: rgba(16, 185, 129, 0.08);
+            border: 1.5px solid rgba(16, 185, 129, 0.32);
+            color: var(--emerald);
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 7px 18px;
+            border-radius: var(--radius-full);
+            white-space: nowrap;
         }
 
         .form-side-container {
@@ -1465,7 +1510,6 @@
             resize: vertical;
         }
 
-        /* ─── ULTRA SLEEK SEND BUTTON ─── */
         .btn-submit-contact {
             background: linear-gradient(90deg, #38bdf8 0%, #60a5fa 45%, #818cf8 80%, #a855f7 100%) !important;
             color: #030712 !important;
@@ -1713,7 +1757,6 @@
             .contact-box { padding: 1.5rem; gap: 1.5rem; }
             .contact-card { padding: 1.2rem; flex-direction: column; align-items: flex-start; }
             .contact-actions { width: 100%; justify-content: flex-end; }
-            .btn-action-icon { padding: 8px 16px; font-size: 0.75rem; }
 
             .edu-hero-block { flex-direction: column; gap: 1.2rem; }
             .edu-title-main { font-size: 1.4rem; }
@@ -1728,7 +1771,7 @@
             .cv-inpage-header .file-name { font-size: 0.68rem; }
             .cv-inpage-header .actions .btn { font-size: 0.6rem; padding: 3px 8px; }
             .contact-text-meta .value { max-width: 200px; font-size: 0.85rem; }
-            .contact-icon-box { width: 44px; height: 44px; border-radius: 12px; }
+            .contact-icon-box { width: 46px; height: 46px; border-radius: 14px; }
             section { padding: 3.5rem 4% 1.8rem; }
             .sec-head h2 { font-size: 1.6rem; }
             .form-side-container { padding: 1.2rem; }
@@ -1810,30 +1853,30 @@
                     IT graduate specializing in Computer Networks, with a strong foundation in CCNA (200-301) and CCNP Routing &amp; Switching concepts, and hands-on experience in routing, switching, VLANs, network security, and troubleshooting.
                 </p>
 
+                <!-- ─── أزرار الهيرو الأربعة المطورة والفاخرة ─── -->
                 <div class="hero-cta reveal visible reveal-delay-4">
-                    <!-- الزر 1: Featured Project (تدرج سماوي وأزرق متوهج) -->
+                    <!-- 1. Featured Project (أيقونة الطبقات الأنيقة) -->
                     <a href="#projects" class="btn btn-cta-project">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                            <polyline points="2 17 12 22 22 17"></polyline>
-                            <polyline points="2 12 12 17 22 12"></polyline>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/>
+                            <path d="m22 12.5-8.58 3.91a2 2 0 0 1-1.66 0L2 12.5"/>
+                            <path d="m22 17.5-8.58 3.91a2 2 0 0 1-1.66 0L2 17.5"/>
                         </svg>
                         <span>Featured Project</span>
                     </a>
 
-                    <!-- الزر 2: View CV (تدرج أزرق ملكي غني ومتناسق) -->
+                    <!-- 2. View CV (أيقونة المستند) -->
                     <a href="#cv-section" class="btn btn-cta-cv">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                             <polyline points="14 2 14 8 20 8"></polyline>
                             <line x1="16" y1="13" x2="8" y2="13"></line>
                             <line x1="16" y1="17" x2="8" y2="17"></line>
-                            <polyline points="10 9 9 9 8 9"></polyline>
                         </svg>
                         <span>View CV</span>
                     </a>
 
-                    <!-- الزر 3: Let's Connect (تدرج نيون أرجواني ملكي) -->
+                    <!-- 3. Let's Connect (أيقونة المحادثة) -->
                     <a href="#contact" class="btn btn-cta-connect">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
@@ -1841,17 +1884,17 @@
                         <span>Let's Connect</span>
                     </a>
 
-                    <!-- الزر 4: LinkedIn (أزرق لينكد إن الأصلي المتوهج مع الأيقونة الرسمية) -->
+                    <!-- 4. LinkedIn (لوجو لينكد إن الرسمي الحقيقي) -->
                     <a href="https://linkedin.com/in/ahmedattiahemada" target="_blank" rel="noopener" class="btn btn-cta-linkedin">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.65 1.65 0 0 0-1.66 1.66 1.66 1.66 0 0 0 1.66 1.66 1.66 1.66 0 0 0 1.66-1.66 1.65 1.65 0 0 0-1.66-1.66Z"/>
+                        <svg width="19" height="19" viewBox="0 0 24 24">
+                            <rect width="24" height="24" rx="5" fill="#FFFFFF"/>
+                            <path fill="#0A66C2" d="M19 19h-2.8v-4.4c0-1.05-.02-2.4-1.46-2.4-1.46 0-1.68 1.14-1.68 2.32V19H10.2V10h2.7v1.23h.04c.38-.72 1.3-1.48 2.68-1.48 2.87 0 3.4 1.89 3.4 4.35V19zM7.2 8.76c-.9 0-1.63-.73-1.63-1.63s.73-1.63 1.63-1.63 1.63.73 1.63 1.63-.73 1.63-1.63 1.63zM8.6 19H5.8V10h2.8V19z"/>
                         </svg>
                         <span>LinkedIn</span>
                     </a>
                 </div>
             </div>
 
-            <!-- ─── ENLARGED HIGHLIGHTS BAR ─── -->
             <div class="highlights-bar reveal visible reveal-delay-4">
                 <div class="highlight-pill"><span class="icon">◆</span> <strong>Track:</strong> CCNA (200-301) &amp; CCNP R&amp;S</div>
                 <div class="highlight-pill"><span class="icon">◆</span> <strong>HA:</strong> HSRP, VRRP, GLBP</div>
@@ -1861,7 +1904,7 @@
         </div>
     </section>
 
-    <!-- ─── 2. SKILLS (TECHNICAL COMPETENCIES - INTERACTIVE) ─── -->
+    <!-- ─── 2. SKILLS (TECHNICAL COMPETENCIES) ─── -->
     <section id="skills">
         <div class="sec-head reveal">
             <span class="section-label">Technical Expertise</span>
@@ -1908,7 +1951,7 @@
         </div>
     </section>
 
-    <!-- ─── 3. FEATURED PROJECTS (PHYSICAL DEPLOYMENT & SYSTEMS AUTOMATION) ─── -->
+    <!-- ─── 3. FEATURED PROJECTS ─── -->
     <section id="projects">
         <div class="sec-head reveal">
             <span class="section-label">Enterprise Infrastructure &amp; Network Automation</span>
@@ -1917,7 +1960,6 @@
         </div>
 
         <div class="project-super-card reveal">
-            <!-- Header Badge & Title -->
             <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:1.2rem;">
                 <div>
                     <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--cyan); font-weight:700; display:block; margin-bottom:4px;">Multi-Campus Enterprise Infrastructure</span>
@@ -1926,12 +1968,10 @@
                 <span class="tag tag--emerald" style="font-size:0.76rem; padding:6px 18px; font-weight:700; border-width:1.5px;">Physical Deployment — 3 Routers · 38 Switches · 120 Endpoints</span>
             </div>
 
-            <!-- الفقرة الرئيسية بنص أبيض ناصع وتنسيق متوازن -->
             <p style="font-size:0.96rem; line-height:1.85; color:#e2e8f0; margin-bottom:1.5rem;">
                 Personally architected, cabled, and deployed the physical network infrastructure across <strong style="color:#ffffff;">6 computer laboratories serving 120 dedicated PC workstations</strong>. The physical switching and routing fabric utilizes <strong style="color:#ffffff;">3 enterprise Cisco Routers</strong>, <strong style="color:#ffffff;">3 Cisco Managed Distribution Switches</strong>, and <strong style="color:#ffffff;">35 Unmanaged bench-level switches</strong>. The environment is centrally orchestrated via the custom <strong style="color:#ffffff;">NEXUS software ecosystem</strong>, delivered as zero-dependency native Desktop (.EXE) and Mobile (.APK Flutter/Kotlin) management interfaces.
             </p>
 
-            <!-- Quick Interactive Metrics Grid -->
             <div class="project-stats-grid">
                 <div class="stat-mini-box">
                     <div class="stat-mini-num" style="color:var(--cyan);">120 PCs</div>
@@ -1951,10 +1991,8 @@
                 </div>
             </div>
 
-            <!-- Deep Technical Pillars Grid (تنسيق مرتب وسلس تماماً مثل الصورة الأولى مع التفاعل الموحد) -->
             <div class="project-pillars-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.3rem; margin: 2.2rem 0;">
                 
-                <!-- Pillar 1: Routing & Switching -->
                 <div class="pillar-card pillar-card--cyan">
                     <div class="pillar-header">
                         <span class="pillar-icon">🌐</span>
@@ -1976,7 +2014,6 @@
                     </ul>
                 </div>
 
-                <!-- Pillar 2: Zero-Trust Hardening -->
                 <div class="pillar-card pillar-card--emerald">
                     <div class="pillar-header">
                         <span class="pillar-icon">🛡️</span>
@@ -1998,7 +2035,6 @@
                     </ul>
                 </div>
 
-                <!-- Pillar 3: NEXUS Services & Port Architecture -->
                 <div class="pillar-card pillar-card--purple">
                     <div class="pillar-header">
                         <span class="pillar-icon">⚡</span>
@@ -2022,9 +2058,7 @@
 
             </div>
 
-            <!-- ─── TWO HIGH-END VISUAL SHOWCASE SPACES (DATABASE LOADED) ─── -->
             <div class="project-visual-grid">
-                <!-- SPACE 1: TOPOLOGY OR LAB SETUP -->
                 <div class="visual-item-box">
                     {% if profile.proj_img_topology %}
                         <img src="data:image/jpeg;base64,{{ profile.proj_img_topology }}" alt="Enterprise Campus Network Topology">
@@ -2044,7 +2078,6 @@
                     </div>
                 </div>
 
-                <!-- SPACE 2: NEXUS DASHBOARD / EXAM LAB PLATFORM -->
                 <div class="visual-item-box">
                     {% if profile.proj_img_nexus %}
                         <img src="data:image/jpeg;base64,{{ profile.proj_img_nexus }}" alt="NEXUS Platform & Lab Environment">
@@ -2065,7 +2098,6 @@
                 </div>
             </div>
 
-            <!-- Tech Badges Bottom (Interactive tags) -->
             <div class="tags" style="padding-top:1.1rem; border-top:1px solid rgba(56,189,248,0.12);">
                 <span class="tag tag--emerald">3 Routers &amp; 38 Switches</span>
                 <span class="tag">120 PC Endpoints</span>
@@ -2158,7 +2190,7 @@
         </div>
     </section>
 
-    <!-- ─── 5. CV SECTION (INTERACTIVE VIEWER) ─── -->
+    <!-- ─── 5. CV SECTION ─── -->
     <section id="cv-section">
         <div class="sec-head reveal">
             <span class="section-label">Resume Document</span>
@@ -2182,7 +2214,7 @@
         </div>
     </section>
 
-    <!-- ─── 6. CONTACT SECTION ─── -->
+    <!-- ─── 6. CONTACT SECTION (مع لوجوهات Gmail, Phone, LinkedIn, Google Maps والأزرار الأصلية) ─── -->
     <section id="contact">
         <div class="sec-head reveal">
             <span class="section-label">Get In Touch</span>
@@ -2192,28 +2224,38 @@
 
         <div class="contact-box reveal">
             <div class="contact-details-col">
+
+                <!-- 1. Direct Email (أيقونة Gmail الرسمية متعددة الألوان) -->
                 <div class="contact-card">
                     <div class="contact-card-info">
-                        <div class="contact-icon-box">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+                        <div class="contact-icon-box contact-icon-box--gmail" title="Google Gmail">
+                            <svg width="28" height="28" viewBox="0 0 48 48">
+                                <path fill="#4caf50" d="M45,16.2l-5,2.75l-5,4.75L35,40h7c1.657,0,3-1.343,3-3V16.2z"/>
+                                <path fill="#1e88e5" d="M3,16.2l3.614,1.71L13,23.7V40H6c-1.657,0-3-1.343-3-3V16.2z"/>
+                                <polygon fill="#e53935" points="35,11.2 24,19.45 13,11.2 12,17 13,23.7 24,31.95 35,23.7 36,17"/>
+                                <path fill="#c62828" d="M3,12.298V16.2l10,7.5V11.2L4.376,4.729C3.541,4.103,2.355,4.423,1.93,5.378C1.505,6.333,1.696,7.502,2.378,8.273L3,12.298z"/>
+                                <path fill="#fbc02d" d="M45,12.298V16.2l-10,7.5V11.2l8.624-6.471c0.835-0.626,2.021-0.306,2.446,0.649C46.495,6.333,46.304,7.502,45.622,8.273L45,12.298z"/>
+                            </svg>
                         </div>
                         <div class="contact-text-meta">
                             <span class="label">Direct Email</span>
                             <a href="mailto:ahmedattia20041120mm@gmail.com" class="value">ahmedattia20041120mm@gmail.com</a>
                         </div>
                     </div>
+                    <!-- زر Copy الأصلي من الصورة -->
                     <div class="contact-actions">
                         <button class="btn-action-icon btn-action-icon--copy" onclick="copyToClipboard('ahmedattia20041120mm@gmail.com', 'Email copied!')">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                            Copy
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            <span>Copy</span>
                         </button>
                     </div>
                 </div>
 
+                <!-- 2. Phone & WhatsApp (أيقونة هاتف نيون + أزرار Call و WhatsApp من الصورة) -->
                 <div class="contact-card">
                     <div class="contact-card-info">
-                        <div class="contact-icon-box contact-icon-box--green">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <div class="contact-icon-box contact-icon-box--phone" title="Phone & WhatsApp">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                             </svg>
                         </div>
@@ -2222,6 +2264,7 @@
                             <a href="tel:01274477946" class="value">+20 127 447 7946</a>
                         </div>
                     </div>
+                    <!-- زري Call و WhatsApp الأصليين من الصورة -->
                     <div class="contact-actions">
                         <a href="tel:01274477946" class="btn-action-icon btn-action-icon--call">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -2238,38 +2281,52 @@
                     </div>
                 </div>
 
+                <!-- 3. LinkedIn Network (شعار لينكد إن الرسمي الأصلي + زر Visit من الصورة) -->
                 <div class="contact-card">
                     <div class="contact-card-info">
-                        <div class="contact-icon-box contact-icon-box--purple">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        <div class="contact-icon-box contact-icon-box--linkedin" title="LinkedIn">
+                            <svg width="28" height="28" viewBox="0 0 24 24">
+                                <rect width="24" height="24" rx="6" fill="#0A66C2"/>
+                                <path fill="#FFFFFF" d="M19 19h-2.8v-4.4c0-1.05-.02-2.4-1.46-2.4-1.46 0-1.68 1.14-1.68 2.32V19H10.2V10h2.7v1.23h.04c.38-.72 1.3-1.48 2.68-1.48 2.87 0 3.4 1.89 3.4 4.35V19zM7.2 8.76c-.9 0-1.63-.73-1.63-1.63s.73-1.63 1.63-1.63 1.63.73 1.63 1.63-.73 1.63-1.63 1.63zM8.6 19H5.8V10h2.8V19z"/>
+                            </svg>
                         </div>
                         <div class="contact-text-meta">
                             <span class="label">LinkedIn Network</span>
                             <a href="https://linkedin.com/in/ahmedattiahemada" target="_blank" rel="noopener" class="value">in/ahmedattiahemada</a>
                         </div>
                     </div>
+                    <!-- زر Visit الأصلي من الصورة -->
                     <div class="contact-actions">
-                        <a href="https://linkedin.com/in/ahmedattiahemada" target="_blank" rel="noopener" class="btn-action-icon btn-action-icon--linkedin">
-                            Visit
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        <a href="https://linkedin.com/in/ahmedattiahemada" target="_blank" rel="noopener" class="btn-action-icon btn-action-icon--visit">
+                            <span>Visit</span>
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                         </a>
                     </div>
                 </div>
 
+                <!-- 4. Location (أيقونة Google Maps الأصلية + تاج Open to Relocation الأصلي) -->
                 <div class="contact-card">
                     <div class="contact-card-info">
-                        <div class="contact-icon-box">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        <div class="contact-icon-box contact-icon-box--location" title="Google Maps Location">
+                            <svg width="22" height="28" viewBox="0 0 92.3 132.3">
+                                <path fill="#1a73e8" d="M60.2 2.2C55.8.8 51 0 46.1 0 32 0 19.3 6.4 10.8 16.5l21.8 18.3L60.2 2.2z" [INDEX_5_1_1]/>
+                                <path fill="#ea4335" d="M10.8 16.5C4.1 24.5 0 34.9 0 46.1c0 8.7 1.7 15.7 4.6 22l28-33.3-21.8-18.3z" [INDEX_5_1_1]/>
+                                <path fill="#4285f4" d="M46.2 28.5c9.8 0 17.7 7.9 17.7 17.7 0 4.3-1.6 8.3-4.2 11.4 0 0 13.9-16.6 27.5-32.7-5.6-10.8-15.3-19-27-22.7L32.6 34.8c3.3-3.8 8.1-6.3 13.6-6.3" [INDEX_5_1_1]/>
+                                <path fill="#fbbc04" d="M46.2 63.8c-9.8 0-17.7-7.9-17.7-17.7 0-4.3 1.5-8.3 4.1-11.3l-28 33.3c4.8 10.6 12.8 19.2 21 29.9l34.1-40.5c-3.3 3.9-8.1 6.3-13.5 6.3" [INDEX_5_1_1]/>
+                                <path fill="#34a853" d="M59.1 109.2c15.4-24.1 33.3-35 33.3-63 0-7.7-1.9-14.9-5.2-21.3L25.6 98c2.6 3.4 5.3 7.3 7.9 11.3 9.4 14.5 6.8 23.1 12.8 23.1s3.4-8.7 12.8-23.2" [INDEX_5_1_1]/>
+                            </svg>
                         </div>
                         <div class="contact-text-meta">
                             <span class="label">Location</span>
                             <span class="value">Borg El Arab, Alexandria, Egypt</span>
                         </div>
                     </div>
+                    <!-- تاج Open to Relocation الأصلي من الصورة -->
                     <div class="contact-actions">
-                        <span class="tag tag--emerald" style="font-size:0.72rem; padding:6px 14px;">Open to Relocation</span>
+                        <span class="tag--relocation">Open to Relocation</span>
                     </div>
                 </div>
+
             </div>
 
             <div id="contactFormContainer" class="form-side-container">
@@ -2574,7 +2631,7 @@
                             const alpha = (1 - dist / mouse.radius) * 0.35;
                             ctx.beginPath();
                             ctx.moveTo(n1.x, n1.y);
-                            ctx.lineTo(mouse.x, mouse.y);
+                            ctx.lineTo(n2.x, n2.y);
                             ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
                             ctx.lineWidth = 0.8;
                             ctx.stroke();
