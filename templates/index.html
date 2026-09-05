@@ -524,208 +524,373 @@
             transform: scale(1.15);
         }
 
+        /* ─── HIGHLIGHTS BAR (ENLARGED & ENHANCED) ─── */
         .highlights-bar {
-            margin: 2.6rem auto 0;
-            max-width: 1000px;
+            margin: 3.2rem auto 0;
+            max-width: 1080px;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 0.65rem;
+            gap: 0.9rem;
         }
         .highlight-pill {
-            padding: 7px 18px;
-            background: rgba(12,20,38,0.48);
-            border: 1px solid rgba(56,189,248,0.07);
+            padding: 11px 24px;
+            background: rgba(13, 22, 44, 0.65);
+            border: 1px solid rgba(56, 189, 248, 0.16);
             border-radius: var(--radius-full);
-            font-size: 0.76rem;
+            font-size: 0.88rem;
             color: var(--text-secondary);
             display: flex;
             align-items: center;
-            gap: 7px;
-            backdrop-filter: blur(8px);
+            gap: 9px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
             transition: var(--transition-smooth);
         }
         .highlight-pill:hover {
-            border-color: rgba(56,189,248,0.22);
-            color: var(--text-primary);
-            transform: translateY(-2px);
+            border-color: rgba(56, 189, 248, 0.45);
+            color: #ffffff;
+            background: rgba(18, 32, 64, 0.88);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(56, 189, 248, 0.25);
         }
-        .highlight-pill strong { color: var(--cyan); font-weight: 600; }
-        .highlight-pill .icon { opacity: 0.35; }
+        .highlight-pill strong { color: var(--cyan); font-weight: 700; font-size: 0.92rem; }
+        .highlight-pill .icon { color: var(--cyan); opacity: 0.8; font-size: 0.8rem; }
 
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.6rem;
+            gap: 1.8rem;
         }
 
+        /* ─── INTERACTIVE SKILL CARDS WITH ADVANCED ANIMATIONS ─── */
         .card {
             background: var(--bg-card);
-            border: 1px solid rgba(56,189,248,0.08);
+            border: 1px solid rgba(56,189,248,0.10);
             border-radius: var(--radius-md);
-            padding: 1.9rem 1.7rem;
+            padding: 2.2rem 1.9rem;
             display: flex;
             flex-direction: column;
-            backdrop-filter: blur(18px) saturate(1.3);
-            -webkit-backdrop-filter: blur(18px) saturate(1.3);
-            transition: var(--transition-smooth);
+            backdrop-filter: blur(20px) saturate(1.4);
+            -webkit-backdrop-filter: blur(20px) saturate(1.4);
+            transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             box-shadow: var(--shadow-card);
             position: relative;
             overflow: hidden;
+            cursor: pointer;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            transition: left 0.6s ease;
         }
         .card:hover {
-            border-color: rgba(56,189,248,0.22);
-            transform: translateY(-7px);
-            background: var(--bg-card-hover);
-            box-shadow: var(--shadow-card), var(--shadow-glow);
+            border-color: rgba(56,189,248,0.38);
+            transform: translateY(-9px) scale(1.015);
+            background: rgba(16, 26, 52, 0.92);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 45px rgba(56, 189, 248, 0.18);
+        }
+        .card:hover::before {
+            left: 100%;
         }
 
         .card .icon-wrap {
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, rgba(56,189,248,0.12), rgba(168,85,247,0.12));
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(56,189,248,0.15), rgba(168,85,247,0.15));
+            border: 1px solid rgba(56,189,248,0.15);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
-            margin-bottom: 0.9rem;
+            font-size: 1.45rem;
+            margin-bottom: 1.1rem;
             flex-shrink: 0;
+            transition: var(--transition-bounce);
+        }
+        .card:hover .icon-wrap {
+            transform: scale(1.18) rotate(6deg);
+            background: linear-gradient(135deg, rgba(56,189,248,0.3), rgba(168,85,247,0.3));
+            border-color: var(--cyan);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.45);
         }
 
         .card h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.45rem;
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 0.6rem;
             letter-spacing: -0.01em;
+            color: #ffffff;
+            transition: color 0.3s ease;
+        }
+        .card:hover h3 {
+            color: var(--cyan);
         }
         .card p {
             color: var(--text-secondary);
-            font-size: 0.87rem;
-            line-height: 1.7;
-            margin-bottom: 1.1rem;
+            font-size: 0.92rem;
+            line-height: 1.75;
+            margin-bottom: 1.3rem;
             flex: 1;
+            transition: color 0.3s ease;
+        }
+        .card:hover p {
+            color: #d1d5db;
         }
 
         .tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 7px;
             margin-top: auto;
         }
         .tag {
-            font-size: 0.72rem;
-            font-weight: 500;
-            padding: 4px 12px;
+            font-size: 0.74rem;
+            font-weight: 600;
+            padding: 5px 13px;
             background: rgba(56,189,248,0.06);
-            border: 1px solid rgba(56,189,248,0.12);
+            border: 1px solid rgba(56,189,248,0.14);
             border-radius: var(--radius-full);
             color: var(--text-secondary);
-            transition: var(--transition-smooth);
+            transition: all 0.3s ease;
         }
-        .tag:hover {
+        .card:hover .tag {
             border-color: rgba(56,189,248,0.3);
             color: var(--text-primary);
         }
+        .tag:hover {
+            border-color: var(--cyan) !important;
+            color: #ffffff !important;
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.35);
+        }
         .tag--emerald {
             color: var(--emerald);
-            border-color: rgba(16,185,129,0.22);
-            background: rgba(16,185,129,0.06);
+            border-color: rgba(16,185,129,0.25);
+            background: rgba(16,185,129,0.08);
+        }
+        .tag--emerald:hover {
+            border-color: var(--emerald) !important;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.35);
         }
         .tag--gold {
             color: var(--gold);
-            border-color: rgba(245,197,66,0.22);
-            background: rgba(245,197,66,0.06);
+            border-color: rgba(245,197,66,0.25);
+            background: rgba(245,197,66,0.08);
+        }
+        .tag--gold:hover {
+            border-color: var(--gold) !important;
+            box-shadow: 0 0 15px rgba(245, 197, 66, 0.35);
         }
         .tag--purple {
             color: var(--purple);
-            border-color: rgba(168,85,247,0.22);
-            background: rgba(168,85,247,0.06);
+            border-color: rgba(168,85,247,0.25);
+            background: rgba(168,85,247,0.08);
+        }
+        .tag--purple:hover {
+            border-color: var(--purple) !important;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.35);
         }
 
-        /* ─── ENHANCED PROJECT SECTION STYLES ─── */
+        /* ─── UNIFIED & ENHANCED INTERACTIVE PROJECT SECTION ─── */
         .project-super-card {
-            background: linear-gradient(145deg, rgba(13, 20, 36, 0.92), rgba(8, 14, 28, 0.96));
-            border: 1px solid rgba(56, 189, 248, 0.16);
+            background: linear-gradient(145deg, rgba(13, 20, 36, 0.94), rgba(8, 14, 28, 0.98));
+            border: 1px solid rgba(56, 189, 248, 0.18);
             border-radius: var(--radius-xl);
-            padding: 2.8rem;
+            padding: 3rem;
             backdrop-filter: blur(28px) saturate(1.6);
             -webkit-backdrop-filter: blur(28px) saturate(1.6);
-            box-shadow: var(--shadow-card), 0 0 60px rgba(56, 189, 248, 0.06);
-            max-width: 1120px;
+            box-shadow: var(--shadow-card), 0 0 60px rgba(56, 189, 248, 0.07);
+            max-width: 1140px;
             margin: 0 auto;
             position: relative;
             overflow: hidden;
             transition: var(--transition-smooth);
         }
         .project-super-card:hover {
-            border-color: rgba(56, 189, 248, 0.35);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 65px rgba(56, 189, 248, 0.15);
+            border-color: rgba(56, 189, 248, 0.38);
+            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.85), 0 0 75px rgba(56, 189, 248, 0.18);
         }
 
         .project-stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin: 1.8rem 0;
+            gap: 1.1rem;
+            margin: 2rem 0;
         }
         .stat-mini-box {
-            background: rgba(10, 16, 32, 0.75);
-            border: 1px solid rgba(56, 189, 248, 0.10);
-            border-radius: var(--radius-md);
-            padding: 1rem;
+            background: rgba(10, 16, 32, 0.80);
+            border: 1px solid rgba(56, 189, 248, 0.12);
+            border-radius: 18px;
+            padding: 1.35rem 1rem;
             text-align: center;
-            transition: var(--transition-smooth);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
         }
         .stat-mini-box:hover {
-            border-color: rgba(56, 189, 248, 0.35);
-            transform: translateY(-3px);
-            background: rgba(15, 25, 48, 0.9);
+            border-color: var(--cyan);
+            transform: translateY(-7px) scale(1.02);
+            background: rgba(16, 28, 56, 0.96);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65), 0 0 30px rgba(56, 189, 248, 0.32);
         }
         .stat-mini-num {
-            font-size: 1.65rem;
+            font-size: 1.85rem;
             font-weight: 900;
-            line-height: 1;
-            margin-bottom: 0.3rem;
+            line-height: 1.1;
+            margin-bottom: 0.35rem;
             letter-spacing: -0.02em;
+            transition: transform 0.35s ease;
+        }
+        .stat-mini-box:hover .stat-mini-num {
+            transform: scale(1.08);
         }
         .stat-mini-lbl {
-            font-size: 0.72rem;
+            font-size: 0.76rem;
             text-transform: uppercase;
             letter-spacing: 0.08em;
             color: var(--text-muted);
-            font-weight: 600;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+        .stat-mini-box:hover .stat-mini-lbl {
+            color: #ffffff;
+        }
+
+        /* ─── UNIFIED INTERACTIVE PILLARS (ENTIRE CARD AWAKENS TOGETHER) ─── */
+        .pillar-card {
+            background: rgba(11, 18, 34, 0.85);
+            border-radius: 20px;
+            padding: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        .pillar-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .pillar-card--cyan { border: 1px solid rgba(56, 189, 248, 0.18); }
+        .pillar-card--cyan::before { background: linear-gradient(90deg, transparent, var(--cyan), transparent); }
+
+        .pillar-card--emerald { border: 1px solid rgba(16, 185, 129, 0.20); }
+        .pillar-card--emerald::before { background: linear-gradient(90deg, transparent, var(--emerald), transparent); }
+
+        .pillar-card--purple { border: 1px solid rgba(168, 85, 247, 0.20); }
+        .pillar-card--purple::before { background: linear-gradient(90deg, transparent, var(--purple), transparent); }
+
+        /* عند الوقوف على الكارت: يرتفع ويتحسن كل نصه معاً ككتلة واحدة */
+        .pillar-card:hover {
+            transform: translateY(-9px) scale(1.02);
+            background: rgba(16, 26, 52, 0.98);
+        }
+        .pillar-card:hover::before {
+            opacity: 1;
+        }
+
+        .pillar-card--cyan:hover {
+            border-color: var(--cyan);
+            box-shadow: 0 24px 50px rgba(0,0,0,0.65), 0 0 35px rgba(56, 189, 248, 0.28);
+        }
+        .pillar-card--emerald:hover {
+            border-color: var(--emerald);
+            box-shadow: 0 24px 50px rgba(0,0,0,0.65), 0 0 35px rgba(16, 185, 129, 0.28);
+        }
+        .pillar-card--purple:hover {
+            border-color: var(--purple);
+            box-shadow: 0 24px 50px rgba(0,0,0,0.65), 0 0 35px rgba(168, 85, 247, 0.28);
+        }
+
+        .pillar-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.3rem;
+            padding-bottom: 0.9rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .pillar-header .pillar-icon {
+            font-size: 1.5rem;
+            transition: transform 0.4s ease;
+        }
+        .pillar-card:hover .pillar-icon {
+            transform: scale(1.25) rotate(6deg);
+        }
+
+        .pillar-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1.15rem;
+        }
+        .pillar-item {
+            font-size: 0.92rem;
+            color: #94a3b8;
+            line-height: 1.75;
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            text-align: left;
+            transition: color 0.35s ease;
+        }
+        /* تحسين لون الفقرة بالكامل داخل الكارت عند الـ Hover */
+        .pillar-card:hover .pillar-item {
+            color: #e2e8f0;
+        }
+        .pillar-bullet {
+            font-weight: bold;
+            flex-shrink: 0;
+            display: inline-block;
         }
 
         .project-visual-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            margin: 2.2rem 0;
+            gap: 1.6rem;
+            margin: 2.4rem 0;
         }
         .visual-item-box {
             position: relative;
-            height: 270px;
+            height: 280px;
             border-radius: var(--radius-md);
             overflow: hidden;
-            border: 1px solid rgba(56, 189, 248, 0.18);
+            border: 1px solid rgba(56, 189, 248, 0.20);
             background: #060b17;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            transition: var(--transition-smooth);
+            transition: all 0.45s ease;
         }
         .visual-item-box:hover {
             border-color: var(--cyan);
-            transform: translateY(-5px);
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7), 0 0 35px rgba(56, 189, 248, 0.22);
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 22px 50px rgba(0, 0, 0, 0.75), 0 0 40px rgba(56, 189, 248, 0.3);
         }
         .visual-item-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .visual-item-box:hover img {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         .visual-caption {
@@ -733,21 +898,21 @@
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 1.2rem 1.4rem 0.9rem;
-            background: linear-gradient(180deg, transparent 0%, rgba(4, 7, 13, 0.96) 90%);
+            padding: 1.3rem 1.5rem 1rem;
+            background: linear-gradient(180deg, transparent 0%, rgba(4, 7, 13, 0.98) 90%);
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
             pointer-events: none;
         }
         .visual-caption h4 {
-            font-size: 0.88rem;
+            font-size: 0.92rem;
             font-weight: 700;
             color: #fff;
             margin-bottom: 2px;
         }
         .visual-caption span {
-            font-size: 0.72rem;
+            font-size: 0.74rem;
             color: var(--cyan);
             letter-spacing: 0.05em;
             text-transform: uppercase;
@@ -1039,7 +1204,7 @@
             text-transform: uppercase;
         }
         .metric-badge-tag--gold { background: rgba(245, 197, 66, 0.12); color: var(--gold); }
-        .metric-badge-tag--emerald { background: rgba(16, 185, 129, 0.12); color: var(--emerald); }
+        .metric-badge-tag--emerald { background: rgba(168, 85, 247, 0.12); color: var(--purple); }
         .metric-badge-tag--purple { background: rgba(168, 85, 247, 0.12); color: var(--purple); }
 
         .metric-primary-val {
@@ -1505,9 +1670,7 @@
             .edu-metrics-grid { grid-template-columns: 1fr; }
             .project-visual-grid { grid-template-columns: 1fr; }
             .project-stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .project-super-card div[style*="grid-template-columns: repeat(3, 1fr)"] {
-                grid-template-columns: 1fr !important;
-            }
+            .project-pillars-grid { grid-template-columns: 1fr !important; }
         }
 
         @media (max-width: 850px) {
@@ -1542,8 +1705,8 @@
             .cv-inpage-body { height: 400px; }
             .sec-head h2 { font-size: 2rem; }
             .cards-grid { grid-template-columns: 1fr; }
-            .highlights-bar { gap: 0.45rem; }
-            .highlight-pill { font-size: 0.7rem; padding: 4px 12px; }
+            .highlights-bar { gap: 0.65rem; }
+            .highlight-pill { font-size: 0.78rem; padding: 8px 16px; }
             .hero-cta .btn { font-size: 0.82rem; padding: 0.7rem 1.4rem; }
             .modal-content { height: 90vh; border-radius: var(--radius-sm); }
             .orb--1, .orb--2 { opacity: 0.12; }
@@ -1688,6 +1851,7 @@
                 </div>
             </div>
 
+            <!-- ─── ENLARGED HIGHLIGHTS BAR ─── -->
             <div class="highlights-bar reveal visible reveal-delay-4">
                 <div class="highlight-pill"><span class="icon">◆</span> <strong>Track:</strong> CCNA (200-301) &amp; CCNP R&amp;S</div>
                 <div class="highlight-pill"><span class="icon">◆</span> <strong>HA:</strong> HSRP, VRRP, GLBP</div>
@@ -1697,7 +1861,7 @@
         </div>
     </section>
 
-    <!-- ─── 2. SKILLS (TECHNICAL COMPETENCIES) ─── -->
+    <!-- ─── 2. SKILLS (TECHNICAL COMPETENCIES - INTERACTIVE) ─── -->
     <section id="skills">
         <div class="sec-head reveal">
             <span class="section-label">Technical Expertise</span>
@@ -1754,7 +1918,7 @@
 
         <div class="project-super-card reveal">
             <!-- Header Badge & Title -->
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:1rem;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:1.2rem;">
                 <div>
                     <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--cyan); font-weight:700; display:block; margin-bottom:4px;">Multi-Campus Enterprise Infrastructure</span>
                     <h3 style="font-size:1.6rem; font-weight:900; letter-spacing:-0.03em; color:#fff; line-height:1.2;">6-Lab Enterprise Campus Network &amp; NEXUS Core</h3>
@@ -1762,11 +1926,12 @@
                 <span class="tag tag--emerald" style="font-size:0.76rem; padding:6px 18px; font-weight:700; border-width:1.5px;">Physical Deployment — 3 Routers · 38 Switches · 120 Endpoints</span>
             </div>
 
-            <p style="font-size:0.96rem; line-height:1.85; color:var(--text-secondary); margin-bottom:1.5rem;">
-                Personally architected, cabled, and deployed the physical network infrastructure across <strong>6 computer laboratories serving 120 dedicated PC workstations</strong>. The physical switching and routing fabric utilizes <strong>3 enterprise Cisco Routers</strong>, <strong>3 Cisco Managed Distribution Switches</strong>, and <strong>35 Unmanaged bench-level switches</strong>. The environment is centrally orchestrated via the custom <strong>NEXUS software ecosystem</strong>, delivered as zero-dependency native Desktop (.EXE) and Mobile (.APK Flutter/Kotlin) management interfaces.
+            <!-- الفقرة الرئيسية بنص أبيض ناصع وتنسيق متوازن -->
+            <p style="font-size:0.96rem; line-height:1.85; color:#e2e8f0; margin-bottom:1.5rem;">
+                Personally architected, cabled, and deployed the physical network infrastructure across <strong style="color:#ffffff;">6 computer laboratories serving 120 dedicated PC workstations</strong>. The physical switching and routing fabric utilizes <strong style="color:#ffffff;">3 enterprise Cisco Routers</strong>, <strong style="color:#ffffff;">3 Cisco Managed Distribution Switches</strong>, and <strong style="color:#ffffff;">35 Unmanaged bench-level switches</strong>. The environment is centrally orchestrated via the custom <strong style="color:#ffffff;">NEXUS software ecosystem</strong>, delivered as zero-dependency native Desktop (.EXE) and Mobile (.APK Flutter/Kotlin) management interfaces.
             </p>
 
-            <!-- Quick Metrics Grid -->
+            <!-- Quick Interactive Metrics Grid -->
             <div class="project-stats-grid">
                 <div class="stat-mini-box">
                     <div class="stat-mini-num" style="color:var(--cyan);">120 PCs</div>
@@ -1786,71 +1951,71 @@
                 </div>
             </div>
 
-            <!-- Deep Technical Pillars Grid (3 Columns Side-by-Side & Fully Aligned) -->
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin: 2rem 0;">
+            <!-- Deep Technical Pillars Grid (تنسيق مرتب وسلس تماماً مثل الصورة الأولى مع التفاعل الموحد) -->
+            <div class="project-pillars-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.3rem; margin: 2.2rem 0;">
                 
                 <!-- Pillar 1: Routing & Switching -->
-                <div style="background: rgba(11, 18, 34, 0.85); border: 1px solid rgba(56, 189, 248, 0.18); border-radius: 18px; padding: 1.4rem; display: flex; flex-direction: column;">
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1.1rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(56, 189, 248, 0.12);">
-                        <span style="font-size: 1.25rem; color: var(--cyan);">🌐</span>
-                        <h4 style="color: var(--cyan); font-size: 0.98rem; font-weight: 700; margin: 0; letter-spacing: -0.01em;">Cisco Core, STP &amp; Routing</h4>
+                <div class="pillar-card pillar-card--cyan">
+                    <div class="pillar-header">
+                        <span class="pillar-icon">🌐</span>
+                        <h4 style="color: var(--cyan); font-size: 1rem; font-weight: 800; margin: 0; letter-spacing: -0.01em;">Cisco Core, STP &amp; Routing</h4>
                     </div>
-                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.9rem;">
-                        <li style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.65; display: flex; gap: 8px; text-align: left;">
-                            <span style="color: var(--cyan); font-weight: bold; flex-shrink: 0;">▸</span>
-                            <div><strong style="color: var(--text-primary);">STP PortFast &amp; UplinkFast:</strong> Configured STP PortFast on edge ports for instant PC link transitions, backed by UplinkFast for rapid failover on distribution trunks.</div>
+                    <ul class="pillar-list">
+                        <li class="pillar-item">
+                            <span class="pillar-bullet" style="color: var(--cyan);">▸</span>
+                            <div><strong style="color: #fff;">STP PortFast &amp; UplinkFast:</strong> Configured STP PortFast on edge ports for instant PC link transitions, backed by UplinkFast for rapid failover on distribution trunks.</div>
                         </li>
-                        <li style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.65; display: flex; gap: 8px; text-align: left;">
-                            <span style="color: var(--cyan); font-weight: bold; flex-shrink: 0;">▸</span>
-                            <div><strong style="color: var(--text-primary);">VLAN &amp; SVI Architecture:</strong> Configured 802.1Q trunking and Inter-VLAN Routing (SVI) across the managed core, isolating lab subnets 10 through 60.</div>
+                        <li class="pillar-item">
+                            <span class="pillar-bullet" style="color: var(--cyan);">▸</span>
+                            <div><strong style="color: #fff;">VLAN &amp; SVI Architecture:</strong> Configured 802.1Q trunking and Inter-VLAN Routing (SVI) across the managed core, isolating lab subnets 10 through 60.</div>
                         </li>
-                        <li style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.65; display: flex; gap: 8px; text-align: left;">
-                            <span style="color: var(--cyan); font-weight: bold; flex-shrink: 0;">▸</span>
-                            <div><strong style="color: var(--text-primary);">OSPF Dynamic Routing:</strong> Deployed multi-area OSPF dynamic routing across the 3 Cisco routers for reliable multi-campus packet delivery.</div>
+                        <li class="pillar-item">
+                            <span class="pillar-bullet" style="color: var(--cyan);">▸</span>
+                            <div><strong style="color: #fff;">OSPF Dynamic Routing:</strong> Deployed multi-area OSPF dynamic routing across the 3 Cisco routers for reliable multi-campus packet delivery.</div>
                         </li>
                     </ul>
                 </div>
 
                 <!-- Pillar 2: Zero-Trust Hardening -->
-                <div style="background: rgba(11, 18, 34, 0.85); border: 1px solid rgba(16, 185, 129, 0.22); border-radius: 18px; padding: 1.4rem; display: flex; flex-direction: column;">
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1.1rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(16, 185, 129, 0.14);">
-                        <span style="font-size: 1.25rem; color: var(--emerald);">🛡️</span>
-                        <h4 style="color: var(--emerald); font-size: 0.98rem; font-weight: 700; margin: 0; letter-spacing: -0.01em;">L2/L3 Security &amp; Isolation</h4>
+                <div class="pillar-card pillar-card--emerald">
+                    <div class="pillar-header">
+                        <span class="pillar-icon">🛡️</span>
+                        <h4 style="color: var(--emerald); font-size: 1rem; font-weight: 800; margin: 0; letter-spacing: -0.01em;">L2/L3 Security &amp; Isolation</h4>
                     </div>
-                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.9rem;">
-                        <li style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.65; display: flex; gap: 8px; text-align: left;">
-                            <span style="color: var(--emerald); font-weight: bold; flex-shrink: 0;">▸</span>
-                            <div><strong style="color: var(--text-primary);">Port Security Hardening:</strong> Restricted switch ports via MAC-sticky learning with immediate shutdown triggers against unauthorized physical device taps.</div>
+                    <ul class="pillar-list">
+                        <li class="pillar-item">
+                            <span class="pillar-bullet" style="color: var(--emerald);">▸</span>
+                            <div><strong style="color: #fff;">Port Security Hardening:</strong> Restricted switch ports via MAC-sticky learning with immediate shutdown triggers against unauthorized physical device taps.</div>
                         </li>
-                        <li style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.65; display: flex; gap: 8px; text-align: left;">
-                            <span style="color: var(--emerald); font-weight: bold; flex-shrink: 0;">▸</span>
-                            <div><strong style="color: var(--text-primary);">DHCP Snooping &amp; DAI:</strong> Enforced trust-boundary inspection to stop rogue DHCP injection and mitigate Man-In-The-Middle (MITM) ARP spoofing.</div>
+                        <li class="pillar-item">
+                            <span class="pillar-bullet" style="color: var(--emerald);">▸</span>
+                            <div><strong style="color: #fff;">DHCP Snooping &amp; DAI:</strong> Enforced trust-boundary inspection to stop rogue DHCP injection and mitigate Man-In-The-Middle (MITM) ARP spoofing.</div>
                         </li>
-                        <li style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.65; display: flex; gap: 8px; text-align: left;">
-                            <span style="color: var(--emerald); font-weight: bold; flex-shrink: 0;">▸</span>
-                            <div><strong style="color: var(--text-primary);">Extended ACL Enforcement:</strong> Applied Layer 3/4 filtering policies to secure the examination and administrative subnets from untrusted workstation traffic.</div>
+                        <li class="pillar-item">
+                            <span class="pillar-bullet" style="color: var(--emerald);">▸</span>
+                            <div><strong style="color: #fff;">Extended ACL Enforcement:</strong> Applied Layer 3/4 filtering policies to secure the examination and administrative subnets from untrusted workstation traffic.</div>
                         </li>
                     </ul>
                 </div>
 
                 <!-- Pillar 3: NEXUS Services & Port Architecture -->
-                <div style="background: rgba(11, 18, 34, 0.85); border: 1px solid rgba(168, 85, 247, 0.22); border-radius: 18px; padding: 1.4rem; display: flex; flex-direction: column;">
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1.1rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(168, 85, 247, 0.14);">
-                        <span style="font-size: 1.25rem; color: var(--purple);">⚡</span>
-                        <h4 style="color: var(--purple); font-size: 0.98rem; font-weight: 700; margin: 0; letter-spacing: -0.01em;">NEXUS Services &amp; Port Mapping</h4>
+                <div class="pillar-card pillar-card--purple">
+                    <div class="pillar-header">
+                        <span class="pillar-icon">⚡</span>
+                        <h4 style="color: var(--purple); font-size: 1rem; font-weight: 800; margin: 0; letter-spacing: -0.01em;">NEXUS Services &amp; Port Mapping</h4>
                     </div>
-                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.9rem;">
-                        <li style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.65; display: flex; gap: 8px; text-align: left;">
-                            <span style="color: var(--purple); font-weight: bold; flex-shrink: 0;">▸</span>
-                            <div><strong style="color: var(--text-primary);">Ports 8080 &amp; 8000:</strong> Offline Exam &amp; Attendance automation platform alongside low-latency multicast screen streaming to 120 client PCs.</div>
+                    <ul class="pillar-list">
+                        <li class="pillar-item">
+                            <span class="pillar-bullet" style="color: var(--purple);">▸</span>
+                            <div><strong style="color: #fff;">Ports 8080 &amp; 8000:</strong> Offline Exam &amp; Attendance automation platform alongside low-latency multicast screen streaming to 120 client PCs.</div>
                         </li>
-                        <li style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.65; display: flex; gap: 8px; text-align: left;">
-                            <span style="color: var(--purple); font-weight: bold; flex-shrink: 0;">▸</span>
-                            <div><strong style="color: var(--text-primary);">Port 9090 (Fleet Control):</strong> Remote station management to power down, lock screens, and regulate network adapters across all labs.</div>
+                        <li class="pillar-item">
+                            <span class="pillar-bullet" style="color: var(--purple);">▸</span>
+                            <div><strong style="color: #fff;">Port 9090 (Fleet Control):</strong> Remote station management to power down, lock screens, and regulate network adapters across all labs.</div>
                         </li>
-                        <li style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.65; display: flex; gap: 8px; text-align: left;">
-                            <span style="color: var(--purple); font-weight: bold; flex-shrink: 0;">▸</span>
-                            <div><strong style="color: var(--text-primary);">Ports 9996–9999:</strong> Boot-level anti-tamper persistence daemon and localized Windows Server storage distribution.</div>
+                        <li class="pillar-item">
+                            <span class="pillar-bullet" style="color: var(--purple);">▸</span>
+                            <div><strong style="color: #fff;">Ports 9996–9999:</strong> Boot-level anti-tamper persistence daemon and localized Windows Server storage distribution.</div>
                         </li>
                     </ul>
                 </div>
@@ -1900,8 +2065,8 @@
                 </div>
             </div>
 
-            <!-- Tech Badges Bottom -->
-            <div class="tags" style="padding-top:0.8rem; border-top:1px solid rgba(56,189,248,0.08);">
+            <!-- Tech Badges Bottom (Interactive tags) -->
+            <div class="tags" style="padding-top:1.1rem; border-top:1px solid rgba(56,189,248,0.12);">
                 <span class="tag tag--emerald">3 Routers &amp; 38 Switches</span>
                 <span class="tag">120 PC Endpoints</span>
                 <span class="tag">STP PortFast &amp; UplinkFast</span>
