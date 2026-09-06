@@ -935,7 +935,7 @@
             max-width: 250px;
         }
 
-        /* ─── LUXURY CV INPAGE CONTAINER & HEADER BAR (خرافي ومطور بالكامل) ─── */
+        /* ─── LUXURY CV INPAGE CONTAINER & HEADER BAR ─── */
         .cv-inpage-container {
             background: linear-gradient(160deg, rgba(13, 20, 36, 0.95), rgba(7, 12, 24, 0.98));
             border: 1.5px solid rgba(56, 189, 248, 0.18);
@@ -968,7 +968,6 @@
             gap: 16px;
         }
 
-        /* نقاط نظام التشغيل الكلاسيكية الفاخرة */
         .terminal-dots {
             display: flex;
             align-items: center;
@@ -1039,7 +1038,6 @@
             gap: 12px;
         }
 
-        /* زر التكبير الخرافي Fullscreen */
         .btn-cv-action-fullscreen {
             background: rgba(18, 30, 58, 0.9) !important;
             border: 1.5px solid rgba(56, 189, 248, 0.32) !important;
@@ -1072,7 +1070,6 @@
             transform: scale(1.15);
         }
 
-        /* زر التحميل الفاخر المطور Download */
         .btn-cv-action-download {
             background: linear-gradient(135deg, #38bdf8 0%, #2563eb 50%, #1d4ed8 100%) !important;
             border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
@@ -1115,6 +1112,83 @@
             width: 100%;
             height: 100%;
             border: none;
+            display: block;
+        }
+
+        /* ─── زر وعارض الهاتف المخصص في المنتصف لفتح الـ CV مباشرة ─── */
+        .cv-mobile-view {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .cv-inpage-body iframe {
+                display: none !important;
+            }
+            .cv-inpage-body {
+                height: auto;
+                min-height: 380px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: radial-gradient(circle at center, rgba(14, 26, 52, 0.95) 0%, rgba(4, 8, 16, 0.98) 100%);
+            }
+            .cv-mobile-view {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                padding: 2.8rem 1.5rem;
+                width: 100%;
+            }
+            .cv-mobile-icon-box {
+                width: 76px;
+                height: 76px;
+                border-radius: 22px;
+                background: linear-gradient(135deg, rgba(56, 189, 248, 0.16), rgba(37, 99, 235, 0.2));
+                border: 1.5px solid rgba(56, 189, 248, 0.38);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 2.2rem;
+                margin-bottom: 1.2rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 35px rgba(56, 189, 248, 0.3);
+                animation: pulse-dot 2.5s infinite;
+            }
+            .cv-mobile-title {
+                color: #ffffff;
+                font-size: 1.25rem;
+                font-weight: 900;
+                letter-spacing: -0.02em;
+                margin-bottom: 0.3rem;
+            }
+            .cv-mobile-desc {
+                color: var(--cyan);
+                font-size: 0.85rem;
+                font-weight: 600;
+                margin-bottom: 1.8rem;
+            }
+            .btn-cv-mobile-main {
+                background: linear-gradient(135deg, #38bdf8 0%, #2563eb 60%, #1d4ed8 100%);
+                color: #ffffff !important;
+                padding: 1rem 2.4rem;
+                border-radius: var(--radius-full);
+                font-size: 0.95rem;
+                font-weight: 800;
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                border: 1.5px solid rgba(255, 255, 255, 0.4);
+                box-shadow: 0 8px 30px rgba(37, 99, 235, 0.6), 0 0 35px rgba(56, 189, 248, 0.45);
+                transition: var(--transition-bounce);
+            }
+            .btn-cv-mobile-main:active {
+                transform: scale(0.96);
+            }
+            .btn-cv-mobile-main svg {
+                stroke-width: 2.4;
+            }
         }
 
         .education-card-pro {
@@ -1853,7 +1927,6 @@
 
             .cv-inpage-header { flex-direction: column; align-items: stretch; gap: 0.9rem; padding: 1rem; }
             .cv-actions-toolbar { justify-content: flex-end; width: 100%; }
-            .cv-inpage-body { height: 400px; }
             .sec-head h2 { font-size: 2rem; }
             .cards-grid { grid-template-columns: 1fr; }
             .highlights-bar { gap: 0.65rem; }
@@ -1961,7 +2034,6 @@
                     IT graduate specializing in Computer Networks, with a strong foundation in CCNA (200-301) and CCNP Routing &amp; Switching concepts, and hands-on experience in routing, switching, VLANs, network security, and troubleshooting.
                 </p>
 
-                <!-- أزرار الهيرو الأربعة -->
                 <div class="hero-cta reveal visible reveal-delay-4">
                     <a href="#projects" class="btn btn-cta-project">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
@@ -2294,7 +2366,7 @@
         </div>
     </section>
 
-    <!-- ─── 5. CV SECTION (مع تطوير شريط العرض والأزرار Fullscreen و Download بشكل خرافي) ─── -->
+    <!-- ─── 5. CV SECTION ─── -->
     <section id="cv-section">
         <div class="sec-head reveal">
             <span class="section-label">Resume Document</span>
@@ -2303,17 +2375,14 @@
         </div>
 
         <div class="cv-inpage-container reveal">
-            <!-- الشريط العلوي المطور بالكامل -->
             <div class="cv-inpage-header">
                 <div class="cv-meta-group">
-                    <!-- نقاط التيرمينال الهندسية الأنيقة -->
                     <div class="terminal-dots" title="System Shell View">
                         <span class="dot-red"></span>
                         <span class="dot-yellow"></span>
                         <span class="dot-green"></span>
                     </div>
 
-                    <!-- شارة عنوان الملف والنوع -->
                     <div class="file-name-badge">
                         <span class="pdf-badge-icon">PDF</span>
                         <span class="file-title">Ahmed Attia Mohamed.pdf</span>
@@ -2324,9 +2393,7 @@
                     </div>
                 </div>
 
-                <!-- أزرار Fullscreen و Download فائقة الفخامة -->
                 <div class="cv-actions-toolbar">
-                    <!-- زر Fullscreen الزجاجي المتوهج -->
                     <button onclick="openCVModal()" class="btn-cv-action-fullscreen" title="Open Fullscreen Document">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="15 3 21 3 21 9"></polyline>
@@ -2337,7 +2404,6 @@
                         <span>Fullscreen</span>
                     </button>
 
-                    <!-- زر Download ثلاثي الأبعاد بالأزرق الملكي والسماوي -->
                     <a href="{{ url_for('download_cv') }}" download="{{ profile.cv_filename }}" class="btn-cv-action-download" title="Direct Download Resume">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -2349,14 +2415,30 @@
                 </div>
             </div>
 
-            <!-- مساحة عرض الملف التفاعلية -->
+            <!-- مساحة عرض الملف: تظهر كـ iframe على الكمبيوتر، وتظهر كزر فخم لفتح الـ CV في المنتصف على الهاتف -->
             <div class="cv-inpage-body">
+                <!-- عرض اللابتوب والكمبيوتر -->
                 <iframe src="{{ url_for('download_cv') }}#toolbar=1" title="Ahmed Attia CV"></iframe>
+
+                <!-- عرض الهاتف المحمول المخصص بوسط الشاشة -->
+                <div class="cv-mobile-view">
+                    <div class="cv-mobile-icon-box">📄</div>
+                    <h4 class="cv-mobile-title">Ahmed Attia Mohamed.pdf</h4>
+                    <p class="cv-mobile-desc">Network &amp; Infrastructure Engineer Resume</p>
+                    <a href="{{ url_for('download_cv') }}" target="_blank" class="btn-cv-mobile-main" title="Open CV in New Tab">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        <span>Open &amp; View CV</span>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- ─── 6. CONTACT SECTION (مع لوجوهات Gmail, Phone, LinkedIn, Google Maps الأصلية) ─── -->
+    <!-- ─── 6. CONTACT SECTION ─── -->
     <section id="contact">
         <div class="sec-head reveal">
             <span class="section-label">Get In Touch</span>
@@ -2367,7 +2449,7 @@
         <div class="contact-box reveal">
             <div class="contact-details-col">
 
-                <!-- 1. Direct Email (أيقونة Gmail الرسمية متعددة الألوان) -->
+                <!-- 1. Direct Email -->
                 <div class="contact-card">
                     <div class="contact-card-info">
                         <div class="contact-icon-box contact-icon-box--gmail" title="Google Gmail">
@@ -2392,7 +2474,7 @@
                     </div>
                 </div>
 
-                <!-- 2. Phone & WhatsApp (أيقونة هاتف نيون + أزرار Call و WhatsApp من الصورة) -->
+                <!-- 2. Phone & WhatsApp -->
                 <div class="contact-card">
                     <div class="contact-card-info">
                         <div class="contact-icon-box contact-icon-box--phone" title="Phone & WhatsApp">
@@ -2421,7 +2503,7 @@
                     </div>
                 </div>
 
-                <!-- 3. LinkedIn Network (شعار لينكد إن الرسمي الأصلي + زر Visit من الصورة) -->
+                <!-- 3. LinkedIn Network -->
                 <div class="contact-card">
                     <div class="contact-card-info">
                         <div class="contact-icon-box contact-icon-box--linkedin" title="LinkedIn">
@@ -2443,7 +2525,7 @@
                     </div>
                 </div>
 
-                <!-- 4. Location (أيقونة Google Maps الأصلية + تاج Open to Relocation الأصلي) -->
+                <!-- 4. Location -->
                 <div class="contact-card">
                     <div class="contact-card-info">
                         <div class="contact-icon-box contact-icon-box--location" title="Google Maps Location">
@@ -2505,7 +2587,7 @@
         <span id="toastCopyText">Copied to clipboard!</span>
     </div>
 
-    <!-- النافذة المنبثقة للـ CV بتصميم مطابق -->
+    <!-- النافذة المنبثقة للـ CV -->
     <div class="modal-overlay" id="cvModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -2602,7 +2684,12 @@
             typeLoop();
         })();
 
+        // تحسين فتح الـ CV على الهاتف ليعمل مباشرة بدون شاشة رمادية أو تعليق
         function openCVModal() {
+            if (window.innerWidth <= 768) {
+                window.open("{{ url_for('download_cv') }}", "_blank");
+                return;
+            }
             document.getElementById('cvModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
