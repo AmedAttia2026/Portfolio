@@ -37,7 +37,6 @@
             --linkedin-blue: #0a66c2;
             --gmail-red: #ea4335;
             --gold: #f5c542;
-            --gold-light: #fef08a;
             --rose: #f472b6;
             --slate: #8b9bb4;
 
@@ -573,12 +572,11 @@
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
+            left: -100%;
             width: 100%;
             height: 3px;
             background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-            opacity: 0;
-            transition: opacity 0.4s ease, filter 0.4s ease;
+            transition: left 0.6s ease;
         }
         .card:hover {
             border-color: rgba(56,189,248,0.38);
@@ -587,8 +585,7 @@
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 45px rgba(56, 189, 248, 0.18);
         }
         .card:hover::before {
-            opacity: 1;
-            filter: drop-shadow(0 0 8px var(--cyan));
+            left: 100%;
         }
 
         .card .icon-wrap {
@@ -689,145 +686,6 @@
             box-shadow: 0 0 15px rgba(168, 85, 247, 0.35);
         }
 
-        /* ─── 1. كارت شهادة ختم جمهورية مصر العربية الملكي الاحترافي الفاخر ─── */
-        .state-certificate-card {
-            background: linear-gradient(135deg, rgba(20, 16, 6, 0.95) 0%, rgba(13, 20, 36, 0.95) 45%, rgba(8, 14, 28, 0.98) 100%);
-            border: 1.5px solid rgba(245, 197, 66, 0.45);
-            border-radius: var(--radius-lg);
-            padding: 2.4rem 2.6rem;
-            margin-bottom: 2.2rem;
-            backdrop-filter: blur(28px);
-            -webkit-backdrop-filter: blur(28px);
-            box-shadow: 0 25px 65px rgba(0, 0, 0, 0.8), 0 0 45px rgba(245, 197, 66, 0.15);
-            transition: var(--transition-smooth);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        /* علامة مائية شفافة لشعار النسر في خلفية الكارت */
-        .state-certificate-card::after {
-            content: '';
-            position: absolute;
-            right: -25px;
-            bottom: -35px;
-            width: 260px;
-            height: 260px;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f5c542'%3E%3Cpath d='M12 2L9.5 5H4v4l-2.5 3 2.5 3v4h5.5l2.5 3 2.5-3H20v-4l2.5-3-2.5-3V5h-5.5L12 2zm0 4.5l1.6 2.6 3.1.5-2.2 2.2.5 3-3-1.6-3 1.6.5-3-2.2-2.2 3.1-.5L12 6.5z'/%3E%3C/svg%3E") no-repeat center;
-            background-size: contain;
-            opacity: 0.04;
-            pointer-events: none;
-            transition: var(--transition-smooth);
-        }
-        .state-certificate-card:hover::after {
-            opacity: 0.08;
-            transform: scale(1.05) rotate(3deg);
-        }
-
-        /* خط التوهج الذهبي العلوي الساطع عند الإشارة بالماوس */
-        .state-certificate-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3.5px;
-            background: linear-gradient(90deg, transparent, #ffffff, var(--gold), #ffffff, transparent);
-            opacity: 0;
-            transition: opacity 0.45s ease, filter 0.45s ease;
-        }
-        .state-certificate-card:hover {
-            border-color: var(--gold);
-            transform: translateY(-5px);
-            box-shadow: 0 32px 85px rgba(0, 0, 0, 0.85), 0 0 65px rgba(245, 197, 66, 0.35);
-        }
-        .state-certificate-card:hover::before {
-            opacity: 1;
-            filter: drop-shadow(0 0 14px var(--gold));
-        }
-
-        .state-cert-content {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* الختم النسر الذهبي الرسمي */
-        .state-cert-crest {
-            width: 86px;
-            height: 86px;
-            border-radius: 24px;
-            background: radial-gradient(circle, rgba(245, 197, 66, 0.25) 0%, rgba(20, 16, 6, 0.95) 80%);
-            border: 2px solid var(--gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 35px rgba(245, 197, 66, 0.4);
-            transition: var(--transition-bounce);
-        }
-        .state-certificate-card:hover .state-cert-crest {
-            transform: scale(1.1) rotate(-3deg);
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7), 0 0 45px rgba(245, 197, 66, 0.6);
-        }
-
-        .state-cert-badge-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 0.6rem;
-        }
-        .state-cert-badge-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 5px 15px;
-            border-radius: var(--radius-full);
-            background: rgba(245, 197, 66, 0.12);
-            border: 1px solid rgba(245, 197, 66, 0.4);
-            color: var(--gold);
-            font-size: 0.75rem;
-            font-weight: 800;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-        .state-cert-badge-tag .gold-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: var(--gold);
-            box-shadow: 0 0 10px var(--gold);
-        }
-
-        .state-cert-title {
-            font-size: 1.42rem;
-            font-weight: 900;
-            color: #ffffff;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.02em;
-            line-height: 1.3;
-        }
-        .state-cert-title span {
-            background: linear-gradient(135deg, #ffffff 20%, var(--gold) 75%, #d97706 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 20px rgba(245, 197, 66, 0.3);
-        }
-
-        .state-cert-desc {
-            color: #d1d5db;
-            font-size: 0.94rem;
-            line-height: 1.8;
-        }
-        .state-cert-desc strong {
-            color: #ffffff;
-        }
-
-        /* ─── 2. كارت المشروع والفقرة التفاعلية الفخمة بدون أي إطار خارجي ─── */
         .project-super-card {
             background: linear-gradient(145deg, rgba(13, 20, 36, 0.94), rgba(8, 14, 28, 0.98));
             border: 1px solid rgba(56, 189, 248, 0.18);
@@ -845,39 +703,6 @@
         .project-super-card:hover {
             border-color: rgba(56, 189, 248, 0.38);
             box-shadow: 0 35px 90px rgba(0, 0, 0, 0.85), 0 0 75px rgba(56, 189, 248, 0.18);
-        }
-
-        /* 🌟 فقرة المشروع الاحترافية بدون إطار خارجي إطلاقاً مع خط توهج علوي ساطع 🌟 */
-        .project-borderless-summary {
-            position: relative;
-            padding: 1.3rem 1.6rem;
-            margin-bottom: 1.6rem;
-            border: none !important; /* بدون أي إطار خارجي نهائياً */
-            outline: none !important;
-            border-radius: 14px;
-            background: rgba(10, 16, 32, 0.4);
-            transition: background 0.4s ease, transform 0.4s ease;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        .project-borderless-summary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #ffffff, var(--cyan), #ffffff, transparent);
-            opacity: 0;
-            transition: opacity 0.4s ease, filter 0.4s ease;
-        }
-        .project-borderless-summary:hover {
-            background: rgba(16, 26, 52, 0.65);
-            transform: translateY(-2px);
-        }
-        .project-borderless-summary:hover::before {
-            opacity: 1;
-            filter: drop-shadow(0 0 10px var(--cyan));
         }
 
         .project-stats-grid {
@@ -945,7 +770,7 @@
             width: 100%;
             height: 3px;
             opacity: 0;
-            transition: opacity 0.4s ease, filter 0.4s ease;
+            transition: opacity 0.4s ease;
         }
 
         .pillar-card--cyan { border: 1px solid rgba(56, 189, 248, 0.18); }
@@ -963,7 +788,6 @@
         }
         .pillar-card:hover::before {
             opacity: 1;
-            filter: drop-shadow(0 0 8px currentColor);
         }
 
         .pillar-card--cyan:hover {
@@ -1367,7 +1191,6 @@
             }
         }
 
-        /* ─── 3. كارت التعليم الشامل والمربعات الثلاثة مع إضاءة الخط العلوي الواضح ─── */
         .education-card-pro {
             background: linear-gradient(145deg, rgba(13, 20, 36, 0.88), rgba(8, 14, 28, 0.94));
             border: 1px solid rgba(56, 189, 248, 0.16);
@@ -1381,20 +1204,18 @@
             margin: 0 auto;
             position: relative;
             overflow: hidden;
-            cursor: pointer;
         }
 
-        /* خط التوهج العلوي لكارت التعليم الرئيسي */
-        .education-card-pro::after {
+        .education-card-pro::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3.5px;
-            background: linear-gradient(90deg, transparent, var(--cyan), var(--purple), transparent);
-            opacity: 0;
-            transition: opacity 0.4s ease, filter 0.4s ease;
+            inset: 0;
+            border-radius: var(--radius-xl);
+            padding: 1.5px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(168, 85, 247, 0.20), transparent 60%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
             pointer-events: none;
         }
 
@@ -1402,10 +1223,6 @@
             border-color: rgba(56, 189, 248, 0.35);
             box-shadow: 0 35px 90px rgba(0, 0, 0, 0.75), 0 0 60px rgba(56, 189, 248, 0.16);
             transform: translateY(-4px);
-        }
-        .education-card-pro:hover::after {
-            opacity: 1;
-            filter: drop-shadow(0 0 10px var(--cyan));
         }
 
         .edu-hero-block {
@@ -1508,11 +1325,8 @@
             justify-content: space-between;
             position: relative;
             overflow: hidden;
-            cursor: pointer;
             transition: var(--transition-smooth);
         }
-
-        /* خطوط التوهج العلوية المحددة لكل مربع من مربعات التعليم الثلاثة */
         .edu-metric-box::before {
             content: '';
             position: absolute;
@@ -1520,19 +1334,10 @@
             left: 0;
             width: 100%;
             height: 3px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
             opacity: 0;
-            transition: opacity 0.4s ease, filter 0.4s ease;
+            transition: opacity 0.3s ease;
         }
-        .edu-metric-box--emerald::before {
-            background: linear-gradient(90deg, transparent, var(--emerald), transparent);
-        }
-        .edu-metric-box--gold::before {
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-        }
-        .edu-metric-box--purple::before {
-            background: linear-gradient(90deg, transparent, var(--purple), transparent);
-        }
-
         .edu-metric-box:hover {
             border-color: rgba(56, 189, 248, 0.30);
             background: rgba(16, 26, 50, 0.90);
@@ -1542,9 +1347,6 @@
         .edu-metric-box:hover::before {
             opacity: 1;
         }
-        .edu-metric-box--emerald:hover::before { filter: drop-shadow(0 0 8px var(--emerald)); }
-        .edu-metric-box--gold:hover::before { filter: drop-shadow(0 0 8px var(--gold)); }
-        .edu-metric-box--purple:hover::before { filter: drop-shadow(0 0 8px var(--purple)); }
 
         .metric-header {
             display: flex;
@@ -2139,9 +1941,6 @@
             .edu-hero-block { flex-direction: column; gap: 1.2rem; }
             .edu-title-main { font-size: 1.4rem; }
             .project-super-card { padding: 1.8rem 1.4rem; }
-            .state-certificate-card { padding: 1.6rem; }
-            .state-cert-content { flex-direction: column; text-align: center; gap: 1.2rem; }
-            .state-cert-badge-row { justify-content: center; }
         }
 
         @media (max-width: 480px) {
@@ -2186,7 +1985,6 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projects</a></li>
-                <li><a href="#experience">Experience</a></li>
                 <li><a href="#education">Education</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li class="nav-divider"></li>
@@ -2337,46 +2135,6 @@
             <p>Physical campus network deployment bridging Cisco switching fabric with automated fleet orchestration</p>
         </div>
 
-        <!-- 🌟 1. كارت شهادة ختم جمهورية مصر العربية الملكي الاحترافي 🌟 -->
-        <div class="state-certificate-card reveal">
-            <div class="state-cert-content">
-                <!-- نسر جمهورية مصر العربية الذهبي المصمم بدقة فائقة -->
-                <div class="state-cert-crest" title="Seal of the Arab Republic of Egypt">
-                    <svg width="48" height="48" viewBox="0 0 24 24">
-                        <defs>
-                            <linearGradient id="eagleGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#ffffff"/>
-                                <stop offset="35%" stop-color="#f5c542"/>
-                                <stop offset="80%" stop-color="#d97706"/>
-                                <stop offset="100%" stop-color="#92400e"/>
-                            </linearGradient>
-                        </defs>
-                        <path fill="url(#eagleGoldGrad)" d="M12 2L9.6 4.8H4.2v4.5L1.8 12l2.4 2.7v4.5h5.4L12 22l2.4-2.8h5.4v-4.5l2.4-2.7-2.4-2.7V4.8h-5.4L12 2zm0 3.8l1.8 2.8 3.3.4-2.4 2.4.6 3.3-3.3-1.7-3.3 1.7.6-3.3-2.4-2.4 3.3-.4L12 5.8z"/>
-                    </svg>
-                </div>
-
-                <div style="flex:1;">
-                    <div class="state-cert-badge-row">
-                        <div class="state-cert-badge-tag">
-                            <span class="gold-dot"></span>
-                            <span>Arab Republic of Egypt</span>
-                        </div>
-                        <div class="state-cert-badge-tag" style="background:rgba(245,197,66,0.06); border-color:rgba(245,197,66,0.25);">
-                            <span>★ Official State Recognition Seal</span>
-                        </div>
-                    </div>
-
-                    <h3 class="state-cert-title">
-                        Official Certificate Bearing the <span>Seal of the Arab Republic of Egypt</span>
-                    </h3>
-
-                    <p class="state-cert-desc">
-                        Received an official certificate bearing the <strong>seal of the Arab Republic of Egypt</strong> in recognition of the successful design and physical deployment of this enterprise campus network infrastructure, completed during <strong>one year of voluntary employment</strong> in IT Help Desk and Network Engineering at the university.
-                    </p>
-                </div>
-            </div>
-        </div>
-
         <div class="project-super-card reveal">
             <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:1.2rem;">
                 <div>
@@ -2386,12 +2144,9 @@
                 <span class="tag tag--emerald" style="font-size:0.76rem; padding:6px 18px; font-weight:700; border-width:1.5px;">Physical Deployment — 3 Routers · 38 Switches · 120 Endpoints</span>
             </div>
 
-            <!-- 🌟 2. فقرة المشروع بدون أي إطار خارجي نهائياً مع خط التوهج العلوي فور لمس الماوس 🌟 -->
-            <div class="project-borderless-summary">
-                <p style="font-size:0.96rem; line-height:1.85; color:#e2e8f0; margin:0;">
-                    Personally architected, cabled, and deployed the physical network infrastructure across <strong style="color:#ffffff;">6 computer laboratories serving 120 dedicated PC workstations</strong>. The physical switching and routing fabric utilizes <strong style="color:#ffffff;">3 enterprise Cisco Routers</strong>, <strong style="color:#ffffff;">3 Cisco Managed Distribution Switches</strong>, and <strong style="color:#ffffff;">35 Unmanaged bench-level switches</strong>. The environment is centrally orchestrated via the custom <strong style="color:#ffffff;">NEXUS software ecosystem</strong>, delivered as zero-dependency native Desktop (.EXE) and Mobile (.APK Flutter/Kotlin) management interfaces.
-                </p>
-            </div>
+            <p style="font-size:0.96rem; line-height:1.85; color:#e2e8f0; margin-bottom:1.5rem;">
+                Personally architected, cabled, and deployed the physical network infrastructure across <strong style="color:#ffffff;">6 computer laboratories serving 120 dedicated PC workstations</strong>. The physical switching and routing fabric utilizes <strong style="color:#ffffff;">3 enterprise Cisco Routers</strong>, <strong style="color:#ffffff;">3 Cisco Managed Distribution Switches</strong>, and <strong style="color:#ffffff;">35 Unmanaged bench-level switches</strong>. The environment is centrally orchestrated via the custom <strong style="color:#ffffff;">NEXUS software ecosystem</strong>, delivered as zero-dependency native Desktop (.EXE) and Mobile (.APK Flutter/Kotlin) management interfaces.
+            </p>
 
             <div class="project-stats-grid">
                 <div class="stat-mini-box">
@@ -2532,50 +2287,7 @@
         </div>
     </section>
 
-    <!-- ─── 4. TECHNICAL EXPERIENCE (UNIVERSITY INTERN FIRST, THEN NTI CYBEROPS) ─── -->
-    <section id="experience">
-        <div class="sec-head reveal">
-            <span class="section-label">Field Practice &amp; Professional Traineeship</span>
-            <h2>Technical <span>Experience</span></h2>
-            <p>Hands-on engineering roles and accredited government cyber defense programs</p>
-        </div>
-
-        <div class="cards-grid">
-            <!-- 1. University Internship (الأولى كعمل وإنتاج شبكي حقيقي) -->
-            <div class="card reveal reveal-delay-1">
-                <div class="icon-wrap" style="color: var(--cyan);">💼</div>
-                <div style="font-size:0.75rem; color:var(--cyan); font-weight:700; text-transform:uppercase; margin-bottom:4px;">Dec 2025 – May 2026</div>
-                <h3>Network Engineer Intern</h3>
-                <h4 style="font-size:0.88rem; color:var(--cyan); margin-bottom:1rem; font-weight:600;">Information Technology Department, Borg El Arab Technological University</h4>
-                <p>Contributed to deployment of university campus network infrastructure across multiple labs using Cisco switches and routers with VLAN-based segmentation, inter-VLAN routing, ACLs, and DHCP Snooping in a real production environment.</p>
-                <div class="tags">
-                    <span class="tag tag--emerald">Production Campus</span>
-                    <span class="tag">Inter-VLAN Routing</span>
-                    <span class="tag">VLAN Segmentation</span>
-                    <span class="tag">DHCP Snooping &amp; ACLs</span>
-                    <span class="tag">Live Troubleshooting</span>
-                </div>
-            </div>
-
-            <!-- 2. NTI & Cisco CyberOps -->
-            <div class="card reveal reveal-delay-2">
-                <div class="icon-wrap" style="color: var(--purple);">🛡️</div>
-                <div style="font-size:0.75rem; color:var(--purple); font-weight:700; text-transform:uppercase; margin-bottom:4px;">Aug – Sep 2026</div>
-                <h3>Cybersecurity Trainee (CyberOps)</h3>
-                <h4 style="font-size:0.88rem; color:var(--cyan); margin-bottom:1rem; font-weight:600;">National Telecommunication Institute (NTI) &amp; Cisco Networking Academy</h4>
-                <p>Completed and certified in the Cisco Networking Academy CyberOps / CyberOps Associate program, gaining practical training and credentials through NTI in threat detection, SOC monitoring, and network telemetry analysis.</p>
-                <div class="tags">
-                    <span class="tag tag--purple">NTI Certified</span>
-                    <span class="tag tag--purple">Cisco CyberOps Associate</span>
-                    <span class="tag">SOC Monitoring</span>
-                    <span class="tag">Wireshark Analysis</span>
-                    <span class="tag">Security Incident Handling</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ─── 5. EDUCATION & HONORS (مع توهج الخطوط العلوية الثلاثة والكارت الرئيسي) ─── -->
+    <!-- ─── 4. EDUCATION & HONORS ─── -->
     <section id="education">
         <div class="sec-head reveal">
             <span class="section-label">Academic Excellence</span>
@@ -2600,10 +2312,8 @@
                 </div>
             </div>
 
-            <!-- المربعات الثلاثة للتعليم مع خط توهج علوي محدد لكل منها يظهر بوضوح عند المرور عليه -->
             <div class="edu-metrics-grid">
-                <!-- 1. Highest Honors (خط توهج زمردي) -->
-                <div class="edu-metric-box edu-metric-box--emerald">
+                <div class="edu-metric-box">
                     <div class="metric-header">
                         <div class="metric-icon-wrap metric-icon-wrap--emerald">⭐</div>
                         <span class="metric-badge-tag metric-badge-tag--emerald">Highest Honors</span>
@@ -2614,8 +2324,7 @@
                     </div>
                 </div>
 
-                <!-- 2. Rank #1 (خط توهج ذهبي) -->
-                <div class="edu-metric-box edu-metric-box--gold">
+                <div class="edu-metric-box">
                     <div class="metric-header">
                         <div class="metric-icon-wrap metric-icon-wrap--gold">🏆</div>
                         <span class="metric-badge-tag metric-badge-tag--gold">Rank #1</span>
@@ -2626,8 +2335,7 @@
                     </div>
                 </div>
 
-                <!-- 3. Top 1% (خط توهج بنفسجي) -->
-                <div class="edu-metric-box edu-metric-box--purple">
+                <div class="edu-metric-box">
                     <div class="metric-header">
                         <div class="metric-icon-wrap metric-icon-wrap--purple">📊</div>
                         <span class="metric-badge-tag metric-badge-tag--purple">Top 1%</span>
@@ -2658,7 +2366,7 @@
         </div>
     </section>
 
-    <!-- ─── 6. CV SECTION ─── -->
+    <!-- ─── 5. CV SECTION ─── -->
     <section id="cv-section">
         <div class="sec-head reveal">
             <span class="section-label">Resume Document</span>
@@ -2730,7 +2438,7 @@
         </div>
     </section>
 
-    <!-- ─── 7. CONTACT SECTION ─── -->
+    <!-- ─── 6. CONTACT SECTION ─── -->
     <section id="contact">
         <div class="sec-head reveal">
             <span class="section-label">Get In Touch</span>
@@ -2822,11 +2530,11 @@
                     <div class="contact-card-info">
                         <div class="contact-icon-box contact-icon-box--location" title="Google Maps Location">
                             <svg width="22" height="28" viewBox="0 0 92.3 132.3">
-                                <path fill="#1a73e8" d="M60.2 2.2C55.8.8 51 0 46.1 0 32 0 19.3 6.4 10.8 16.5l21.8 18.3L60.2 2.2z"/>
-                                <path fill="#ea4335" d="M10.8 16.5C4.1 24.5 0 34.9 0 46.1c0 8.7 1.7 15.7 4.6 22l28-33.3-21.8-18.3z"/>
-                                <path fill="#4285f4" d="M46.2 28.5c9.8 0 17.7 7.9 17.7 17.7 0 4.3-1.6 8.3-4.2 11.4 0 0 13.9-16.6 27.5-32.7-5.6-10.8-15.3-19-27-22.7L32.6 34.8c3.3-3.8 8.1-6.3 13.6-6.3"/>
-                                <path fill="#fbbc04" d="M46.2 63.8c-9.8 0-17.7-7.9-17.7-17.7 0-4.3 1.5-8.3 4.1-11.3l-28 33.3c4.8 10.6 12.8 19.2 21 29.9l34.1-40.5c-3.3 3.9-8.1 6.3-13.5 6.3"/>
-                                <path fill="#34a853" d="M59.1 109.2c15.4-24.1 33.3-35 33.3-63 0-7.7-1.9-14.9-5.2-21.3L25.6 98c2.6 3.4 5.3 7.3 7.9 11.3 9.4 14.5 6.8 23.1 12.8 23.1s3.4-8.7 12.8-23.2"/>
+                                <path fill="#1a73e8" d="M60.2 2.2C55.8.8 51 0 46.1 0 32 0 19.3 6.4 10.8 16.5l21.8 18.3L60.2 2.2z" [INDEX_5_1_1]/>
+                                <path fill="#ea4335" d="M10.8 16.5C4.1 24.5 0 34.9 0 46.1c0 8.7 1.7 15.7 4.6 22l28-33.3-21.8-18.3z" [INDEX_5_1_1]/>
+                                <path fill="#4285f4" d="M46.2 28.5c9.8 0 17.7 7.9 17.7 17.7 0 4.3-1.6 8.3-4.2 11.4 0 0 13.9-16.6 27.5-32.7-5.6-10.8-15.3-19-27-22.7L32.6 34.8c3.3-3.8 8.1-6.3 13.6-6.3" [INDEX_5_1_1]/>
+                                <path fill="#fbbc04" d="M46.2 63.8c-9.8 0-17.7-7.9-17.7-17.7 0-4.3 1.5-8.3 4.1-11.3l-28 33.3c4.8 10.6 12.8 19.2 21 29.9l34.1-40.5c-3.3 3.9-8.1 6.3-13.5 6.3" [INDEX_5_1_1]/>
+                                <path fill="#34a853" d="M59.1 109.2c15.4-24.1 33.3-35 33.3-63 0-7.7-1.9-14.9-5.2-21.3L25.6 98c2.6 3.4 5.3 7.3 7.9 11.3 9.4 14.5 6.8 23.1 12.8 23.1s3.4-8.7 12.8-23.2" [INDEX_5_1_1]/>
                             </svg>
                         </div>
                         <div class="contact-text-meta">
@@ -3152,7 +2860,7 @@
                             const alpha = (1 - dist / mouse.radius) * 0.35;
                             ctx.beginPath();
                             ctx.moveTo(n1.x, n1.y);
-                            ctx.lineTo(mouse.x, mouse.y);
+                            ctx.lineTo(n2.x, n2.y);
                             ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
                             ctx.lineWidth = 0.8;
                             ctx.stroke();
