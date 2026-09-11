@@ -1,9 +1,80 @@
-<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ahmed Attia | Network & Infrastructure Engineer</title>
+
+    <!-- ─── Circular Favicon with Glowing Gradient Ring ─── -->
+    <link rel="icon" id="siteFavicon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23080d18' stroke='%2338bdf8' stroke-width='2'/%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" id="siteAppleIcon" href="">
+
+    <script>
+        (function() {
+            {% if profile.profile_base64 %}
+            const rawAvatarSrc = "data:image/jpeg;base64,{{ profile.profile_base64 }}";
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            img.onload = function() {
+                try {
+                    const canvas = document.createElement('canvas');
+                    const size = 64; // دقة فائقة الوضوح (Retina Ready)
+                    canvas.width = size;
+                    canvas.height = size;
+                    const ctx = canvas.getContext('2d');
+
+                    const cx = size / 2;
+                    const cy = size / 2;
+                    const rRing = size / 2 - 1.5;
+                    const rPhoto = size / 2 - 4.5;
+
+                    // 1. رسم الإطار الدائري المتوهج بتدرج الألوان المتناسق مع الموقع (Cyan -> Purple -> Blue)
+                    const grad = ctx.createLinearGradient(0, 0, size, size);
+                    grad.addColorStop(0, '#38bdf8');
+                    grad.addColorStop(0.5, '#a855f7');
+                    grad.addColorStop(1, '#6366f1');
+
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, rRing, 0, Math.PI * 2);
+                    ctx.strokeStyle = grad;
+                    ctx.lineWidth = 3;
+                    ctx.stroke();
+
+                    // 2. إطار داخلي أسود فاصل
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, rPhoto + 1, 0, Math.PI * 2);
+                    ctx.fillStyle = '#04070d';
+                    ctx.fill();
+
+                    // 3. قص دائري ناعم وشفاف للصورة
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, rPhoto, 0, Math.PI * 2);
+                    ctx.closePath();
+                    ctx.clip();
+
+                    // 4. ضبط وتوسيط أبعاد الصورة مع رفع المركز قليلاً لضبط الوجه تماماً كالموقع (50% 10%)
+                    const s = Math.min(img.width, img.height);
+                    let sx = (img.width - s) / 2;
+                    let sy = (img.height - s) * 0.15; // محاذاة الوجه
+                    if (sy < 0) sy = 0;
+                    ctx.drawImage(img, sx, sy, s, s, cx - rPhoto, cy - rPhoto, rPhoto * 2, rPhoto * 2);
+                    ctx.restore();
+
+                    // 5. تطبيق الأيقونة الدائرية على شريط التبويب
+                    const roundDataUrl = canvas.toDataURL('image/png');
+                    const fav = document.getElementById('siteFavicon');
+                    if (fav) fav.href = roundDataUrl;
+                    const appleFav = document.getElementById('siteAppleIcon');
+                    if (appleFav) appleFav.href = roundDataUrl;
+                } catch(err) {
+                    console.error("Favicon error:", err);
+                }
+            };
+            img.src = rawAvatarSrc;
+            {% endif %}
+        })();
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -689,7 +760,7 @@
             box-shadow: 0 0 15px rgba(168, 85, 247, 0.35);
         }
 
-        /* ─── 1. كارت شهادة ختم جمهورية مصر العربية الملكي الاحترافي الفاخر ─── */
+        /* ─── 1. كارت شهادة ختم جمهورية مصر العربية ─── */
         .state-certificate-card {
             background: linear-gradient(135deg, rgba(20, 16, 6, 0.95) 0%, rgba(13, 20, 36, 0.95) 45%, rgba(8, 14, 28, 0.98) 100%);
             border: 1.5px solid rgba(245, 197, 66, 0.45);
@@ -705,7 +776,6 @@
             cursor: pointer;
         }
 
-        /* علامة مائية شفافة لشعار النسر في خلفية الكارت */
         .state-certificate-card::after {
             content: '';
             position: absolute;
@@ -724,7 +794,6 @@
             transform: scale(1.05) rotate(3deg);
         }
 
-        /* خط التوهج الذهبي العلوي الساطع عند الإشارة بالماوس */
         .state-certificate-card::before {
             content: '';
             position: absolute;
@@ -754,7 +823,6 @@
             z-index: 1;
         }
 
-        /* الختم النسر الذهبي الرسمي */
         .state-cert-crest {
             width: 86px;
             height: 86px;
@@ -827,7 +895,7 @@
             color: #ffffff;
         }
 
-        /* ─── 2. كارت المشروع والفقرة التفاعلية الفخمة بدون أي إطار خارجي ─── */
+        /* ─── 2. كارت المشروع الفخم ─── */
         .project-super-card {
             background: linear-gradient(145deg, rgba(13, 20, 36, 0.94), rgba(8, 14, 28, 0.98));
             border: 1px solid rgba(56, 189, 248, 0.18);
@@ -847,12 +915,11 @@
             box-shadow: 0 35px 90px rgba(0, 0, 0, 0.85), 0 0 75px rgba(56, 189, 248, 0.18);
         }
 
-        /* 🌟 فقرة المشروع الاحترافية بدون إطار خارجي إطلاقاً مع خط توهج علوي ساطع 🌟 */
         .project-borderless-summary {
             position: relative;
             padding: 1.3rem 1.6rem;
             margin-bottom: 1.6rem;
-            border: none !important; /* بدون أي إطار خارجي نهائياً */
+            border: none !important;
             outline: none !important;
             border-radius: 14px;
             background: rgba(10, 16, 32, 0.4);
@@ -972,7 +1039,7 @@
         }
         .pillar-card--emerald:hover {
             border-color: var(--emerald);
-            box-shadow: 0 24px 50px rgba(0,0,0,0.65), 0 0 35px rgba(16, 185, 129, 0.28);
+            box-shadow: 0 24px 50px rgba(0,0,0,0.65), 0 0 35px rgba(168, 85, 129, 0.28);
         }
         .pillar-card--purple:hover {
             border-color: var(--purple);
@@ -1111,7 +1178,7 @@
             max-width: 250px;
         }
 
-        /* ─── LUXURY CV INPAGE CONTAINER & HEADER BAR ─── */
+        /* ─── CV INPAGE CONTAINER & HEADER BAR ─── */
         .cv-inpage-container {
             background: linear-gradient(160deg, rgba(13, 20, 36, 0.95), rgba(7, 12, 24, 0.98));
             border: 1.5px solid rgba(56, 189, 248, 0.18);
@@ -1291,7 +1358,6 @@
             display: block;
         }
 
-        /* ─── زر وعارض الهاتف المخصص في المنتصف لفتح الـ CV مباشرة ─── */
         .cv-mobile-view {
             display: none;
         }
@@ -1367,7 +1433,7 @@
             }
         }
 
-        /* ─── 3. كارت التعليم الشامل والمربعات الثلاثة مع إضاءة الخط العلوي الواضح ─── */
+        /* ─── 3. كارت التعليم الشامل والمربعات الثلاثة ─── */
         .education-card-pro {
             background: linear-gradient(145deg, rgba(13, 20, 36, 0.88), rgba(8, 14, 28, 0.94));
             border: 1px solid rgba(56, 189, 248, 0.16);
@@ -1384,7 +1450,6 @@
             cursor: pointer;
         }
 
-        /* خط التوهج العلوي لكارت التعليم الرئيسي */
         .education-card-pro::after {
             content: '';
             position: absolute;
@@ -1512,7 +1577,6 @@
             transition: var(--transition-smooth);
         }
 
-        /* خطوط التوهج العلوية المحددة لكل مربع من مربعات التعليم الثلاثة */
         .edu-metric-box::before {
             content: '';
             position: absolute;
@@ -2337,10 +2401,8 @@
             <p>Physical campus network deployment bridging Cisco switching fabric with automated fleet orchestration</p>
         </div>
 
-        <!-- 🌟 1. كارت شهادة ختم جمهورية مصر العربية الملكي الاحترافي 🌟 -->
         <div class="state-certificate-card reveal">
             <div class="state-cert-content">
-                <!-- نسر جمهورية مصر العربية الذهبي المصمم بدقة فائقة -->
                 <div class="state-cert-crest" title="Seal of the Arab Republic of Egypt">
                     <svg width="48" height="48" viewBox="0 0 24 24">
                         <defs>
@@ -2386,7 +2448,6 @@
                 <span class="tag tag--emerald" style="font-size:0.76rem; padding:6px 18px; font-weight:700; border-width:1.5px;">Physical Deployment — 3 Routers · 38 Switches · 120 Endpoints</span>
             </div>
 
-            <!-- 🌟 2. فقرة المشروع بدون أي إطار خارجي نهائياً مع خط التوهج العلوي فور لمس الماوس 🌟 -->
             <div class="project-borderless-summary">
                 <p style="font-size:0.96rem; line-height:1.85; color:#e2e8f0; margin:0;">
                     Personally architected, cabled, and deployed the physical network infrastructure across <strong style="color:#ffffff;">6 computer laboratories serving 120 dedicated PC workstations</strong>. The physical switching and routing fabric utilizes <strong style="color:#ffffff;">3 enterprise Cisco Routers</strong>, <strong style="color:#ffffff;">3 Cisco Managed Distribution Switches</strong>, and <strong style="color:#ffffff;">35 Unmanaged bench-level switches</strong>. The environment is centrally orchestrated via the custom <strong style="color:#ffffff;">NEXUS software ecosystem</strong>, delivered as zero-dependency native Desktop (.EXE) and Mobile (.APK Flutter/Kotlin) management interfaces.
@@ -2532,7 +2593,7 @@
         </div>
     </section>
 
-    <!-- ─── 4. TECHNICAL EXPERIENCE (UNIVERSITY INTERN FIRST, THEN NTI CYBEROPS) ─── -->
+    <!-- ─── 4. TECHNICAL EXPERIENCE ─── -->
     <section id="experience">
         <div class="sec-head reveal">
             <span class="section-label">Field Practice &amp; Professional Traineeship</span>
@@ -2541,7 +2602,6 @@
         </div>
 
         <div class="cards-grid">
-            <!-- 1. University Internship (الأولى كعمل وإنتاج شبكي حقيقي) -->
             <div class="card reveal reveal-delay-1">
                 <div class="icon-wrap" style="color: var(--cyan);">💼</div>
                 <div style="font-size:0.75rem; color:var(--cyan); font-weight:700; text-transform:uppercase; margin-bottom:4px;">Dec 2025 – May 2026</div>
@@ -2557,7 +2617,6 @@
                 </div>
             </div>
 
-            <!-- 2. NTI & Cisco CyberOps -->
             <div class="card reveal reveal-delay-2">
                 <div class="icon-wrap" style="color: var(--purple);">🛡️</div>
                 <div style="font-size:0.75rem; color:var(--purple); font-weight:700; text-transform:uppercase; margin-bottom:4px;">Aug – Sep 2026</div>
@@ -2575,7 +2634,7 @@
         </div>
     </section>
 
-    <!-- ─── 5. EDUCATION & HONORS (مع توهج الخطوط العلوية الثلاثة والكارت الرئيسي) ─── -->
+    <!-- ─── 5. EDUCATION & HONORS ─── -->
     <section id="education">
         <div class="sec-head reveal">
             <span class="section-label">Academic Excellence</span>
@@ -2600,9 +2659,7 @@
                 </div>
             </div>
 
-            <!-- المربعات الثلاثة للتعليم مع خط توهج علوي محدد لكل منها يظهر بوضوح عند المرور عليه -->
             <div class="edu-metrics-grid">
-                <!-- 1. Highest Honors (خط توهج زمردي) -->
                 <div class="edu-metric-box edu-metric-box--emerald">
                     <div class="metric-header">
                         <div class="metric-icon-wrap metric-icon-wrap--emerald">⭐</div>
@@ -2614,7 +2671,6 @@
                     </div>
                 </div>
 
-                <!-- 2. Rank #1 (خط توهج ذهبي) -->
                 <div class="edu-metric-box edu-metric-box--gold">
                     <div class="metric-header">
                         <div class="metric-icon-wrap metric-icon-wrap--gold">🏆</div>
@@ -2626,7 +2682,6 @@
                     </div>
                 </div>
 
-                <!-- 3. Top 1% (خط توهج بنفسجي) -->
                 <div class="edu-metric-box edu-metric-box--purple">
                     <div class="metric-header">
                         <div class="metric-icon-wrap metric-icon-wrap--purple">📊</div>
@@ -2707,12 +2762,9 @@
                 </div>
             </div>
 
-            <!-- مساحة عرض الملف: تظهر كـ iframe على الكمبيوتر، وتظهر كزر فخم لفتح الـ CV في المنتصف على الهاتف -->
             <div class="cv-inpage-body">
-                <!-- عرض اللابتوب والكمبيوتر -->
                 <iframe src="{{ url_for('download_cv') }}#toolbar=1" title="Ahmed Attia CV"></iframe>
 
-                <!-- عرض الهاتف المحمول المخصص بوسط الشاشة -->
                 <div class="cv-mobile-view">
                     <div class="cv-mobile-icon-box">📄</div>
                     <h4 class="cv-mobile-title">Ahmed Attia Mohamed.pdf</h4>
@@ -2879,7 +2931,6 @@
         <span id="toastCopyText">Copied to clipboard!</span>
     </div>
 
-    <!-- النافذة المنبثقة للـ CV -->
     <div class="modal-overlay" id="cvModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -2976,7 +3027,6 @@
             typeLoop();
         })();
 
-        // تحسين فتح الـ CV على الهاتف ليعمل مباشرة بدون شاشة رمادية أو تعليق
         function openCVModal() {
             if (window.innerWidth <= 768) {
                 window.open("{{ url_for('download_cv') }}", "_blank");
