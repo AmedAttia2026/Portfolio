@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8" />
@@ -17,7 +18,7 @@
             img.onload = function() {
                 try {
                     const canvas = document.createElement('canvas');
-                    const size = 64; // دقة فائقة الوضوح (Retina Ready)
+                    const size = 64;
                     canvas.width = size;
                     canvas.height = size;
                     const ctx = canvas.getContext('2d');
@@ -27,7 +28,6 @@
                     const rRing = size / 2 - 1.5;
                     const rPhoto = size / 2 - 4.5;
 
-                    // 1. رسم الإطار الدائري المتوهج بتدرج الألوان المتناسق مع الموقع (Cyan -> Purple -> Blue)
                     const grad = ctx.createLinearGradient(0, 0, size, size);
                     grad.addColorStop(0, '#38bdf8');
                     grad.addColorStop(0.5, '#a855f7');
@@ -39,28 +39,24 @@
                     ctx.lineWidth = 3;
                     ctx.stroke();
 
-                    // 2. إطار داخلي أسود فاصل
                     ctx.beginPath();
                     ctx.arc(cx, cy, rPhoto + 1, 0, Math.PI * 2);
                     ctx.fillStyle = '#04070d';
                     ctx.fill();
 
-                    // 3. قص دائري ناعم وشفاف للصورة
                     ctx.save();
                     ctx.beginPath();
                     ctx.arc(cx, cy, rPhoto, 0, Math.PI * 2);
                     ctx.closePath();
                     ctx.clip();
 
-                    // 4. ضبط وتوسيط أبعاد الصورة مع رفع المركز قليلاً لضبط الوجه تماماً كالموقع (50% 10%)
                     const s = Math.min(img.width, img.height);
                     let sx = (img.width - s) / 2;
-                    let sy = (img.height - s) * 0.15; // محاذاة الوجه
+                    let sy = (img.height - s) * 0.15;
                     if (sy < 0) sy = 0;
                     ctx.drawImage(img, sx, sy, s, s, cx - rPhoto, cy - rPhoto, rPhoto * 2, rPhoto * 2);
                     ctx.restore();
 
-                    // 5. تطبيق الأيقونة الدائرية على شريط التبويب
                     const roundDataUrl = canvas.toDataURL('image/png');
                     const fav = document.getElementById('siteFavicon');
                     if (fav) fav.href = roundDataUrl;
@@ -130,7 +126,7 @@
             --shadow-glow-strong: 0 0 70px rgba(56, 189, 248, 0.15);
 
             --transition-smooth: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            --transition-bounce: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            --transition-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         html {
@@ -895,7 +891,7 @@
             color: #ffffff;
         }
 
-        /* ─── 2. كارت المشروع الفخم ─── */
+        /* ─── 2. كارت المشروع ─── */
         .project-super-card {
             background: linear-gradient(145deg, rgba(13, 20, 36, 0.94), rgba(8, 14, 28, 0.98));
             border: 1px solid rgba(56, 189, 248, 0.18);
@@ -1433,7 +1429,7 @@
             }
         }
 
-        /* ─── 3. كارت التعليم الشامل والمربعات الثلاثة ─── */
+        /* ─── 3. كارت التعليم ─── */
         .education-card-pro {
             background: linear-gradient(145deg, rgba(13, 20, 36, 0.88), rgba(8, 14, 28, 0.94));
             border: 1px solid rgba(56, 189, 248, 0.16);
@@ -1587,15 +1583,9 @@
             opacity: 0;
             transition: opacity 0.4s ease, filter 0.4s ease;
         }
-        .edu-metric-box--emerald::before {
-            background: linear-gradient(90deg, transparent, var(--emerald), transparent);
-        }
-        .edu-metric-box--gold::before {
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-        }
-        .edu-metric-box--purple::before {
-            background: linear-gradient(90deg, transparent, var(--purple), transparent);
-        }
+        .edu-metric-box--emerald::before { background: linear-gradient(90deg, transparent, var(--emerald), transparent); }
+        .edu-metric-box--gold::before { background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+        .edu-metric-box--purple::before { background: linear-gradient(90deg, transparent, var(--purple), transparent); }
 
         .edu-metric-box:hover {
             border-color: rgba(56, 189, 248, 0.30);
@@ -1603,9 +1593,7 @@
             transform: translateY(-4px);
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
         }
-        .edu-metric-box:hover::before {
-            opacity: 1;
-        }
+        .edu-metric-box:hover::before { opacity: 1; }
         .edu-metric-box--emerald:hover::before { filter: drop-shadow(0 0 8px var(--emerald)); }
         .edu-metric-box--gold:hover::before { filter: drop-shadow(0 0 8px var(--gold)); }
         .edu-metric-box--purple:hover::before { filter: drop-shadow(0 0 8px var(--purple)); }
@@ -1695,14 +1683,14 @@
             gap: 6px;
         }
 
-        /* ─── CONTACT SECTION & LUXURY BRAND ICONS ─── */
+        /* ─── CONTACT SECTION & LUXURY BRAND BUTTONS (شغل فخم جداً) ─── */
         .contact-box {
             display: grid;
-            grid-template-columns: 1.2fr 1fr;
+            grid-template-columns: 1.25fr 1fr;
             gap: 2.8rem;
             padding: 2.8rem;
             background: var(--bg-card);
-            border: 1px solid rgba(56,189,248,0.07);
+            border: 1px solid rgba(56,189,248,0.12);
             border-radius: var(--radius-lg);
             backdrop-filter: blur(20px) saturate(1.4);
             -webkit-backdrop-filter: blur(20px) saturate(1.4);
@@ -1711,7 +1699,7 @@
             position: relative;
         }
         .contact-box:hover {
-            border-color: rgba(56,189,248,0.16);
+            border-color: rgba(56,189,248,0.22);
             box-shadow: var(--shadow-card), var(--shadow-glow);
         }
 
@@ -1723,7 +1711,7 @@
 
         .contact-card {
             background: rgba(11,18,34,0.72);
-            border: 1px solid rgba(56,189,248,0.08);
+            border: 1px solid rgba(56,189,248,0.10);
             border-radius: 20px;
             padding: 1.3rem 1.6rem;
             display: flex;
@@ -1792,13 +1780,19 @@
         }
 
         .contact-icon-box--location {
-            background: rgba(26, 115, 232, 0.08);
-            border: 1.5px solid rgba(56, 189, 248, 0.30);
-            box-shadow: 0 4px 18px rgba(26, 115, 232, 0.15), inset 0 0 12px rgba(56, 189, 248, 0.06);
+            background: rgba(14, 24, 48, 0.75);
+            border: 1.5px solid rgba(56, 189, 248, 0.45);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35), inset 0 0 12px rgba(56, 189, 248, 0.08);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-bounce);
         }
         .contact-card:hover .contact-icon-box--location {
             border-color: var(--cyan);
-            box-shadow: 0 0 25px rgba(56, 189, 248, 0.45), inset 0 0 14px rgba(26, 115, 232, 0.18);
+            box-shadow: 0 0 28px rgba(56, 189, 248, 0.5), inset 0 0 15px rgba(56, 189, 248, 0.18);
+            transform: scale(1.08) translateY(-2px);
         }
 
         .contact-text-meta {
@@ -1836,89 +1830,221 @@
             flex-shrink: 0;
         }
 
+        /* ─── الأنماط الاحترافية لكل زرار حسب هويته الخاصة ─── */
         .btn-action-icon {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 8px 18px;
-            font-size: 0.82rem;
-            font-weight: 600;
+            padding: 9px 20px;
+            font-size: 0.83rem;
+            font-weight: 700;
             border-radius: var(--radius-full);
             text-decoration: none;
             transition: var(--transition-bounce);
             cursor: pointer;
             white-space: nowrap;
+            letter-spacing: 0.02em;
+            position: relative;
+            outline: none;
         }
 
+        /* 1. زرار النسخ (Copy) — هوية Gmail القرمزية الحية */
         .btn-action-icon--copy {
-            background: rgba(18, 28, 50, 0.85);
-            color: #d1d5db;
-            border: 1.5px solid rgba(56, 189, 248, 0.22);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+            background: linear-gradient(135deg, rgba(234, 67, 53, 0.14) 0%, rgba(197, 34, 31, 0.08) 100%);
+            color: #ff8a80;
+            border: 1.5px solid rgba(234, 67, 53, 0.40);
+            box-shadow: 0 4px 16px rgba(234, 67, 53, 0.18), inset 0 0 10px rgba(234, 67, 53, 0.08);
+        }
+        .btn-action-icon--copy svg {
+            color: #ff8a80;
+            transition: transform 0.3s ease;
         }
         .btn-action-icon--copy:hover {
+            background: linear-gradient(135deg, #ea4335 0%, #c5221f 100%);
             color: #ffffff;
-            border-color: var(--cyan);
-            background: rgba(24, 38, 68, 0.95);
-            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.35);
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 8px 25px rgba(234, 67, 53, 0.55), 0 0 30px rgba(234, 67, 53, 0.4);
+        }
+        .btn-action-icon--copy:hover svg {
+            color: #ffffff;
+            transform: scale(1.12);
+        }
+        .btn-action-icon--copy.copied-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+            color: #ffffff !important;
+            border-color: rgba(255, 255, 255, 0.4) !important;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6) !important;
         }
 
+        /* 2. زرار الاتصال (Call) — هوية الاتصال الصوتي الخلوية الفخمة */
         .btn-action-icon--call {
-            background: rgba(18, 28, 50, 0.85);
-            color: #d1d5db;
-            border: 1.5px solid rgba(56, 189, 248, 0.22);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.14) 0%, rgba(5, 150, 105, 0.08) 100%);
+            color: #6ee7b7;
+            border: 1.5px solid rgba(16, 185, 129, 0.40);
+            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.18), inset 0 0 10px rgba(16, 185, 129, 0.08);
+        }
+        .btn-action-icon--call svg {
+            color: #6ee7b7;
+            transition: transform 0.35s ease;
         }
         .btn-action-icon--call:hover {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: #ffffff;
-            border-color: #22c55e;
-            background: rgba(24, 38, 68, 0.95);
-            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.35);
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.55), 0 0 30px rgba(16, 185, 129, 0.35);
+        }
+        .btn-action-icon--call:hover svg {
+            color: #ffffff;
+            animation: phoneRinging 0.45s ease-in-out infinite alternate;
+        }
+        @keyframes phoneRinging {
+            0% { transform: rotate(-14deg) scale(1.15); }
+            100% { transform: rotate(14deg) scale(1.15); }
         }
 
+        /* 3. زرار الواتساب (WhatsApp) — هوية خضراء متوهجة مع ثبات الكتابة والأيقونة باللون الأسود */
         .btn-action-icon--wa {
-            background: #22c55e;
+            background: linear-gradient(135deg, #25d366 0%, #20ba5a 100%);
             color: #040914 !important;
-            font-weight: 700;
-            border: none;
-            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.55), 0 0 25px rgba(34, 197, 94, 0.35);
+            font-weight: 800;
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45), 0 0 25px rgba(37, 211, 102, 0.25);
         }
         .btn-action-icon--wa svg {
-            color: #040914;
+            color: #040914 !important;
+            fill: currentColor;
+            transition: transform 0.3s ease;
         }
         .btn-action-icon--wa:hover {
-            transform: translateY(-2px) scale(1.04);
-            box-shadow: 0 8px 30px rgba(34, 197, 94, 0.75), 0 0 35px rgba(34, 197, 94, 0.5);
-            color: #000000 !important;
+            background: linear-gradient(135deg, #2ae871 0%, #22c55e 100%);
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 8px 32px rgba(37, 211, 102, 0.75), 0 0 40px rgba(37, 211, 102, 0.5);
+            color: #040914 !important; /* تظل الكتابة سوداء تماماً ولا تتحول لأبيض */
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        .btn-action-icon--wa:hover svg {
+            color: #040914 !important; /* تظل أيقونة الواتساب سوداء أيضاً */
+            transform: scale(1.15);
         }
 
+        /* 4. زرار الزيارة (Visit) — هوية LinkedIn الزرقاء المتوهجة */
         .btn-action-icon--visit {
-            background: rgba(15, 26, 48, 0.88);
-            color: #38bdf8;
-            border: 1.5px solid rgba(56, 189, 248, 0.35);
-            padding: 8px 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+            background: linear-gradient(135deg, rgba(10, 102, 194, 0.16) 0%, rgba(0, 65, 130, 0.10) 100%);
+            color: #60a5fa;
+            border: 1.5px solid rgba(10, 102, 194, 0.45);
+            box-shadow: 0 4px 16px rgba(10, 102, 194, 0.22), inset 0 0 10px rgba(10, 102, 194, 0.10);
+            padding: 9px 22px;
+        }
+        .btn-action-icon--visit svg {
+            color: #60a5fa;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         .btn-action-icon--visit:hover {
+            background: linear-gradient(135deg, #0a66c2 0%, #004182 100%);
             color: #ffffff;
-            border-color: var(--cyan);
-            background: rgba(10, 102, 194, 0.4);
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
-            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.35);
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 8px 25px rgba(10, 102, 194, 0.60), 0 0 32px rgba(56, 189, 248, 0.45);
+        }
+        .btn-action-icon--visit:hover svg {
+            color: #ffffff;
+            transform: translate(3px, -3px) scale(1.15);
         }
 
-        .tag--relocation {
-            background: rgba(16, 185, 129, 0.08);
-            border: 1.5px solid rgba(16, 185, 129, 0.32);
-            color: var(--emerald);
-            font-size: 0.82rem;
-            font-weight: 600;
-            padding: 7px 18px;
+        /* 5. شارة الجاهزية للسفر (Open to Relocation) — هوية السفر العالمية الفاخرة */
+        .badge-relocation {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 18px;
             border-radius: var(--radius-full);
+            background: linear-gradient(135deg, rgba(245, 197, 66, 0.12) 0%, rgba(16, 185, 129, 0.08) 100%);
+            border: 1.5px solid rgba(245, 197, 66, 0.42);
+            color: #fef08a;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), 0 0 25px rgba(245, 197, 66, 0.15);
+            cursor: pointer;
+            transition: var(--transition-bounce);
             white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+        .badge-relocation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+        .badge-relocation:hover::before {
+            left: 100%;
+        }
+        .badge-relocation:hover {
+            transform: translateY(-3px) scale(1.03);
+            border-color: var(--gold);
+            background: linear-gradient(135deg, rgba(245, 197, 66, 0.22) 0%, rgba(16, 185, 129, 0.16) 100%);
+            color: #ffffff;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 35px rgba(245, 197, 66, 0.35);
+        }
+        .relocation-radar {
+            position: relative;
+            width: 10px;
+            height: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .radar-core {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 8px var(--gold);
+        }
+        .radar-ping {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 1.5px solid var(--gold);
+            animation: radarWave 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+        }
+        @keyframes radarWave {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(3.2); opacity: 0; }
+        }
+        .relocation-plane {
+            color: var(--gold);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .badge-relocation:hover .relocation-plane {
+            color: #ffffff;
+            transform: translate(2px, -2px) rotate(15deg) scale(1.15);
+        }
+        .relocation-subtag {
+            font-size: 0.7rem;
+            color: var(--emerald);
+            background: rgba(16, 185, 129, 0.15);
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            margin-left: 3px;
+        }
+        .badge-relocation:hover .relocation-subtag {
+            background: rgba(16, 185, 129, 0.3);
+            color: #ffffff;
+            border-color: var(--emerald);
         }
 
+        /* ─── باقي مكونات الفورم والصفحة ─── */
         .form-side-container {
             display: flex;
             flex-direction: column;
@@ -2227,6 +2353,7 @@
             .metric-primary-val { font-size: 1.4rem; }
             .project-stats-grid { grid-template-columns: 1fr; }
             .visual-item-box { height: 210px; }
+            .contact-actions { flex-wrap: wrap; }
         }
     </style>
 </head>
@@ -2346,7 +2473,7 @@
         </div>
     </section>
 
-    <!-- ─── 2. SKILLS (TECHNICAL COMPETENCIES) ─── -->
+    <!-- ─── 2. SKILLS ─── -->
     <section id="skills">
         <div class="sec-head reveal">
             <span class="section-label">Technical Expertise</span>
@@ -2782,7 +2909,7 @@
         </div>
     </section>
 
-    <!-- ─── 7. CONTACT SECTION ─── -->
+    <!-- ─── 7. CONTACT SECTION WITH CUSTOM-THEMED ACTION BUTTONS ─── -->
     <section id="contact">
         <div class="sec-head reveal">
             <span class="section-label">Get In Touch</span>
@@ -2793,7 +2920,7 @@
         <div class="contact-box reveal">
             <div class="contact-details-col">
 
-                <!-- 1. Direct Email -->
+                <!-- 1. Direct Email (Copy Button with Gmail Identity) -->
                 <div class="contact-card">
                     <div class="contact-card-info">
                         <div class="contact-icon-box contact-icon-box--gmail" title="Google Gmail">
@@ -2811,14 +2938,17 @@
                         </div>
                     </div>
                     <div class="contact-actions">
-                        <button class="btn-action-icon btn-action-icon--copy" onclick="copyToClipboard('ahmedattia20041120mm@gmail.com', 'Email copied!')">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                            <span>Copy</span>
+                        <button id="copyEmailBtn" class="btn-action-icon btn-action-icon--copy" onclick="copyEmailAddress(this, 'ahmedattia20041120mm@gmail.com')">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            <span class="btn-copy-label">Copy</span>
                         </button>
                     </div>
                 </div>
 
-                <!-- 2. Phone & WhatsApp -->
+                <!-- 2. Phone & WhatsApp (Call Button with Telecom Identity) -->
                 <div class="contact-card">
                     <div class="contact-card-info">
                         <div class="contact-icon-box contact-icon-box--phone" title="Phone & WhatsApp">
@@ -2833,7 +2963,7 @@
                     </div>
                     <div class="contact-actions">
                         <a href="tel:01274477946" class="btn-action-icon btn-action-icon--call">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                             </svg>
                             <span>Call</span>
@@ -2847,7 +2977,7 @@
                     </div>
                 </div>
 
-                <!-- 3. LinkedIn Network -->
+                <!-- 3. LinkedIn Network (Visit Button with LinkedIn Identity) -->
                 <div class="contact-card">
                     <div class="contact-card-info">
                         <div class="contact-icon-box contact-icon-box--linkedin" title="LinkedIn">
@@ -2864,32 +2994,45 @@
                     <div class="contact-actions">
                         <a href="https://linkedin.com/in/ahmedattiahemada" target="_blank" rel="noopener" class="btn-action-icon btn-action-icon--visit">
                             <span>Visit</span>
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
                         </a>
                     </div>
                 </div>
 
-                <!-- 4. Location -->
-                <div class="contact-card">
-                    <div class="contact-card-info">
-                        <div class="contact-icon-box contact-icon-box--location" title="Google Maps Location">
-                            <svg width="22" height="28" viewBox="0 0 92.3 132.3">
-                                <path fill="#1a73e8" d="M60.2 2.2C55.8.8 51 0 46.1 0 32 0 19.3 6.4 10.8 16.5l21.8 18.3L60.2 2.2z"/>
-                                <path fill="#ea4335" d="M10.8 16.5C4.1 24.5 0 34.9 0 46.1c0 8.7 1.7 15.7 4.6 22l28-33.3-21.8-18.3z"/>
-                                <path fill="#4285f4" d="M46.2 28.5c9.8 0 17.7 7.9 17.7 17.7 0 4.3-1.6 8.3-4.2 11.4 0 0 13.9-16.6 27.5-32.7-5.6-10.8-15.3-19-27-22.7L32.6 34.8c3.3-3.8 8.1-6.3 13.6-6.3"/>
-                                <path fill="#fbbc04" d="M46.2 63.8c-9.8 0-17.7-7.9-17.7-17.7 0-4.3 1.5-8.3 4.1-11.3l-28 33.3c4.8 10.6 12.8 19.2 21 29.9l34.1-40.5c-3.3 3.9-8.1 6.3-13.5 6.3"/>
-                                <path fill="#34a853" d="M59.1 109.2c15.4-24.1 33.3-35 33.3-63 0-7.7-1.9-14.9-5.2-21.3L25.6 98c2.6 3.4 5.3 7.3 7.9 11.3 9.4 14.5 6.8 23.1 12.8 23.1s3.4-8.7 12.8-23.2"/>
-                            </svg>
-                        </div>
-                        <div class="contact-text-meta">
-                            <span class="label">Location</span>
-                            <span class="value">Borg El Arab, Alexandria, Egypt</span>
-                        </div>
-                    </div>
-                    <div class="contact-actions">
-                        <span class="tag--relocation">Open to Relocation</span>
-                    </div>
-                </div>
+                <!-- 4. Location (مع أيقونة Google Maps الأصلية الفخمة) -->
+				<div class="contact-card">
+					<div class="contact-card-info">
+						<div class="contact-icon-box contact-icon-box--location" title="Google Maps Location">
+							<svg width="24" height="30" viewBox="0 0 92.3 132.3">
+								<path fill="#1a73e8" d="M60.2 2.2C55.8.8 51 0 46.1 0 32 0 19.3 6.4 10.8 16.5l21.8 18.3L60.2 2.2z"/>
+								<path fill="#ea4335" d="M10.8 16.5C4.1 24.5 0 34.9 0 46.1c0 8.7 1.7 15.7 4.6 22l28-33.3-21.8-18.3z"/>
+								<path fill="#4285f4" d="M46.2 28.5c9.8 0 17.7 7.9 17.7 17.7 0 4.3-1.6 8.3-4.2 11.4 0 0 13.9-16.6 27.5-32.7-5.6-10.8-15.3-19-27-22.7L32.6 34.8c3.3-3.8 8.1-6.3 13.6-6.3"/>
+								<path fill="#fbbc04" d="M46.2 63.8c-9.8 0-17.7-7.9-17.7-17.7 0-4.3 1.5-8.3 4.1-11.3l-28 33.3c4.8 10.6 12.8 19.2 21 29.9l34.1-40.5c-3.3 3.9-8.1 6.3-13.5 6.3"/>
+								<path fill="#34a853" d="M59.1 109.2c15.4-24.1 33.3-35 33.3-63 0-7.7-1.9-14.9-5.2-21.3L25.6 98c2.6 3.4 5.3 7.3 7.9 11.3 9.4 14.5 6.8 23.1 12.8 23.1s3.4-8.7 12.8-23.2"/>
+							</svg>
+						</div>
+						<div class="contact-text-meta">
+							<span class="label">LOCATION</span>
+							<h5 class="value">Borg El Arab, Alexandria, Egypt</h5>
+						</div>
+					</div>
+					<div class="contact-actions">
+						<div class="badge-relocation" title="Ready for immediate national and international relocation">
+							<span class="relocation-radar">
+								<span class="radar-ping"></span>
+								<span class="radar-core"></span>
+							</span>
+							<svg class="relocation-plane" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+								<path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+							</svg>
+							<h5>Open to Relocation</h5>
+						</div>
+					</div>
+				</div>
 
             </div>
 
@@ -2991,6 +3134,27 @@
         function resetContactForm() {
             successBox.style.display = 'none';
             form.style.display = 'block';
+        }
+
+        /* ─── وظيفة نسخ الإيميل التفاعلية مع تغيير حالة الزرار ─── */
+        function copyEmailAddress(btnEl, text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const label = btnEl.querySelector('.btn-copy-label');
+                const origText = label.textContent;
+                btnEl.classList.add('copied-success');
+                label.textContent = 'Copied! ✓';
+
+                const toast = document.getElementById('toastCopy');
+                const toastText = document.getElementById('toastCopyText');
+                toastText.textContent = 'Email address copied!';
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2400);
+
+                setTimeout(() => {
+                    btnEl.classList.remove('copied-success');
+                    label.textContent = origText;
+                }, 2200);
+            }).catch(() => prompt('Copy this email:', text));
         }
 
         function copyToClipboard(text, msg = 'Copied to clipboard!') {
