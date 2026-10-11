@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ahmed Attia | Network & Infrastructure Engineer</title>
 
-    <!-- ─── Circular Favicon with Glowing Gradient Ring ─── -->
     <link rel="icon" id="siteFavicon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23080d18' stroke='%2338bdf8' stroke-width='2'/%3E%3C/svg%3E">
     <link rel="apple-touch-icon" id="siteAppleIcon" href="">
 
@@ -19,2786 +18,75 @@
                 try {
                     const canvas = document.createElement('canvas');
                     const size = 64;
-                    canvas.width = size;
-                    canvas.height = size;
+                    canvas.width = size; canvas.height = size;
                     const ctx = canvas.getContext('2d');
-
-                    const cx = size / 2;
-                    const cy = size / 2;
-                    const rRing = size / 2 - 1.5;
-                    const rPhoto = size / 2 - 4.5;
-
-                    const grad = ctx.createLinearGradient(0, 0, size, size);
-                    grad.addColorStop(0, '#38bdf8');
-                    grad.addColorStop(0.5, '#a855f7');
-                    grad.addColorStop(1, '#6366f1');
-
-                    ctx.beginPath();
-                    ctx.arc(cx, cy, rRing, 0, Math.PI * 2);
-                    ctx.strokeStyle = grad;
-                    ctx.lineWidth = 3;
-                    ctx.stroke();
-
-                    ctx.beginPath();
-                    ctx.arc(cx, cy, rPhoto + 1, 0, Math.PI * 2);
-                    ctx.fillStyle = '#04070d';
-                    ctx.fill();
-
-                    ctx.save();
-                    ctx.beginPath();
-                    ctx.arc(cx, cy, rPhoto, 0, Math.PI * 2);
-                    ctx.closePath();
-                    ctx.clip();
-
-                    const s = Math.min(img.width, img.height);
-                    let sx = (img.width - s) / 2;
-                    let sy = (img.height - s) * 0.15;
-                    if (sy < 0) sy = 0;
-                    ctx.drawImage(img, sx, sy, s, s, cx - rPhoto, cy - rPhoto, rPhoto * 2, rPhoto * 2);
+                    const cx = size/2, cy = size/2;
+                    const rRing = size/2 - 1.5, rPhoto = size/2 - 4.5;
+                    const grad = ctx.createLinearGradient(0,0,size,size);
+                    grad.addColorStop(0,'#38bdf8'); grad.addColorStop(0.5,'#a855f7'); grad.addColorStop(1,'#6366f1');
+                    ctx.beginPath(); ctx.arc(cx,cy,rRing,0,Math.PI*2); ctx.strokeStyle=grad; ctx.lineWidth=3; ctx.stroke();
+                    ctx.beginPath(); ctx.arc(cx,cy,rPhoto+1,0,Math.PI*2); ctx.fillStyle='#04070d'; ctx.fill();
+                    ctx.save(); ctx.beginPath(); ctx.arc(cx,cy,rPhoto,0,Math.PI*2); ctx.closePath(); ctx.clip();
+                    const s = Math.min(img.width,img.height);
+                    let sx=(img.width-s)/2, sy=(img.height-s)*0.15; if(sy<0) sy=0;
+                    ctx.drawImage(img,sx,sy,s,s,cx-rPhoto,cy-rPhoto,rPhoto*2,rPhoto*2);
                     ctx.restore();
-
-                    const roundDataUrl = canvas.toDataURL('image/png');
-                    const fav = document.getElementById('siteFavicon');
-                    if (fav) fav.href = roundDataUrl;
-                    const appleFav = document.getElementById('siteAppleIcon');
-                    if (appleFav) appleFav.href = roundDataUrl;
-                } catch(err) {
-                    console.error("Favicon error:", err);
-                }
+                    const url = canvas.toDataURL('image/png');
+                    const f = document.getElementById('siteFavicon'); if(f) f.href = url;
+                    const a = document.getElementById('siteAppleIcon'); if(a) a.href = url;
+                } catch(e){ console.error(e); }
             };
             img.src = rawAvatarSrc;
             {% endif %}
         })();
     </script>
 
+    <script>
+        window.SITE_CONFIG = {
+            avatarSrc: {% if profile.profile_base64 %}"data:image/jpeg;base64,{{ profile.profile_base64 }}"{% else %}null{% endif %},
+            cvUrl: "{{ url_for('download_cv') }}",
+            cvFilename: "{{ profile.cv_filename }}"
+        };
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
-    <style>
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
-        :root {
-            --bg-primary: #04070d;
-            --bg-secondary: #080d18;
-            --bg-card: rgba(13, 20, 36, 0.72);
-            --bg-card-hover: rgba(18, 28, 50, 0.92);
-            --border-glow: rgba(56, 189, 248, 0.12);
-            --border-active: rgba(56, 189, 248, 0.45);
-
-            --cyan: #38bdf8;
-            --cyan-dark: #0ea5e9;
-            --purple: #a855f7;
-            --purple-dark: #7c3aed;
-            --blue: #6366f1;
-            --emerald: #10b981;
-            --whatsapp: #25d366;
-            --whatsapp-bright: #22c55e;
-            --linkedin-blue: #0a66c2;
-            --gmail-red: #ea4335;
-            --gold: #f5c542;
-            --gold-light: #fef08a;
-            --rose: #f472b6;
-            --slate: #8b9bb4;
-
-            --text-primary: #f0f4f8;
-            --text-secondary: #a0aec0;
-            --text-muted: #64748b;
-
-            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-            --font-display: 'Playfair Display', 'Inter', serif;
-
-            --radius-sm: 10px;
-            --radius-md: 20px;
-            --radius-lg: 28px;
-            --radius-xl: 40px;
-            --radius-full: 9999px;
-
-            --shadow-card: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(56, 189, 248, 0.05);
-            --shadow-glow: 0 0 50px rgba(56, 189, 248, 0.09);
-            --shadow-glow-strong: 0 0 70px rgba(56, 189, 248, 0.15);
-
-            --transition-smooth: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            --transition-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        html {
-            font-size: 16px;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        body {
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            font-family: var(--font-sans);
-            overflow-x: hidden;
-            line-height: 1.7;
-            min-height: 100vh;
-            position: relative;
-        }
-
-        ::-webkit-scrollbar {
-            width: 5px;
-            height: 5px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-primary);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--cyan), var(--purple));
-            border-radius: 10px;
-        }
-
-        canvas#bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 0;
-            pointer-events: none;
-            opacity: 0.95;
-        }
-
-        .orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(120px);
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.22;
-            animation: orbFloat 24s ease-in-out infinite alternate;
-        }
-        .orb--1 { width: 700px; height: 700px; top: -250px; right: -200px; background: radial-gradient(circle, rgba(56,189,248,0.25), transparent 70%); }
-        .orb--2 { width: 550px; height: 550px; bottom: -200px; left: -180px; background: radial-gradient(circle, rgba(168,85,247,0.20), transparent 70%); animation-delay: -7s; }
-        .orb--3 { width: 450px; height: 450px; top: 35%; left: 55%; transform: translateX(-50%); background: radial-gradient(circle, rgba(99,102,241,0.10), transparent 70%); animation-delay: -14s; }
-        .orb--4 { width: 300px; height: 300px; top: 15%; left: 8%; background: radial-gradient(circle, rgba(245,197,66,0.07), transparent 70%); animation-delay: -3s; }
-
-        @keyframes orbFloat {
-            0% { transform: translate(0,0) scale(1); }
-            33% { transform: translate(40px,-50px) scale(1.08); }
-            66% { transform: translate(-30px,40px) scale(0.92); }
-            100% { transform: translate(20px,-20px) scale(1.04); }
-        }
-
-        .nav-wrapper {
-            position: fixed;
-            top: 1rem;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            z-index: 1000;
-            padding: 0 1.2rem;
-            pointer-events: none;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            max-width: 1160px;
-            padding: 0.4rem 0.6rem 0.4rem 1.2rem;
-            background: rgba(8,14,26,0.85);
-            backdrop-filter: blur(24px) saturate(1.7);
-            -webkit-backdrop-filter: blur(24px) saturate(1.7);
-            border: 1px solid rgba(56,189,248,0.12);
-            border-radius: var(--radius-full);
-            box-shadow: 0 16px 40px rgba(0,0,0,0.55), 0 0 30px rgba(56,189,248,0.04);
-            pointer-events: auto;
-            transition: var(--transition-smooth);
-        }
-
-        nav:hover {
-            border-color: rgba(56,189,248,0.25);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.70), var(--shadow-glow);
-        }
-
-        .nav-logo {
-            font-weight: 800;
-            font-size: 0.85rem;
-            color: var(--text-primary);
-            text-decoration: none;
-            letter-spacing: 0.01em;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-logo .logo-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: var(--cyan);
-            box-shadow: 0 0 10px var(--cyan);
-            animation: logoPulse 2.5s ease-in-out infinite;
-        }
-        @keyframes logoPulse {
-            0%,100% { box-shadow: 0 0 8px var(--cyan); }
-            50% { box-shadow: 0 0 22px var(--cyan), 0 0 45px rgba(56,189,248,0.3); }
-        }
-
-        .nav-logo span {
-            background: linear-gradient(135deg, #ffffff 50%, var(--cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 0.2rem;
-            list-style: none;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.78rem;
-            font-weight: 500;
-            padding: 7px 14px;
-            border-radius: var(--radius-full);
-            transition: var(--transition-smooth);
-            letter-spacing: 0.01em;
-            white-space: nowrap;
-        }
-
-        .nav-links a:hover {
-            color: var(--text-primary);
-            background: rgba(255,255,255,0.05);
-        }
-
-        .nav-links .nav-divider {
-            width: 1px;
-            height: 16px;
-            background: rgba(255,255,255,0.08);
-            margin: 0 4px;
-        }
-
-        .btn-cv-nav {
-            background: linear-gradient(135deg, var(--cyan), var(--blue)) !important;
-            color: #030712 !important;
-            padding: 7px 18px !important;
-            border-radius: var(--radius-full) !important;
-            font-size: 0.76rem !important;
-            font-weight: 700 !important;
-            transition: var(--transition-bounce) !important;
-            box-shadow: 0 2px 16px rgba(56,189,248,0.30);
-            letter-spacing: 0.02em;
-        }
-
-        .btn-cv-nav:hover {
-            transform: scale(1.06);
-            box-shadow: 0 6px 28px rgba(56,189,248,0.55);
-        }
-
-        section {
-            padding: 5.8rem 6% 2.5rem;
-            max-width: 1260px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .section-label {
-            font-size: 0.68rem;
-            text-transform: uppercase;
-            letter-spacing: 0.16em;
-            color: var(--cyan);
-            font-weight: 600;
-            opacity: 0.9;
-            margin-bottom: 0.3rem;
-            display: inline-block;
-        }
-
-        .sec-head {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        .sec-head .section-label {
-            margin-bottom: 0.5rem;
-        }
-        .sec-head h2 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            letter-spacing: -0.04em;
-            line-height: 1.1;
-            margin-bottom: 0.5rem;
-        }
-        .sec-head h2 span {
-            background: linear-gradient(135deg, var(--cyan), var(--purple), var(--blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .sec-head p {
-            color: var(--text-secondary);
-            font-size: 0.92rem;
-        }
-
-        .hero-centered {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            min-height: 84vh;
-            justify-content: center;
-            padding: 2rem 0 1rem;
-        }
-
-        .avatar-wrapper {
-            position: relative;
-            width: 250px;
-            height: 250px;
-            margin-bottom: 1.8rem;
-            flex-shrink: 0;
-        }
-
-        .avatar-ring {
-            position: absolute;
-            inset: -6px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--cyan), var(--purple), var(--blue), var(--cyan));
-            background-size: 300% 300%;
-            animation: ringSpin 7s linear infinite;
-            box-shadow: 0 0 70px rgba(56,189,248,0.22), 0 0 130px rgba(168,85,247,0.10);
-        }
-        @keyframes ringSpin {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .avatar-halo {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            padding: 4px;
-            background: var(--bg-primary);
-            overflow: hidden;
-        }
-
-        .avatar-img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            object-position: 50% 10%;
-            display: block;
-            background: #0a1020;
-            border: 2px solid rgba(56,189,248,0.08);
-            transition: var(--transition-smooth);
-        }
-        .avatar-img:hover {
-            transform: scale(1.03);
-            border-color: rgba(56,189,248,0.22);
-        }
-
-        .status-ping-corner {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            width: 22px;
-            height: 22px;
-            background: var(--emerald);
-            border: 4px solid var(--bg-primary);
-            border-radius: 50%;
-            box-shadow: 0 0 20px rgba(16,185,129,0.55), inset 0 0 8px rgba(16,185,129,0.30);
-            z-index: 10;
-            animation: pulse-dot 2s ease-in-out infinite;
-        }
-        @keyframes pulse-dot {
-            0%,100% { box-shadow: 0 0 16px rgba(16,185,129,0.40); }
-            50% { box-shadow: 0 0 38px rgba(16,185,129,0.75), 0 0 80px rgba(16,185,129,0.15); }
-        }
-
-        .status-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 20px;
-            background: rgba(16,185,129,0.07);
-            border: 1px solid rgba(16,185,129,0.18);
-            border-radius: var(--radius-full);
-            color: var(--emerald);
-            font-size: 0.76rem;
-            font-weight: 600;
-            letter-spacing: 0.02em;
-            margin-bottom: 1.2rem;
-            backdrop-filter: blur(4px);
-        }
-        .status-tag .dot {
-            display: inline-block;
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: var(--emerald);
-            animation: pulse-dot 1.8s ease-in-out infinite;
-        }
-
-        .hero-text h1 {
-            font-size: 4.2rem;
-            font-weight: 900;
-            line-height: 1.06;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.04em;
-        }
-        .hero-text h1 span {
-            background: linear-gradient(135deg, var(--cyan), var(--purple), var(--blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .typewriter-text {
-            font-size: 1.18rem;
-            color: var(--cyan);
-            margin-bottom: 1.1rem;
-            min-height: 2rem;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-        }
-        .typewriter-text .cursor-blink {
-            display: inline-block;
-            width: 2px;
-            height: 1.1em;
-            background: var(--cyan);
-            margin-left: 4px;
-            vertical-align: text-bottom;
-            animation: blink 0.8s step-end infinite;
-        }
-        @keyframes blink {
-            0%,100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        .hero-desc {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            max-width: 660px;
-            margin: 0 auto 2.2rem auto;
-            text-align: center;
-            text-wrap: balance;
-            line-height: 1.85;
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: 1.1rem;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 0.85rem 1.95rem;
-            border-radius: var(--radius-full);
-            font-size: 0.9rem;
-            font-weight: 700;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            border: none;
-            transition: var(--transition-bounce);
-            position: relative;
-            overflow: hidden;
-            letter-spacing: 0.015em;
-        }
-
-        .btn-cta-project {
-            background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
-            color: #040914 !important;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.45);
-        }
-        .btn-cta-project svg {
-            color: #040914;
-            stroke-width: 2.3;
-        }
-        .btn-cta-project:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 8px 30px rgba(56, 189, 248, 0.65);
-        }
-
-        .btn-cta-cv {
-            background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
-            color: #ffffff !important;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 4px 20px rgba(79, 70, 229, 0.4);
-        }
-        .btn-cta-cv svg {
-            color: #93c5fd;
-            transition: var(--transition-smooth);
-        }
-        .btn-cta-cv:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 8px 30px rgba(79, 70, 229, 0.6);
-        }
-        .btn-cta-cv:hover svg {
-            color: #ffffff;
-            transform: scale(1.1);
-        }
-
-        .btn-cta-connect {
-            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
-            color: #ffffff !important;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.45);
-        }
-        .btn-cta-connect svg {
-            color: #e9d5ff;
-            transition: var(--transition-smooth);
-        }
-        .btn-cta-connect:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 8px 30px rgba(168, 85, 247, 0.65);
-        }
-        .btn-cta-connect:hover svg {
-            color: #ffffff;
-            transform: scale(1.1);
-        }
-
-        .btn-cta-linkedin {
-            background: linear-gradient(135deg, #0a66c2 0%, #004182 100%);
-            color: #ffffff !important;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 4px 20px rgba(10, 102, 194, 0.45);
-        }
-        .btn-cta-linkedin:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 8px 30px rgba(10, 102, 194, 0.65);
-        }
-
-        .highlights-bar {
-            margin: 3.2rem auto 0;
-            max-width: 1080px;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 0.9rem;
-        }
-        .highlight-pill {
-            padding: 11px 24px;
-            background: rgba(13, 22, 44, 0.65);
-            border: 1px solid rgba(56, 189, 248, 0.16);
-            border-radius: var(--radius-full);
-            font-size: 0.88rem;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
-            transition: var(--transition-smooth);
-        }
-        .highlight-pill:hover {
-            border-color: rgba(56, 189, 248, 0.45);
-            color: #ffffff;
-            background: rgba(18, 32, 64, 0.88);
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(56, 189, 248, 0.25);
-        }
-        .highlight-pill strong { color: var(--cyan); font-weight: 700; font-size: 0.92rem; }
-        .highlight-pill .icon { color: var(--cyan); opacity: 0.8; font-size: 0.8rem; }
-
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.8rem;
-        }
-
-        .card {
-            background: var(--bg-card);
-            border: 1px solid rgba(56,189,248,0.10);
-            border-radius: var(--radius-md);
-            padding: 2.2rem 1.9rem;
-            display: flex;
-            flex-direction: column;
-            backdrop-filter: blur(20px) saturate(1.4);
-            -webkit-backdrop-filter: blur(20px) saturate(1.4);
-            transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            box-shadow: var(--shadow-card);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-            opacity: 0;
-            transition: opacity 0.4s ease, filter 0.4s ease;
-        }
-        .card:hover {
-            border-color: rgba(56,189,248,0.38);
-            transform: translateY(-9px) scale(1.015);
-            background: rgba(16, 26, 52, 0.92);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 45px rgba(56, 189, 248, 0.18);
-        }
-        .card:hover::before {
-            opacity: 1;
-            filter: drop-shadow(0 0 8px var(--cyan));
-        }
-
-        .card .icon-wrap {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
-            background: linear-gradient(135deg, rgba(56,189,248,0.15), rgba(168,85,247,0.15));
-            border: 1px solid rgba(56,189,248,0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.45rem;
-            margin-bottom: 1.1rem;
-            flex-shrink: 0;
-            transition: var(--transition-bounce);
-        }
-        .card:hover .icon-wrap {
-            transform: scale(1.18) rotate(6deg);
-            background: linear-gradient(135deg, rgba(56,189,248,0.3), rgba(168,85,247,0.3));
-            border-color: var(--cyan);
-            box-shadow: 0 0 25px rgba(56, 189, 248, 0.45);
-        }
-
-        .card h3 {
-            font-size: 1.25rem;
-            font-weight: 800;
-            margin-bottom: 0.6rem;
-            letter-spacing: -0.01em;
-            color: #ffffff;
-            transition: color 0.3s ease;
-        }
-        .card:hover h3 {
-            color: var(--cyan);
-        }
-        .card p {
-            color: var(--text-secondary);
-            font-size: 0.92rem;
-            line-height: 1.75;
-            margin-bottom: 1.3rem;
-            flex: 1;
-            transition: color 0.3s ease;
-        }
-        .card:hover p {
-            color: #d1d5db;
-        }
-
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 7px;
-            margin-top: auto;
-        }
-        .tag {
-            font-size: 0.74rem;
-            font-weight: 600;
-            padding: 5px 13px;
-            background: rgba(56,189,248,0.06);
-            border: 1px solid rgba(56,189,248,0.14);
-            border-radius: var(--radius-full);
-            color: var(--text-secondary);
-            transition: all 0.3s ease;
-        }
-        .card:hover .tag {
-            border-color: rgba(56,189,248,0.3);
-            color: var(--text-primary);
-        }
-        .tag:hover {
-            border-color: var(--cyan) !important;
-            color: #ffffff !important;
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.35);
-        }
-        .tag--emerald {
-            color: var(--emerald);
-            border-color: rgba(16,185,129,0.25);
-            background: rgba(16,185,129,0.08);
-        }
-        .tag--emerald:hover {
-            border-color: var(--emerald) !important;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.35);
-        }
-        .tag--gold {
-            color: var(--gold);
-            border-color: rgba(245,197,66,0.25);
-            background: rgba(245,197,66,0.08);
-        }
-        .tag--gold:hover {
-            border-color: var(--gold) !important;
-            box-shadow: 0 0 15px rgba(245, 197, 66, 0.35);
-        }
-        .tag--purple {
-            color: var(--purple);
-            border-color: rgba(168,85,247,0.25);
-            background: rgba(168,85,247,0.08);
-        }
-        .tag--purple:hover {
-            border-color: var(--purple) !important;
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.35);
-        }
-
-        /* ─── 1. كارت شهادة ختم جمهورية مصر العربية ─── */
-        .state-certificate-card {
-            background: linear-gradient(135deg, rgba(20, 16, 6, 0.95) 0%, rgba(13, 20, 36, 0.95) 45%, rgba(8, 14, 28, 0.98) 100%);
-            border: 1.5px solid rgba(245, 197, 66, 0.45);
-            border-radius: var(--radius-lg);
-            padding: 2.4rem 2.6rem;
-            margin-bottom: 2.2rem;
-            backdrop-filter: blur(28px);
-            -webkit-backdrop-filter: blur(28px);
-            box-shadow: 0 25px 65px rgba(0, 0, 0, 0.8), 0 0 45px rgba(245, 197, 66, 0.15);
-            transition: var(--transition-smooth);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .state-certificate-card::after {
-            content: '';
-            position: absolute;
-            right: -25px;
-            bottom: -35px;
-            width: 260px;
-            height: 260px;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f5c542'%3E%3Cpath d='M12 2L9.5 5H4v4l-2.5 3 2.5 3v4h5.5l2.5 3 2.5-3H20v-4l2.5-3-2.5-3V5h-5.5L12 2zm0 4.5l1.6 2.6 3.1.5-2.2 2.2.5 3-3-1.6-3 1.6.5-3-2.2-2.2 3.1-.5L12 6.5z'/%3E%3C/svg%3E") no-repeat center;
-            background-size: contain;
-            opacity: 0.04;
-            pointer-events: none;
-            transition: var(--transition-smooth);
-        }
-        .state-certificate-card:hover::after {
-            opacity: 0.08;
-            transform: scale(1.05) rotate(3deg);
-        }
-
-        .state-certificate-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3.5px;
-            background: linear-gradient(90deg, transparent, #ffffff, var(--gold), #ffffff, transparent);
-            opacity: 0;
-            transition: opacity 0.45s ease, filter 0.45s ease;
-        }
-        .state-certificate-card:hover {
-            border-color: var(--gold);
-            transform: translateY(-5px);
-            box-shadow: 0 32px 85px rgba(0, 0, 0, 0.85), 0 0 65px rgba(245, 197, 66, 0.35);
-        }
-        .state-certificate-card:hover::before {
-            opacity: 1;
-            filter: drop-shadow(0 0 14px var(--gold));
-        }
-
-        .state-cert-content {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .state-cert-crest {
-            width: 86px;
-            height: 86px;
-            border-radius: 24px;
-            background: radial-gradient(circle, rgba(245, 197, 66, 0.25) 0%, rgba(20, 16, 6, 0.95) 80%);
-            border: 2px solid var(--gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 35px rgba(245, 197, 66, 0.4);
-            transition: var(--transition-bounce);
-        }
-        .state-certificate-card:hover .state-cert-crest {
-            transform: scale(1.1) rotate(-3deg);
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7), 0 0 45px rgba(245, 197, 66, 0.6);
-        }
-
-        .state-cert-badge-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 0.6rem;
-        }
-        .state-cert-badge-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 5px 15px;
-            border-radius: var(--radius-full);
-            background: rgba(245, 197, 66, 0.12);
-            border: 1px solid rgba(245, 197, 66, 0.4);
-            color: var(--gold);
-            font-size: 0.75rem;
-            font-weight: 800;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-        .state-cert-badge-tag .gold-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: var(--gold);
-            box-shadow: 0 0 10px var(--gold);
-        }
-
-        .state-cert-title {
-            font-size: 1.42rem;
-            font-weight: 900;
-            color: #ffffff;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.02em;
-            line-height: 1.3;
-        }
-        .state-cert-title span {
-            background: linear-gradient(135deg, #ffffff 20%, var(--gold) 75%, #d97706 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 20px rgba(245, 197, 66, 0.3);
-        }
-
-        .state-cert-desc {
-            color: #d1d5db;
-            font-size: 0.94rem;
-            line-height: 1.8;
-        }
-        .state-cert-desc strong {
-            color: #ffffff;
-        }
-
-        /* ─── 2. كارت المشروع ─── */
-        .project-super-card {
-            background: linear-gradient(145deg, rgba(13, 20, 36, 0.94), rgba(8, 14, 28, 0.98));
-            border: 1px solid rgba(56, 189, 248, 0.18);
-            border-radius: var(--radius-xl);
-            padding: 3rem;
-            backdrop-filter: blur(28px) saturate(1.6);
-            -webkit-backdrop-filter: blur(28px) saturate(1.6);
-            box-shadow: var(--shadow-card), 0 0 60px rgba(56, 189, 248, 0.07);
-            max-width: 1140px;
-            margin: 0 auto;
-            position: relative;
-            overflow: hidden;
-            transition: var(--transition-smooth);
-        }
-        .project-super-card:hover {
-            border-color: rgba(56, 189, 248, 0.38);
-            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.85), 0 0 75px rgba(56, 189, 248, 0.18);
-        }
-
-        .project-borderless-summary {
-            position: relative;
-            padding: 1.3rem 1.6rem;
-            margin-bottom: 1.6rem;
-            border: none !important;
-            outline: none !important;
-            border-radius: 14px;
-            background: rgba(10, 16, 32, 0.4);
-            transition: background 0.4s ease, transform 0.4s ease;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        .project-borderless-summary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #ffffff, var(--cyan), #ffffff, transparent);
-            opacity: 0;
-            transition: opacity 0.4s ease, filter 0.4s ease;
-        }
-        .project-borderless-summary:hover {
-            background: rgba(16, 26, 52, 0.65);
-            transform: translateY(-2px);
-        }
-        .project-borderless-summary:hover::before {
-            opacity: 1;
-            filter: drop-shadow(0 0 10px var(--cyan));
-        }
-
-        .project-stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.1rem;
-            margin: 2rem 0;
-        }
-        .stat-mini-box {
-            background: rgba(10, 16, 32, 0.80);
-            border: 1px solid rgba(56, 189, 248, 0.12);
-            border-radius: 18px;
-            padding: 1.35rem 1rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            overflow: hidden;
-        }
-        .stat-mini-box:hover {
-            border-color: var(--cyan);
-            transform: translateY(-7px) scale(1.02);
-            background: rgba(16, 28, 56, 0.96);
-            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65), 0 0 30px rgba(56, 189, 248, 0.32);
-        }
-        .stat-mini-num {
-            font-size: 1.85rem;
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 0.35rem;
-            letter-spacing: -0.02em;
-            transition: transform 0.35s ease;
-        }
-        .stat-mini-box:hover .stat-mini-num {
-            transform: scale(1.08);
-        }
-        .stat-mini-lbl {
-            font-size: 0.76rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--text-muted);
-            font-weight: 700;
-            transition: color 0.3s ease;
-        }
-        .stat-mini-box:hover .stat-mini-lbl {
-            color: #ffffff;
-        }
-
-        .pillar-card {
-            background: rgba(11, 18, 34, 0.85);
-            border-radius: 20px;
-            padding: 1.8rem;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            cursor: pointer;
-            overflow: hidden;
-        }
-        .pillar-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            opacity: 0;
-            transition: opacity 0.4s ease, filter 0.4s ease;
-        }
-
-        .pillar-card--cyan { border: 1px solid rgba(56, 189, 248, 0.18); }
-        .pillar-card--cyan::before { background: linear-gradient(90deg, transparent, var(--cyan), transparent); }
-
-        .pillar-card--emerald { border: 1px solid rgba(16, 185, 129, 0.20); }
-        .pillar-card--emerald::before { background: linear-gradient(90deg, transparent, var(--emerald), transparent); }
-
-        .pillar-card--purple { border: 1px solid rgba(168, 85, 247, 0.20); }
-        .pillar-card--purple::before { background: linear-gradient(90deg, transparent, var(--purple), transparent); }
-
-        .pillar-card:hover {
-            transform: translateY(-9px) scale(1.02);
-            background: rgba(16, 26, 52, 0.98);
-        }
-        .pillar-card:hover::before {
-            opacity: 1;
-            filter: drop-shadow(0 0 8px currentColor);
-        }
-
-        .pillar-card--cyan:hover {
-            border-color: var(--cyan);
-            box-shadow: 0 24px 50px rgba(0,0,0,0.65), 0 0 35px rgba(56, 189, 248, 0.28);
-        }
-        .pillar-card--emerald:hover {
-            border-color: var(--emerald);
-            box-shadow: 0 24px 50px rgba(0,0,0,0.65), 0 0 35px rgba(168, 85, 129, 0.28);
-        }
-        .pillar-card--purple:hover {
-            border-color: var(--purple);
-            box-shadow: 0 24px 50px rgba(0,0,0,0.65), 0 0 35px rgba(168, 85, 247, 0.28);
-        }
-
-        .pillar-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 1.3rem;
-            padding-bottom: 0.9rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .pillar-header .pillar-icon {
-            font-size: 1.5rem;
-            transition: transform 0.4s ease;
-        }
-        .pillar-card:hover .pillar-icon {
-            transform: scale(1.25) rotate(6deg);
-        }
-
-        .pillar-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 1.15rem;
-        }
-        .pillar-item {
-            font-size: 0.9rem;
-            color: #94a3b8;
-            line-height: 1.7;
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            text-align: left;
-            transition: color 0.35s ease;
-        }
-        .pillar-card:hover .pillar-item {
-            color: #e2e8f0;
-        }
-        .pillar-bullet {
-            font-weight: bold;
-            flex-shrink: 0;
-            display: inline-block;
-            line-height: 1.7;
-        }
-
-        .project-visual-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.6rem;
-            margin: 2.4rem 0;
-        }
-        .visual-item-box {
-            position: relative;
-            height: 280px;
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            border: 1px solid rgba(56, 189, 248, 0.20);
-            background: #060b17;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            transition: all 0.45s ease;
-        }
-        .visual-item-box:hover {
-            border-color: var(--cyan);
-            transform: translateY(-6px) scale(1.02);
-            box-shadow: 0 22px 50px rgba(0, 0, 0, 0.75), 0 0 40px rgba(56, 189, 248, 0.3);
-        }
-        .visual-item-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        .visual-item-box:hover img {
-            transform: scale(1.08);
-        }
-
-        .visual-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 1.3rem 1.5rem 1rem;
-            background: linear-gradient(180deg, transparent 0%, rgba(4, 7, 13, 0.98) 90%);
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            pointer-events: none;
-        }
-        .visual-caption h4 {
-            font-size: 0.92rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 2px;
-        }
-        .visual-caption span {
-            font-size: 0.74rem;
-            color: var(--cyan);
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        .visual-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: radial-gradient(circle at center, rgba(56, 189, 248, 0.08) 0%, rgba(6, 11, 23, 0.95) 75%);
-            border: 2px dashed rgba(56, 189, 248, 0.25);
-            border-radius: var(--radius-md);
-            color: var(--text-secondary);
-            padding: 1.5rem;
-            text-align: center;
-        }
-        .visual-placeholder .placeholder-icon {
-            font-size: 2.2rem;
-            margin-bottom: 0.6rem;
-            opacity: 0.85;
-            color: var(--cyan);
-        }
-        .visual-placeholder strong {
-            color: var(--text-primary);
-            font-size: 0.92rem;
-            margin-bottom: 0.25rem;
-        }
-        .visual-placeholder p {
-            font-size: 0.76rem;
-            color: var(--text-muted);
-            max-width: 250px;
-        }
-
-        /* ─── CV INPAGE CONTAINER & HEADER BAR ─── */
-        .cv-inpage-container {
-            background: linear-gradient(160deg, rgba(13, 20, 36, 0.95), rgba(7, 12, 24, 0.98));
-            border: 1.5px solid rgba(56, 189, 248, 0.18);
-            border-radius: 24px;
-            overflow: hidden;
-            backdrop-filter: blur(24px) saturate(1.5);
-            -webkit-backdrop-filter: blur(24px) saturate(1.5);
-            box-shadow: 0 24px 65px rgba(0, 0, 0, 0.75), 0 0 50px rgba(56, 189, 248, 0.08);
-            transition: var(--transition-smooth);
-        }
-        .cv-inpage-container:hover {
-            border-color: rgba(56, 189, 248, 0.35);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), 0 0 65px rgba(56, 189, 248, 0.18);
-        }
-
-        .cv-inpage-header {
-            padding: 1.05rem 1.8rem;
-            background: linear-gradient(90deg, rgba(8, 14, 28, 0.98) 0%, rgba(14, 24, 48, 0.95) 100%);
-            border-bottom: 1.5px solid rgba(56, 189, 248, 0.14);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1.2rem;
-        }
-
-        .cv-meta-group {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .terminal-dots {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-        }
-        .terminal-dots span {
-            width: 11px;
-            height: 11px;
-            border-radius: 50%;
-            display: inline-block;
-            box-shadow: 0 0 6px currentColor;
-        }
-        .dot-red { background: #ef4444; color: rgba(239, 68, 68, 0.4); }
-        .dot-yellow { background: #f59e0b; color: rgba(245, 158, 11, 0.4); }
-        .dot-green { background: #10b981; color: rgba(16, 185, 129, 0.4); }
-
-        .file-name-badge {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(16, 26, 52, 0.7);
-            border: 1px solid rgba(56, 189, 248, 0.16);
-            padding: 6px 14px;
-            border-radius: var(--radius-full);
-        }
-        .file-name-badge .pdf-badge-icon {
-            width: 22px;
-            height: 22px;
-            background: rgba(239, 68, 68, 0.15);
-            border: 1px solid rgba(239, 68, 68, 0.35);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ef4444;
-            font-size: 0.68rem;
-            font-weight: 900;
-            letter-spacing: 0.04em;
-        }
-        .file-name-badge .file-title {
-            color: #ffffff;
-            font-size: 0.88rem;
-            font-weight: 700;
-            letter-spacing: -0.01em;
-        }
-        .file-name-badge .file-ext-pill {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.72rem;
-            color: var(--cyan);
-            font-weight: 600;
-            border-left: 1px solid rgba(255, 255, 255, 0.12);
-            padding-left: 8px;
-        }
-        .file-name-badge .file-ext-pill .live-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--emerald);
-            box-shadow: 0 0 8px var(--emerald);
-            animation: pulse-dot 1.8s infinite;
-        }
-
-        .cv-actions-toolbar {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .btn-cv-action-fullscreen {
-            background: rgba(18, 30, 58, 0.9) !important;
-            border: 1.5px solid rgba(56, 189, 248, 0.32) !important;
-            color: var(--cyan) !important;
-            padding: 8px 20px !important;
-            border-radius: var(--radius-full) !important;
-            font-size: 0.82rem !important;
-            font-weight: 700 !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            gap: 8px !important;
-            cursor: pointer !important;
-            transition: var(--transition-bounce) !important;
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(56, 189, 248, 0.06);
-            letter-spacing: 0.02em;
-        }
-        .btn-cv-action-fullscreen:hover {
-            background: rgba(28, 48, 92, 0.95) !important;
-            border-color: var(--cyan) !important;
-            color: #ffffff !important;
-            transform: translateY(-2px) scale(1.03) !important;
-            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4), 0 0 20px rgba(56, 189, 248, 0.25) !important;
-        }
-        .btn-cv-action-fullscreen svg {
-            color: var(--cyan);
-            transition: transform 0.3s ease;
-        }
-        .btn-cv-action-fullscreen:hover svg {
-            color: #ffffff;
-            transform: scale(1.15);
-        }
-
-        .btn-cv-action-download {
-            background: linear-gradient(135deg, #38bdf8 0%, #2563eb 50%, #1d4ed8 100%) !important;
-            border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
-            color: #ffffff !important;
-            padding: 8px 22px !important;
-            border-radius: var(--radius-full) !important;
-            font-size: 0.82rem !important;
-            font-weight: 800 !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            gap: 8px !important;
-            text-decoration: none !important;
-            cursor: pointer !important;
-            transition: var(--transition-bounce) !important;
-            box-shadow: 0 6px 22px rgba(37, 99, 235, 0.5), 0 0 25px rgba(56, 189, 248, 0.3) !important;
-            letter-spacing: 0.02em;
-        }
-        .btn-cv-action-download:hover {
-            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%) !important;
-            transform: translateY(-2px) scale(1.04) !important;
-            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.7), 0 0 35px rgba(56, 189, 248, 0.5) !important;
-            color: #ffffff !important;
-        }
-        .btn-cv-action-download svg {
-            color: #ffffff;
-            stroke-width: 2.4;
-            transition: transform 0.3s ease;
-        }
-        .btn-cv-action-download:hover svg {
-            transform: translateY(2px);
-        }
-
-        .cv-inpage-body {
-            width: 100%;
-            height: 750px;
-            background: #040810;
-            position: relative;
-        }
-        .cv-inpage-body iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-        }
-
-        .cv-mobile-view {
-            display: none;
-        }
-
-        @media (max-width: 768px) {
-            .cv-inpage-body iframe {
-                display: none !important;
-            }
-            .cv-inpage-body {
-                height: auto;
-                min-height: 380px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background: radial-gradient(circle at center, rgba(14, 26, 52, 0.95) 0%, rgba(4, 8, 16, 0.98) 100%);
-            }
-            .cv-mobile-view {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-                padding: 2.8rem 1.5rem;
-                width: 100%;
-            }
-            .cv-mobile-icon-box {
-                width: 76px;
-                height: 76px;
-                border-radius: 22px;
-                background: linear-gradient(135deg, rgba(56, 189, 248, 0.16), rgba(37, 99, 235, 0.2));
-                border: 1.5px solid rgba(56, 189, 248, 0.38);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 2.2rem;
-                margin-bottom: 1.2rem;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 35px rgba(56, 189, 248, 0.3);
-                animation: pulse-dot 2.5s infinite;
-            }
-            .cv-mobile-title {
-                color: #ffffff;
-                font-size: 1.25rem;
-                font-weight: 900;
-                letter-spacing: -0.02em;
-                margin-bottom: 0.3rem;
-            }
-            .cv-mobile-desc {
-                color: var(--cyan);
-                font-size: 0.85rem;
-                font-weight: 600;
-                margin-bottom: 1.8rem;
-            }
-            .btn-cv-mobile-main {
-                background: linear-gradient(135deg, #38bdf8 0%, #2563eb 60%, #1d4ed8 100%);
-                color: #ffffff !important;
-                padding: 1rem 2.4rem;
-                border-radius: var(--radius-full);
-                font-size: 0.95rem;
-                font-weight: 800;
-                text-decoration: none;
-                display: inline-flex;
-                align-items: center;
-                gap: 10px;
-                border: 1.5px solid rgba(255, 255, 255, 0.4);
-                box-shadow: 0 8px 30px rgba(37, 99, 235, 0.6), 0 0 35px rgba(56, 189, 248, 0.45);
-                transition: var(--transition-bounce);
-            }
-            .btn-cv-mobile-main:active {
-                transform: scale(0.96);
-            }
-            .btn-cv-mobile-main svg {
-                stroke-width: 2.4;
-            }
-        }
-
-        /* ─── 3. كارت التعليم ─── */
-        .education-card-pro {
-            background: linear-gradient(145deg, rgba(13, 20, 36, 0.88), rgba(8, 14, 28, 0.94));
-            border: 1px solid rgba(56, 189, 248, 0.16);
-            border-radius: var(--radius-xl);
-            padding: 3rem;
-            backdrop-filter: blur(28px) saturate(1.6);
-            -webkit-backdrop-filter: blur(28px) saturate(1.6);
-            box-shadow: var(--shadow-card), 0 0 50px rgba(56, 189, 248, 0.05);
-            transition: var(--transition-smooth);
-            max-width: 980px;
-            margin: 0 auto;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .education-card-pro::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3.5px;
-            background: linear-gradient(90deg, transparent, var(--cyan), var(--purple), transparent);
-            opacity: 0;
-            transition: opacity 0.4s ease, filter 0.4s ease;
-            pointer-events: none;
-        }
-
-        .education-card-pro:hover {
-            border-color: rgba(56, 189, 248, 0.35);
-            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.75), 0 0 60px rgba(56, 189, 248, 0.16);
-            transform: translateY(-4px);
-        }
-        .education-card-pro:hover::after {
-            opacity: 1;
-            filter: drop-shadow(0 0 10px var(--cyan));
-        }
-
-        .edu-hero-block {
-            display: flex;
-            align-items: flex-start;
-            gap: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid rgba(56, 189, 248, 0.09);
-            margin-bottom: 2rem;
-            position: relative;
-        }
-
-        .edu-badge-icon {
-            width: 76px;
-            height: 76px;
-            border-radius: 22px;
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.16), rgba(168, 85, 247, 0.16));
-            border: 1px solid rgba(56, 189, 248, 0.25);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.3rem;
-            flex-shrink: 0;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
-            transition: var(--transition-bounce);
-        }
-        .education-card-pro:hover .edu-badge-icon {
-            transform: scale(1.08) rotate(-4deg);
-            box-shadow: 0 0 30px rgba(56, 189, 248, 0.35);
-            border-color: var(--cyan);
-        }
-
-        .edu-hero-details {
-            flex: 1;
-            min-width: 280px;
-        }
-
-        .edu-status-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 5px 14px;
-            border-radius: var(--radius-full);
-            background: rgba(16, 185, 129, 0.10);
-            border: 1px solid rgba(16, 185, 129, 0.28);
-            color: var(--emerald);
-            font-size: 0.74rem;
-            font-weight: 700;
-            letter-spacing: 0.03em;
-            margin-bottom: 0.65rem;
-            text-transform: uppercase;
-        }
-        .edu-status-pill .pulse-mini {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--emerald);
-            box-shadow: 0 0 8px var(--emerald);
-        }
-
-        .edu-title-main {
-            font-size: 1.7rem;
-            font-weight: 900;
-            letter-spacing: -0.03em;
-            line-height: 1.25;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #ffffff 65%, var(--cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .edu-institution {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-secondary);
-            font-size: 0.96rem;
-            font-weight: 500;
-        }
-        .edu-institution svg {
-            color: var(--cyan);
-            flex-shrink: 0;
-        }
-
-        .edu-metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.2rem;
-            margin-bottom: 1.8rem;
-        }
-
-        .edu-metric-box {
-            background: rgba(11, 18, 34, 0.75);
-            border: 1px solid rgba(56, 189, 248, 0.10);
-            border-radius: 20px;
-            padding: 1.35rem 1.2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-        }
-
-        .edu-metric-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            opacity: 0;
-            transition: opacity 0.4s ease, filter 0.4s ease;
-        }
-        .edu-metric-box--emerald::before { background: linear-gradient(90deg, transparent, var(--emerald), transparent); }
-        .edu-metric-box--gold::before { background: linear-gradient(90deg, transparent, var(--gold), transparent); }
-        .edu-metric-box--purple::before { background: linear-gradient(90deg, transparent, var(--purple), transparent); }
-
-        .edu-metric-box:hover {
-            border-color: rgba(56, 189, 248, 0.30);
-            background: rgba(16, 26, 50, 0.90);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
-        }
-        .edu-metric-box:hover::before { opacity: 1; }
-        .edu-metric-box--emerald:hover::before { filter: drop-shadow(0 0 8px var(--emerald)); }
-        .edu-metric-box--gold:hover::before { filter: drop-shadow(0 0 8px var(--gold)); }
-        .edu-metric-box--purple:hover::before { filter: drop-shadow(0 0 8px var(--purple)); }
-
-        .metric-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 0.6rem;
-        }
-        .metric-icon-wrap {
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            background: rgba(56, 189, 248, 0.08);
-            border: 1px solid rgba(56, 189, 248, 0.15);
-        }
-        .metric-icon-wrap--gold {
-            background: rgba(245, 197, 66, 0.10);
-            border-color: rgba(245, 197, 66, 0.25);
-            color: var(--gold);
-        }
-        .metric-icon-wrap--emerald {
-            background: rgba(168, 85, 247, 0.10);
-            border-color: rgba(168, 85, 247, 0.25);
-            color: var(--purple);
-        }
-        .metric-icon-wrap--purple {
-            background: rgba(168, 85, 247, 0.10);
-            border-color: rgba(168, 85, 247, 0.25);
-            color: var(--purple);
-        }
-
-        .metric-badge-tag {
-            font-size: 0.68rem;
-            font-weight: 700;
-            letter-spacing: 0.04em;
-            padding: 3px 9px;
-            border-radius: var(--radius-full);
-            text-transform: uppercase;
-        }
-        .metric-badge-tag--gold { background: rgba(245, 197, 66, 0.12); color: var(--gold); }
-        .metric-badge-tag--emerald { background: rgba(168, 85, 247, 0.12); color: var(--purple); }
-        .metric-badge-tag--purple { background: rgba(168, 85, 247, 0.12); color: var(--purple); }
-
-        .metric-primary-val {
-            font-size: 1.7rem;
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 0.3rem;
-            letter-spacing: -0.03em;
-        }
-        .metric-primary-val.emerald { color: var(--emerald); }
-        .metric-primary-val.gold { color: var(--gold); }
-        .metric-primary-val.purple { color: var(--purple); }
-
-        .metric-desc-text {
-            font-size: 0.82rem;
-            color: var(--text-secondary);
-            line-height: 1.45;
-        }
-        .metric-desc-text strong {
-            color: var(--text-primary);
-        }
-
-        .edu-focus-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 1rem;
-            padding-top: 1.4rem;
-            border-top: 1px solid rgba(56, 189, 248, 0.07);
-        }
-        .edu-focus-label {
-            font-size: 0.74rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--cyan);
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        /* ─── CONTACT SECTION & LUXURY BRAND BUTTONS (شغل فخم جداً) ─── */
-        /* ─── CONTACT SECTION & LUXURY BRAND BUTTONS (شغل فخم جداً) ─── */
-        
-        /* 1. الحاوية الرئيسية (توسيع ذكي للفورم مع الحفاظ على عرض الكروت) */
-        .contact-box {
-            display: grid;
-            grid-template-columns: 1.15fr 1fr; /* نسبة متوازنة تعطي وسعاً مريحاً للفورم */
-            gap: 2.2rem;
-            padding: 2.6rem;
-            background: var(--bg-card);
-            border: 1px solid rgba(56, 189, 248, 0.12);
-            border-radius: var(--radius-lg);
-            backdrop-filter: blur(20px) saturate(1.4);
-            -webkit-backdrop-filter: blur(20px) saturate(1.4);
-            box-shadow: var(--shadow-card);
-            transition: var(--transition-smooth);
-            position: relative;
-        }
-        .contact-box:hover {
-            border-color: rgba(56, 189, 248, 0.25);
-            box-shadow: var(--shadow-card), var(--shadow-glow);
-        }
-
-        /* 2. عمود كروت التواصل على اليسار */
-        .contact-details-col {
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-        }
-
-        .contact-card {
-            background: rgba(11, 18, 34, 0.72);
-            border: 1px solid rgba(56, 189, 248, 0.10);
-            border-radius: 20px;
-            padding: 1.3rem 1.6rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1.2rem;
-            transition: var(--transition-smooth);
-        }
-        .contact-card:hover {
-            border-color: rgba(56, 189, 248, 0.25);
-            background: rgba(16, 28, 54, 0.92);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
-        }
-
-        .contact-card-info {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            min-width: 0;
-        }
-
-        /* 3. حاويات الأيقونات الرسمية */
-        .contact-icon-box {
-            width: 54px;
-            height: 54px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            transition: var(--transition-bounce);
-            position: relative;
-        }
-        .contact-card:hover .contact-icon-box {
-            transform: scale(1.08) translateY(-2px);
-        }
-
-        /* أيقونة Gmail */
-        .contact-icon-box--gmail {
-            background: rgba(234, 67, 53, 0.08);
-            border: 1.5px solid rgba(234, 67, 53, 0.28);
-            box-shadow: 0 4px 18px rgba(234, 67, 53, 0.15), inset 0 0 12px rgba(234, 67, 53, 0.05);
-        }
-        .contact-card:hover .contact-icon-box--gmail {
-            border-color: #ea4335;
-            box-shadow: 0 0 25px rgba(234, 67, 53, 0.45), inset 0 0 14px rgba(234, 67, 53, 0.15);
-        }
-
-        /* أيقونة الهاتف والواتساب */
-        .contact-icon-box--phone {
-            background: rgba(34, 197, 94, 0.08);
-            border: 1.5px solid rgba(34, 197, 94, 0.32);
-            box-shadow: 0 4px 18px rgba(34, 197, 94, 0.16), inset 0 0 12px rgba(34, 197, 94, 0.06);
-        }
-        .contact-card:hover .contact-icon-box--phone {
-            border-color: #22c55e;
-            box-shadow: 0 0 25px rgba(34, 197, 94, 0.45), inset 0 0 14px rgba(34, 197, 94, 0.18);
-        }
-
-        /* أيقونة LinkedIn */
-        .contact-icon-box--linkedin {
-            background: rgba(10, 102, 194, 0.10);
-            border: 1.5px solid rgba(10, 102, 194, 0.35);
-            box-shadow: 0 4px 18px rgba(10, 102, 194, 0.20), inset 0 0 12px rgba(10, 102, 194, 0.08);
-        }
-        .contact-card:hover .contact-icon-box--linkedin {
-            border-color: #0a66c2;
-            box-shadow: 0 0 25px rgba(10, 102, 194, 0.50), inset 0 0 14px rgba(10, 102, 194, 0.20);
-        }
-
-        /* أيقونة خرائط Google Maps الفخمة */
-        .contact-icon-box--location {
-            background: rgba(14, 24, 48, 0.75);
-            border: 1.5px solid rgba(56, 189, 248, 0.45);
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35), inset 0 0 12px rgba(56, 189, 248, 0.08);
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition-bounce);
-        }
-        .contact-card:hover .contact-icon-box--location {
-            border-color: var(--cyan);
-            box-shadow: 0 0 28px rgba(56, 189, 248, 0.5), inset 0 0 15px rgba(56, 189, 248, 0.18);
-            transform: scale(1.08) translateY(-2px);
-        }
-
-        /* نصوص الكروت */
-        .contact-text-meta {
-            min-width: 0;
-        }
-        .contact-text-meta .label {
-            display: block;
-            font-size: 0.72rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--cyan);
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-        .contact-text-meta .value {
-            display: block;
-            color: var(--text-primary);
-            font-size: 0.98rem;
-            font-weight: 500;
-            text-decoration: none;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            transition: var(--transition-smooth);
-            max-width: 300px;
-        }
-        .contact-text-meta .value:hover {
-            color: var(--cyan);
-        }
-
-        .contact-actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-shrink: 0;
-        }
-
-        /* 4. التصميم الأساسي للزرائر */
-        .btn-action-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 9px 20px;
-            font-size: 0.83rem;
-            font-weight: 700;
-            border-radius: var(--radius-full);
-            text-decoration: none;
-            transition: var(--transition-bounce);
-            cursor: pointer;
-            white-space: nowrap;
-            letter-spacing: 0.02em;
-            position: relative;
-            outline: none;
-        }
-
-        /* زرار Copy - هوية Gmail */
-        .btn-action-icon--copy {
-            background: linear-gradient(135deg, rgba(234, 67, 53, 0.14) 0%, rgba(197, 34, 31, 0.08) 100%);
-            color: #ff8a80;
-            border: 1.5px solid rgba(234, 67, 53, 0.40);
-            box-shadow: 0 4px 16px rgba(234, 67, 53, 0.18), inset 0 0 10px rgba(234, 67, 53, 0.08);
-        }
-        .btn-action-icon--copy svg {
-            color: #ff8a80;
-            transition: transform 0.3s ease;
-        }
-        .btn-action-icon--copy:hover {
-            background: linear-gradient(135deg, #ea4335 0%, #c5221f 100%);
-            color: #ffffff;
-            border-color: rgba(255, 255, 255, 0.35);
-            transform: translateY(-3px) scale(1.04);
-            box-shadow: 0 8px 25px rgba(234, 67, 53, 0.55), 0 0 30px rgba(234, 67, 53, 0.4);
-        }
-        .btn-action-icon--copy:hover svg {
-            color: #ffffff;
-            transform: scale(1.12);
-        }
-        .btn-action-icon--copy.copied-success {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
-            color: #ffffff !important;
-            border-color: rgba(255, 255, 255, 0.4) !important;
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6) !important;
-        }
-
-        /* زرار Call - هوية الاتصال الصوتي مع اهتزاز السماعة */
-        .btn-action-icon--call {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.14) 0%, rgba(5, 150, 105, 0.08) 100%);
-            color: #6ee7b7;
-            border: 1.5px solid rgba(16, 185, 129, 0.40);
-            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.18), inset 0 0 10px rgba(16, 185, 129, 0.08);
-        }
-        .btn-action-icon--call svg {
-            color: #6ee7b7;
-            transition: transform 0.35s ease;
-        }
-        .btn-action-icon--call:hover {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: #ffffff;
-            border-color: rgba(255, 255, 255, 0.35);
-            transform: translateY(-3px) scale(1.04);
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.55), 0 0 30px rgba(16, 185, 129, 0.35);
-        }
-        .btn-action-icon--call:hover svg {
-            color: #ffffff;
-            animation: phoneRinging 0.45s ease-in-out infinite alternate;
-        }
-        @keyframes phoneRinging {
-            0% { transform: rotate(-14deg) scale(1.15); }
-            100% { transform: rotate(14deg) scale(1.15); }
-        }
-
-        /* زرار WhatsApp - ثبات الخط والأيقونة باللون الأسود الداكن */
-        .btn-action-icon--wa {
-            background: linear-gradient(135deg, #25d366 0%, #20ba5a 100%);
-            color: #040914 !important;
-            font-weight: 800;
-            border: 1.5px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45), 0 0 25px rgba(37, 211, 102, 0.25);
-        }
-        .btn-action-icon--wa svg {
-            color: #040914 !important;
-            fill: currentColor;
-            transition: transform 0.3s ease;
-        }
-        .btn-action-icon--wa:hover {
-            background: linear-gradient(135deg, #2ae871 0%, #22c55e 100%);
-            transform: translateY(-3px) scale(1.04);
-            box-shadow: 0 8px 32px rgba(37, 211, 102, 0.75), 0 0 40px rgba(37, 211, 102, 0.5);
-            color: #040914 !important; /* النص يظل أسود */
-            border-color: rgba(255, 255, 255, 0.5);
-        }
-        .btn-action-icon--wa:hover svg {
-            color: #040914 !important; /* الأيقونة تظل سوداء */
-            transform: scale(1.15);
-        }
-
-        /* زرار Visit - هوية LinkedIn الزرقاء */
-        .btn-action-icon--visit {
-            background: linear-gradient(135deg, rgba(10, 102, 194, 0.16) 0%, rgba(0, 65, 130, 0.10) 100%);
-            color: #60a5fa;
-            border: 1.5px solid rgba(10, 102, 194, 0.45);
-            box-shadow: 0 4px 16px rgba(10, 102, 194, 0.22), inset 0 0 10px rgba(10, 102, 194, 0.10);
-            padding: 9px 22px;
-        }
-        .btn-action-icon--visit svg {
-            color: #60a5fa;
-            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .btn-action-icon--visit:hover {
-            background: linear-gradient(135deg, #0a66c2 0%, #004182 100%);
-            color: #ffffff;
-            border-color: rgba(255, 255, 255, 0.35);
-            transform: translateY(-3px) scale(1.04);
-            box-shadow: 0 8px 25px rgba(10, 102, 194, 0.60), 0 0 32px rgba(56, 189, 248, 0.45);
-        }
-        .btn-action-icon--visit:hover svg {
-            color: #ffffff;
-            transform: translate(3px, -3px) scale(1.15);
-        }
-
-        /* شارة Open to Relocation - رادار ذهبي وطائرة متحركة */
-        .badge-relocation {
-            display: inline-flex;
-            align-items: center;
-            gap: 9px;
-            padding: 8px 18px;
-            border-radius: var(--radius-full);
-            background: linear-gradient(135deg, rgba(245, 197, 66, 0.12) 0%, rgba(16, 185, 129, 0.08) 100%);
-            border: 1.5px solid rgba(245, 197, 66, 0.42);
-            color: #fef08a;
-            font-size: 0.82rem;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), 0 0 25px rgba(245, 197, 66, 0.15);
-            cursor: pointer;
-            transition: var(--transition-bounce);
-            white-space: nowrap;
-            position: relative;
-            overflow: hidden;
-        }
-        .badge-relocation::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.6s ease;
-        }
-        .badge-relocation:hover::before {
-            left: 100%;
-        }
-        .badge-relocation:hover {
-            transform: translateY(-3px) scale(1.03);
-            border-color: var(--gold);
-            background: linear-gradient(135deg, rgba(245, 197, 66, 0.22) 0%, rgba(16, 185, 129, 0.16) 100%);
-            color: #ffffff;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 35px rgba(245, 197, 66, 0.35);
-        }
-        .relocation-radar {
-            position: relative;
-            width: 10px;
-            height: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .radar-core {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--gold);
-            box-shadow: 0 0 8px var(--gold);
-        }
-        .radar-ping {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 1.5px solid var(--gold);
-            animation: radarWave 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
-        }
-        @keyframes radarWave {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(3.2); opacity: 0; }
-        }
-        .relocation-plane {
-            color: var(--gold);
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .badge-relocation:hover .relocation-plane {
-            color: #ffffff;
-            transform: translate(2px, -2px) rotate(15deg) scale(1.15);
-        }
-
-        /* ─── CYBER-LUXURY GMAIL FORM (TOP TIER) ─── */
-        .form-side-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            background: linear-gradient(145deg, rgba(14, 22, 44, 0.88) 0%, rgba(6, 10, 22, 0.98) 100%);
-            border: 1.5px solid rgba(56, 189, 248, 0.24);
-            border-radius: 26px;
-            padding: 2.2rem 2.1rem;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(28px) saturate(1.7);
-            -webkit-backdrop-filter: blur(28px) saturate(1.7);
-            box-shadow: 0 25px 65px rgba(0, 0, 0, 0.75), 0 0 45px rgba(56, 189, 248, 0.09);
-            transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        /* هالة ضوئية متدرجة في الزاوية */
-        .form-side-container::after {
-            content: '';
-            position: absolute;
-            top: -60px;
-            right: -60px;
-            width: 180px;
-            height: 180px;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.22), transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            filter: blur(25px);
-        }
-
-        /* خط نيون ليزري علوي */
-        .form-side-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #38bdf8, #818cf8, #c084fc, transparent);
-            opacity: 0.95;
-        }
-
-        .form-side-container:hover {
-            border-color: rgba(56, 189, 248, 0.45);
-            box-shadow: 0 30px 75px rgba(0, 0, 0, 0.85), 0 0 55px rgba(56, 189, 248, 0.18);
-            transform: translateY(-3px);
-        }
-
-        /* الشارة العلوية */
-        .form-header-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            padding: 5px 14px;
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.14), rgba(129, 140, 248, 0.08));
-            border: 1px solid rgba(56, 189, 248, 0.32);
-            border-radius: var(--radius-full);
-            color: var(--cyan);
-            font-size: 0.74rem;
-            font-weight: 800;
-            letter-spacing: 0.09em;
-            text-transform: uppercase;
-            margin-bottom: 0.75rem;
-            box-shadow: 0 0 16px rgba(56, 189, 248, 0.15);
-        }
-
-        /* العنوان الرئيسي */
-        .form-side-container h4 {
-            font-size: 1.6rem;
-            font-weight: 900;
-            color: #ffffff;
-            letter-spacing: -0.03em;
-            line-height: 1.2;
-            margin-bottom: 1.35rem;
-        }
-
-        .form-side-container h4 span {
-            background: linear-gradient(135deg, #38bdf8 0%, #a855f7 50%, #f472b6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.3));
-        }
-
-        /* حقول الإدخال */
-        .form-ctrl {
-            width: 100%;
-            padding: 1.1rem 1.35rem;
-            border-radius: 16px;
-            background: rgba(8, 14, 28, 0.82);
-            border: 1.5px solid rgba(56, 189, 248, 0.16);
-            color: #ffffff;
-            font-family: var(--font-sans);
-            font-size: 0.94rem;
-            font-weight: 500;
-            outline: none;
-            margin-bottom: 1.05rem;
-            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.25);
-        }
-
-        .form-ctrl::placeholder {
-            color: #64748b;
-            font-size: 0.88rem;
-        }
-
-        .form-ctrl:hover {
-            border-color: rgba(56, 189, 248, 0.38);
-            background: rgba(12, 20, 38, 0.92);
-        }
-
-        .form-ctrl:focus {
-            border-color: var(--cyan);
-            background: rgba(14, 24, 48, 0.98);
-            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18), 0 0 25px rgba(56, 189, 248, 0.25);
-            color: #ffffff;
-            transform: translateY(-1px);
-        }
-
-        textarea.form-ctrl {
-            min-height: 125px;
-            resize: vertical;
-        }
-
-        /* زرار الإرسال الصاروخي */
-        .btn-submit-contact {
-            width: 100%;
-            padding: 1.1rem 2rem !important;
-            border-radius: var(--radius-full) !important;
-            background: linear-gradient(135deg, #38bdf8 0%, #2563eb 45%, #7c3aed 100%) !important;
-            color: #ffffff !important;
-            font-weight: 900 !important;
-            font-size: 1rem !important;
-            letter-spacing: 0.025em !important;
-            border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
-            box-shadow: 0 6px 30px rgba(37, 99, 235, 0.5), 0 0 40px rgba(56, 189, 248, 0.35) !important;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 11px;
-            position: relative;
-            overflow: hidden;
-            transition: var(--transition-bounce) !important;
-        }
-
-        /* لمعة ضوئية عابرة عند الـ Hover */
-        .btn-submit-contact::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -60%;
-            width: 40%;
-            height: 200%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            transform: rotate(30deg);
-            transition: all 0.75s ease;
-        }
-
-        .btn-submit-contact:hover::after {
-            left: 140%;
-        }
-
-        .btn-submit-contact:hover {
-            transform: translateY(-3px) scale(1.02) !important;
-            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 45%, #8b5cf6 100%) !important;
-            box-shadow: 0 12px 42px rgba(37, 99, 235, 0.7), 0 0 55px rgba(56, 189, 248, 0.5) !important;
-            color: #ffffff !important;
-        }
-
-        .btn-submit-contact:active {
-            transform: translateY(0) scale(0.98) !important;
-        }
-
-        .btn-submit-contact svg {
-            color: #ffffff;
-            stroke-width: 2.5;
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .btn-submit-contact:hover svg {
-            transform: translate(6px, -4px) scale(1.2);
-        }
-
-        /* شريط التوثيق السفلي */
-        .gmail-sync-notice {
-            margin-top: 1.05rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 9px;
-            font-size: 0.82rem;
-            color: #94a3b8;
-            text-align: center;
-        }
-
-        .gmail-sync-notice .pulse-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--emerald);
-            box-shadow: 0 0 12px var(--emerald);
-            flex-shrink: 0;
-            animation: pulse-dot 1.8s infinite;
-        }
-
-        .gmail-sync-notice strong {
-            color: #ffffff;
-            font-weight: 700;
-            text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
-        }
-
-
-        .success-box {
-            display: none;
-            background: linear-gradient(135deg, rgba(16,185,129,0.12), rgba(56,189,248,0.08));
-            border: 1px solid rgba(16,185,129,0.35);
-            border-radius: 20px;
-            padding: 2rem 1.5rem;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(16,185,129,0.15);
-            animation: fadeIn 0.4s ease;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        .success-box .check-icon { font-size: 2.4rem; color: var(--emerald); margin-bottom: 0.5rem; }
-        .success-box h4 { color: var(--text-primary); font-size: 1.2rem; margin-bottom: 0.4rem; }
-        .success-box p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; }
-
-        /* ─── الأنماط الاحترافية لكل زرار حسب هويته الخاصة ─── */
-        .btn-action-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 9px 20px;
-            font-size: 0.83rem;
-            font-weight: 700;
-            border-radius: var(--radius-full);
-            text-decoration: none;
-            transition: var(--transition-bounce);
-            cursor: pointer;
-            white-space: nowrap;
-            letter-spacing: 0.02em;
-            position: relative;
-            outline: none;
-        }
-
-        /* 1. زرار النسخ (Copy) — هوية Gmail القرمزية الحية */
-        .btn-action-icon--copy {
-            background: linear-gradient(135deg, rgba(234, 67, 53, 0.14) 0%, rgba(197, 34, 31, 0.08) 100%);
-            color: #ff8a80;
-            border: 1.5px solid rgba(234, 67, 53, 0.40);
-            box-shadow: 0 4px 16px rgba(234, 67, 53, 0.18), inset 0 0 10px rgba(234, 67, 53, 0.08);
-        }
-        .btn-action-icon--copy svg {
-            color: #ff8a80;
-            transition: transform 0.3s ease;
-        }
-        .btn-action-icon--copy:hover {
-            background: linear-gradient(135deg, #ea4335 0%, #c5221f 100%);
-            color: #ffffff;
-            border-color: rgba(255, 255, 255, 0.35);
-            transform: translateY(-3px) scale(1.04);
-            box-shadow: 0 8px 25px rgba(234, 67, 53, 0.55), 0 0 30px rgba(234, 67, 53, 0.4);
-        }
-        .btn-action-icon--copy:hover svg {
-            color: #ffffff;
-            transform: scale(1.12);
-        }
-        .btn-action-icon--copy.copied-success {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
-            color: #ffffff !important;
-            border-color: rgba(255, 255, 255, 0.4) !important;
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6) !important;
-        }
-
-        /* 2. زرار الاتصال (Call) — هوية الاتصال الصوتي الخلوية الفخمة */
-        .btn-action-icon--call {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.14) 0%, rgba(5, 150, 105, 0.08) 100%);
-            color: #6ee7b7;
-            border: 1.5px solid rgba(16, 185, 129, 0.40);
-            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.18), inset 0 0 10px rgba(16, 185, 129, 0.08);
-        }
-        .btn-action-icon--call svg {
-            color: #6ee7b7;
-            transition: transform 0.35s ease;
-        }
-        .btn-action-icon--call:hover {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: #ffffff;
-            border-color: rgba(255, 255, 255, 0.35);
-            transform: translateY(-3px) scale(1.04);
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.55), 0 0 30px rgba(16, 185, 129, 0.35);
-        }
-        .btn-action-icon--call:hover svg {
-            color: #ffffff;
-            animation: phoneRinging 0.45s ease-in-out infinite alternate;
-        }
-        @keyframes phoneRinging {
-            0% { transform: rotate(-14deg) scale(1.15); }
-            100% { transform: rotate(14deg) scale(1.15); }
-        }
-
-        /* 3. زرار الواتساب (WhatsApp) — هوية خضراء متوهجة مع ثبات الكتابة والأيقونة باللون الأسود */
-        .btn-action-icon--wa {
-            background: linear-gradient(135deg, #25d366 0%, #20ba5a 100%);
-            color: #040914 !important;
-            font-weight: 800;
-            border: 1.5px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45), 0 0 25px rgba(37, 211, 102, 0.25);
-        }
-        .btn-action-icon--wa svg {
-            color: #040914 !important;
-            fill: currentColor;
-            transition: transform 0.3s ease;
-        }
-        .btn-action-icon--wa:hover {
-            background: linear-gradient(135deg, #2ae871 0%, #22c55e 100%);
-            transform: translateY(-3px) scale(1.04);
-            box-shadow: 0 8px 32px rgba(37, 211, 102, 0.75), 0 0 40px rgba(37, 211, 102, 0.5);
-            color: #040914 !important; /* تظل الكتابة سوداء تماماً ولا تتحول لأبيض */
-            border-color: rgba(255, 255, 255, 0.5);
-        }
-        .btn-action-icon--wa:hover svg {
-            color: #040914 !important; /* تظل أيقونة الواتساب سوداء أيضاً */
-            transform: scale(1.15);
-        }
-
-        /* 4. زرار الزيارة (Visit) — هوية LinkedIn الزرقاء المتوهجة */
-        .btn-action-icon--visit {
-            background: linear-gradient(135deg, rgba(10, 102, 194, 0.16) 0%, rgba(0, 65, 130, 0.10) 100%);
-            color: #60a5fa;
-            border: 1.5px solid rgba(10, 102, 194, 0.45);
-            box-shadow: 0 4px 16px rgba(10, 102, 194, 0.22), inset 0 0 10px rgba(10, 102, 194, 0.10);
-            padding: 9px 22px;
-        }
-        .btn-action-icon--visit svg {
-            color: #60a5fa;
-            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .btn-action-icon--visit:hover {
-            background: linear-gradient(135deg, #0a66c2 0%, #004182 100%);
-            color: #ffffff;
-            border-color: rgba(255, 255, 255, 0.35);
-            transform: translateY(-3px) scale(1.04);
-            box-shadow: 0 8px 25px rgba(10, 102, 194, 0.60), 0 0 32px rgba(56, 189, 248, 0.45);
-        }
-        .btn-action-icon--visit:hover svg {
-            color: #ffffff;
-            transform: translate(3px, -3px) scale(1.15);
-        }
-
-        /* 5. شارة الجاهزية للسفر (Open to Relocation) — هوية السفر العالمية الفاخرة */
-        .badge-relocation {
-            display: inline-flex;
-            align-items: center;
-            gap: 9px;
-            padding: 8px 18px;
-            border-radius: var(--radius-full);
-            background: linear-gradient(135deg, rgba(245, 197, 66, 0.12) 0%, rgba(16, 185, 129, 0.08) 100%);
-            border: 1.5px solid rgba(245, 197, 66, 0.42);
-            color: #fef08a;
-            font-size: 0.82rem;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), 0 0 25px rgba(245, 197, 66, 0.15);
-            cursor: pointer;
-            transition: var(--transition-bounce);
-            white-space: nowrap;
-            position: relative;
-            overflow: hidden;
-        }
-        .badge-relocation::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.6s ease;
-        }
-        .badge-relocation:hover::before {
-            left: 100%;
-        }
-        .badge-relocation:hover {
-            transform: translateY(-3px) scale(1.03);
-            border-color: var(--gold);
-            background: linear-gradient(135deg, rgba(245, 197, 66, 0.22) 0%, rgba(16, 185, 129, 0.16) 100%);
-            color: #ffffff;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 35px rgba(245, 197, 66, 0.35);
-        }
-        .relocation-radar {
-            position: relative;
-            width: 10px;
-            height: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .radar-core {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--gold);
-            box-shadow: 0 0 8px var(--gold);
-        }
-        .radar-ping {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 1.5px solid var(--gold);
-            animation: radarWave 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
-        }
-        @keyframes radarWave {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(3.2); opacity: 0; }
-        }
-        .relocation-plane {
-            color: var(--gold);
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .badge-relocation:hover .relocation-plane {
-            color: #ffffff;
-            transform: translate(2px, -2px) rotate(15deg) scale(1.15);
-        }
-        .relocation-subtag {
-            font-size: 0.7rem;
-            color: var(--emerald);
-            background: rgba(16, 185, 129, 0.15);
-            padding: 2px 8px;
-            border-radius: var(--radius-full);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            margin-left: 3px;
-        }
-        .badge-relocation:hover .relocation-subtag {
-            background: rgba(16, 185, 129, 0.3);
-            color: #ffffff;
-            border-color: var(--emerald);
-        }
-
-        /* ─── باقي مكونات الفورم والصفحة ─── */
-        .form-side-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            background: rgba(7,11,20,0.55);
-            border: 1px solid rgba(56,189,248,0.06);
-            border-radius: 20px;
-            padding: 1.8rem;
-        }
-
-        .form-ctrl {
-            width: 100%;
-            padding: 1rem 1.2rem;
-            border-radius: 14px;
-            background: rgba(11,18,34,0.78);
-            border: 1px solid rgba(56,189,248,0.14);
-            color: var(--text-primary);
-            font-family: var(--font-sans);
-            font-size: 0.95rem;
-            outline: none;
-            transition: var(--transition-smooth);
-            margin-bottom: 1rem;
-        }
-        .form-ctrl::placeholder {
-            color: var(--text-muted);
-            opacity: 0.7;
-        }
-        .form-ctrl:focus {
-            border-color: var(--cyan);
-            box-shadow: 0 0 0 3px rgba(56,189,248,0.12), 0 0 20px rgba(56,189,248,0.18);
-            background: rgba(14,23,44,0.98);
-        }
-        textarea.form-ctrl {
-            min-height: 110px;
-            resize: vertical;
-        }
-
-        .btn-submit-contact {
-            background: linear-gradient(90deg, #38bdf8 0%, #60a5fa 45%, #818cf8 80%, #a855f7 100%) !important;
-            color: #030712 !important;
-            font-weight: 800 !important;
-            font-size: 0.94rem !important;
-            letter-spacing: 0.02em !important;
-            border: none !important;
-            box-shadow: 0 4px 25px rgba(56, 189, 248, 0.4), 0 0 40px rgba(129, 140, 248, 0.25) !important;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
-        }
-
-        .btn-submit-contact:hover {
-            transform: translateY(-3px) scale(1.015) !important;
-            box-shadow: 0 10px 38px rgba(56, 189, 248, 0.6), 0 0 55px rgba(168, 85, 247, 0.4) !important;
-            color: #000000 !important;
-        }
-
-        .btn-submit-contact svg {
-            color: #030712;
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .btn-submit-contact:hover svg {
-            transform: translateX(5px) translateY(-3px) scale(1.1);
-        }
-
-        .gmail-sync-notice {
-            margin-top: 0.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            text-align: center;
-            line-height: 1.5;
-        }
-        .gmail-sync-notice .pulse-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--emerald);
-            box-shadow: 0 0 10px var(--emerald);
-            flex-shrink: 0;
-            animation: pulse-dot 2s infinite;
-        }
-        .gmail-sync-notice strong {
-            color: var(--cyan);
-            font-weight: 600;
-        }
-
-        .success-box {
-            display: none;
-            background: linear-gradient(135deg, rgba(16,185,129,0.12), rgba(56,189,248,0.08));
-            border: 1px solid rgba(16,185,129,0.35);
-            border-radius: 20px;
-            padding: 2rem 1.5rem;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(16,185,129,0.15);
-            animation: fadeIn 0.4s ease;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        .success-box .check-icon { font-size: 2.4rem; color: var(--emerald); margin-bottom: 0.5rem; }
-        .success-box h4 { color: var(--text-primary); font-size: 1.2rem; margin-bottom: 0.4rem; }
-        .success-box p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; }
-
-        .toast-copy {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: rgba(11,18,34,0.96);
-            border: 1px solid var(--cyan);
-            color: var(--cyan);
-            padding: 12px 24px;
-            border-radius: var(--radius-full);
-            font-size: 0.85rem;
-            font-weight: 600;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px rgba(56,189,248,0.25);
-            z-index: 3000;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
-            pointer-events: none;
-        }
-        .toast-copy.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(3,7,18,0.94);
-            backdrop-filter: blur(24px) saturate(1.4);
-            -webkit-backdrop-filter: blur(24px) saturate(1.4);
-            z-index: 2000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 1.5rem;
-        }
-        .modal-overlay.active { display: flex; }
-        .modal-content {
-            background: var(--bg-secondary);
-            border: 1.5px solid rgba(56,189,248,0.2);
-            border-radius: var(--radius-md);
-            width: 100%;
-            max-width: 1080px;
-            height: 88vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.9);
-        }
-        .modal-header {
-            padding: 0.9rem 1.6rem;
-            background: rgba(7,11,20,0.92);
-            border-bottom: 1px solid rgba(56,189,248,0.12);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-shrink: 0;
-        }
-        .modal-body {
-            flex: 1;
-            position: relative;
-            background: #040810;
-        }
-        .modal-body iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2.8rem 2rem 2.2rem;
-            border-top: 1px solid rgba(56,189,248,0.03);
-            font-size: 0.76rem;
-            color: var(--text-muted);
-            margin-top: 2.5rem;
-            position: relative;
-            z-index: 1;
-        }
-        footer .heart {
-            color: var(--rose);
-            display: inline-block;
-            animation: pulse-heart 1.8s ease-in-out infinite;
-        }
-        @keyframes pulse-heart {
-            0%,100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.9s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94);
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .reveal-delay-1 { transition-delay: 0.05s; }
-        .reveal-delay-2 { transition-delay: 0.10s; }
-        .reveal-delay-3 { transition-delay: 0.15s; }
-        .reveal-delay-4 { transition-delay: 0.20s; }
-
-        .nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 4px;
-            transition: var(--transition-smooth);
-        }
-        .nav-toggle:hover { color: var(--text-primary); }
-
-        @media (max-width: 1024px) {
-            section { padding: 4.5rem 5% 2rem; }
-            .hero-text h1 { font-size: 3.3rem; }
-            .avatar-wrapper { width: 210px; height: 210px; }
-            .cv-inpage-body { height: 580px; }
-            .contact-box { grid-template-columns: 1fr; padding: 2rem; gap: 2rem; }
-            .education-card-pro { padding: 2.2rem; }
-            .edu-metrics-grid { grid-template-columns: 1fr; }
-            .project-visual-grid { grid-template-columns: 1fr; }
-            .project-stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .project-pillars-grid { grid-template-columns: 1fr !important; }
-        }
-
-        @media (max-width: 850px) {
-            .nav-wrapper { top: 0.6rem; }
-            nav { border-radius: var(--radius-md); padding: 0.45rem 1rem; }
-            .nav-toggle { display: block; }
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: calc(100% + 8px);
-                left: 0;
-                right: 0;
-                background: rgba(7,11,20,0.98);
-                backdrop-filter: blur(24px) saturate(1.4);
-                -webkit-backdrop-filter: blur(24px) saturate(1.4);
-                border: 1px solid rgba(56,189,248,0.06);
-                border-radius: var(--radius-md);
-                padding: 1.1rem;
-                flex-direction: column;
-                gap: 0.7rem;
-                box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-            }
-            .nav-links.open { display: flex; }
-            .nav-links a { font-size: 0.86rem; padding: 8px 12px; width: 100%; }
-            .nav-links .nav-divider { width: 100%; height: 1px; margin: 4px 0; }
-            .btn-cv-nav { width: 100%; text-align: center; justify-content: center; }
-
-            .hero-text h1 { font-size: 2.4rem; }
-            .avatar-wrapper { width: 170px; height: 170px; }
-            .status-ping-corner { width: 17px; height: 17px; bottom: 7px; right: 7px; border-width: 3px; }
-
-            .cv-inpage-header { flex-direction: column; align-items: stretch; gap: 0.9rem; padding: 1rem; }
-            .cv-actions-toolbar { justify-content: flex-end; width: 100%; }
-            .sec-head h2 { font-size: 2rem; }
-            .cards-grid { grid-template-columns: 1fr; }
-            .highlights-bar { gap: 0.65rem; }
-            .highlight-pill { font-size: 0.78rem; padding: 8px 16px; }
-            .hero-cta .btn { font-size: 0.82rem; padding: 0.7rem 1.4rem; }
-            .modal-content { height: 90vh; border-radius: var(--radius-sm); }
-            .orb--1, .orb--2 { opacity: 0.12; }
-            .contact-box { padding: 1.5rem; gap: 1.5rem; }
-            .contact-card { padding: 1.2rem; flex-direction: column; align-items: flex-start; }
-            .contact-actions { width: 100%; justify-content: flex-end; }
-
-            .edu-hero-block { flex-direction: column; gap: 1.2rem; }
-            .edu-title-main { font-size: 1.4rem; }
-            .project-super-card { padding: 1.8rem 1.4rem; }
-            .state-certificate-card { padding: 1.6rem; }
-            .state-cert-content { flex-direction: column; text-align: center; gap: 1.2rem; }
-            .state-cert-badge-row { justify-content: center; }
-        }
-
-        @media (max-width: 480px) {
-            .hero-text h1 { font-size: 1.8rem; }
-            .avatar-wrapper { width: 135px; height: 135px; }
-            .typewriter-text { font-size: 0.88rem; }
-            .hero-desc { font-size: 0.85rem; }
-            .file-name-badge { flex-direction: column; align-items: flex-start; gap: 4px; border-radius: 12px; }
-            .file-name-badge .file-ext-pill { border-left: none; padding-left: 0; }
-            .btn-cv-action-fullscreen, .btn-cv-action-download { font-size: 0.75rem !important; padding: 7px 14px !important; }
-            .contact-text-meta .value { max-width: 200px; font-size: 0.85rem; }
-            .contact-icon-box { width: 46px; height: 46px; border-radius: 14px; }
-            section { padding: 3.5rem 4% 1.8rem; }
-            .sec-head h2 { font-size: 1.6rem; }
-            .form-side-container { padding: 1.2rem; }
-            .form-ctrl { padding: 0.9rem 1rem; font-size: 0.9rem; }
-            .education-card-pro { padding: 1.5rem 1.2rem; border-radius: 20px; }
-            .edu-title-main { font-size: 1.25rem; }
-            .metric-primary-val { font-size: 1.4rem; }
-            .project-stats-grid { grid-template-columns: 1fr; }
-            .visual-item-box { height: 210px; }
-            .contact-actions { flex-wrap: wrap; }
-        }
-    </style>
+    <link rel="stylesheet" href="/css.css">
 </head>
 <body>
+
+    <!-- ═══ PRELOADER ═══ -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-logo">
+                <span class="preloader-dot"></span>
+                <span class="preloader-text">AHMED ATTIA</span>
+            </div>
+            <div class="preloader-bar">
+                <div class="preloader-bar-fill" id="preloaderBarFill"></div>
+            </div>
+            <div class="preloader-percent" id="preloaderPercent">0%</div>
+        </div>
+    </div>
+
+    <!-- ═══ CUSTOM CURSOR ═══ -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- ═══ SCROLL PROGRESS ═══ -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- ═══ GRAIN OVERLAY ═══ -->
+    <div class="grain-overlay" aria-hidden="true"></div>
+
+    <!-- ═══ AURORA MESH BACKGROUND ═══ -->
+    <div class="aurora-bg" aria-hidden="true">
+        <div class="aurora aurora--1"></div>
+        <div class="aurora aurora--2"></div>
+        <div class="aurora aurora--3"></div>
+    </div>
 
     <div class="orb orb--1"></div>
     <div class="orb orb--2"></div>
@@ -2839,7 +127,7 @@
     <!-- ─── 1. HOME / HERO ─── -->
     <section id="home">
         <div class="hero-centered">
-            <div class="avatar-wrapper reveal visible">
+            <div class="avatar-wrapper reveal visible" data-tilt>
                 <div class="avatar-ring"></div>
                 <div class="avatar-halo">
                     {% if profile.profile_base64 %}
@@ -2869,7 +157,7 @@
                 </p>
 
                 <div class="hero-cta reveal visible reveal-delay-4">
-                    <a href="#projects" class="btn btn-cta-project">
+                    <a href="#projects" class="btn btn-cta-project" data-magnetic>
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                             <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/>
                             <path d="m22 12.5-8.58 3.91a2 2 0 0 1-1.66 0L2 12.5"/>
@@ -2878,7 +166,7 @@
                         <span>Featured Project</span>
                     </a>
 
-                    <a href="#cv-section" class="btn btn-cta-cv">
+                    <a href="#cv-section" class="btn btn-cta-cv" data-magnetic>
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                             <polyline points="14 2 14 8 20 8"></polyline>
@@ -2888,14 +176,14 @@
                         <span>View CV</span>
                     </a>
 
-                    <a href="#contact" class="btn btn-cta-connect">
+                    <a href="#contact" class="btn btn-cta-connect" data-magnetic>
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                         </svg>
                         <span>Let's Connect</span>
                     </a>
 
-                    <a href="https://linkedin.com/in/ahmedattiahemada" target="_blank" rel="noopener" class="btn btn-cta-linkedin">
+                    <a href="https://linkedin.com/in/ahmedattiahemada" target="_blank" rel="noopener" class="btn btn-cta-linkedin" data-magnetic>
                         <svg width="19" height="19" viewBox="0 0 24 24">
                             <rect width="24" height="24" rx="5" fill="#FFFFFF"/>
                             <path fill="#0A66C2" d="M19 19h-2.8v-4.4c0-1.05-.02-2.4-1.46-2.4-1.46 0-1.68 1.14-1.68 2.32V19H10.2V10h2.7v1.23h.04c.38-.72 1.3-1.48 2.68-1.48 2.87 0 3.4 1.89 3.4 4.35V19zM7.2 8.76c-.9 0-1.63-.73-1.63-1.63s.73-1.63 1.63-1.63 1.63.73 1.63 1.63-.73 1.63-1.63 1.63zM8.6 19H5.8V10h2.8V19z"/>
@@ -2906,12 +194,37 @@
             </div>
 
             <div class="highlights-bar reveal visible reveal-delay-4">
-<div class="highlight-pill"><span class="icon">◆</span> <strong>Track:</strong> CCNA (200-301), CCNP R&amp;S &amp; MCSA</div>                <div class="highlight-pill"><span class="icon">◆</span> <strong>HA:</strong> HSRP, VRRP, GLBP</div>
+                <div class="highlight-pill"><span class="icon">◆</span> <strong>Track:</strong> CCNA (200-301), CCNP R&amp;S &amp; MCSA</div>
+                <div class="highlight-pill"><span class="icon">◆</span> <strong>HA:</strong> HSRP, VRRP, GLBP</div>
                 <div class="highlight-pill"><span class="icon">◆</span> <strong>Security:</strong> ACLs, VPN, AAA, IPS &amp; IDS</div>
                 <div class="highlight-pill"><span class="icon">◆</span> <strong>Software:</strong> Python (OOP), Java (OOP), C/C++, SQL</div>
             </div>
         </div>
     </section>
+
+    <!-- ═══ MARQUEE TICKER ═══ -->
+    <div class="marquee-ticker" aria-hidden="true">
+        <div class="marquee-track">
+            <span class="marquee-item">CCNA 200-301</span><span class="marquee-dot">◆</span>
+            <span class="marquee-item">CCNP R&amp;S</span><span class="marquee-dot">◆</span>
+            <span class="marquee-item">OSPF · EIGRP · BGP</span><span class="marquee-dot">◆</span>
+            <span class="marquee-item">VLAN · STP · EtherChannel</span><span class="marquee-dot">◆</span>
+            <span class="marquee-item">ACL · VPN · AAA</span><span class="marquee-dot">◆</span>
+            <span class="marquee-item">HSRP · VRRP · GLBP</span><span class="marquee-dot">◆</span>
+            <span class="marquee-item">Windows Server MCSA</span><span class="marquee-dot">◆</span>
+            <span class="marquee-item">Linux CLI</span><span class="marquee-dot">◆</span>
+            <span class="marquee-item">Python · Java · SQL</span><span class="marquee-dot">◆</span>
+            <span class="marquee-item">CCNA 200-301</span><span class="marquee-dot">◆</span>
+            <span class="marquee-item">CCNP R&amp;S</span><span class="marquee-dot">◆</span>
+            <span class="marquee-item">OSPF · EIGRP · BGP</span><span class="marquee-dot">◆</span>
+            <span class="marquee-item">VLAN · STP · EtherChannel</span><span class="marquee-dot">◆</span>
+            <span class="marquee-item">ACL · VPN · AAA</span><span class="marquee-dot">◆</span>
+            <span class="marquee-item">HSRP · VRRP · GLBP</span><span class="marquee-dot">◆</span>
+            <span class="marquee-item">Windows Server MCSA</span><span class="marquee-dot">◆</span>
+            <span class="marquee-item">Linux CLI</span><span class="marquee-dot">◆</span>
+            <span class="marquee-item">Python · Java · SQL</span><span class="marquee-dot">◆</span>
+        </div>
+    </div>
 
     <!-- ─── 2. SKILLS ─── -->
     <section id="skills">
@@ -2922,7 +235,7 @@
         </div>
 
         <div class="cards-grid">
-            <div class="card reveal reveal-delay-1">
+            <div class="card reveal reveal-delay-1" data-tilt>
                 <div class="icon-wrap">🌐</div>
                 <h3>Routing &amp; Switching</h3>
                 <p>Static, RIP, OSPF, EIGRP, VLANs, SVI, Trunking, DTP, VTP, STP/RSTP, EtherChannel (LACP/PAGP), and Inter-VLAN Routing.</p>
@@ -2934,7 +247,7 @@
                 </div>
             </div>
 
-            <div class="card reveal reveal-delay-2">
+            <div class="card reveal reveal-delay-2" data-tilt>
                 <div class="icon-wrap">🔒</div>
                 <h3>Security &amp; High Availability</h3>
                 <p>ACLs, VPN, AAA, IPS &amp; IDS, Port Security, DHCP Snooping, and Redundant Gateways (HSRP, VRRP, GLBP).</p>
@@ -2946,12 +259,10 @@
                 </div>
             </div>
 
-            <div class="card reveal reveal-delay-3">
+            <div class="card reveal reveal-delay-3" data-tilt>
                 <div class="icon-wrap">🛠</div>
                 <h3>Windows Server &amp; Linux</h3>
-                <p>
-                    Administration of Windows Server environments (Active Directory, GPO, DNS/DHCP) alongside Linux CLI operations (Ubuntu/Kali).
-                </p>
+                <p>Administration of Windows Server environments (Active Directory, GPO, DNS/DHCP) alongside Linux CLI operations (Ubuntu/Kali).</p>
                 <div class="tags">
                     <span class="tag tag--gold">Windows Server (MCSA)</span>
                     <span class="tag tag--gold">Active Directory</span>
@@ -3023,16 +334,16 @@
             </div>
 
             <div class="project-stats-grid">
-                <div class="stat-mini-box">
-                    <div class="stat-mini-num" style="color:var(--cyan);">120 PCs</div>
+                <div class="stat-mini-box" data-counter-target="120" data-counter-suffix=" PCs">
+                    <div class="stat-mini-num" style="color:var(--cyan);">0</div>
                     <div class="stat-mini-lbl">Active Lab Workstations</div>
                 </div>
-                <div class="stat-mini-box">
-                    <div class="stat-mini-num" style="color:var(--emerald);">38 Switches</div>
+                <div class="stat-mini-box" data-counter-target="38" data-counter-suffix=" Switches">
+                    <div class="stat-mini-num" style="color:var(--emerald);">0</div>
                     <div class="stat-mini-lbl">3 Managed + 35 Unmanaged</div>
                 </div>
-                <div class="stat-mini-box">
-                    <div class="stat-mini-num" style="color:var(--purple);">3 Routers</div>
+                <div class="stat-mini-box" data-counter-target="3" data-counter-suffix=" Routers">
+                    <div class="stat-mini-num" style="color:var(--purple);">0</div>
                     <div class="stat-mini-lbl">OSPF Inter-Campus Links</div>
                 </div>
                 <div class="stat-mini-box">
@@ -3042,70 +353,41 @@
             </div>
 
             <div class="project-pillars-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.3rem; margin: 2.2rem 0;">
-                
-                <div class="pillar-card pillar-card--cyan">
+                <div class="pillar-card pillar-card--cyan" data-tilt>
                     <div class="pillar-header">
                         <span class="pillar-icon">🌐</span>
                         <h4 style="color: var(--cyan); font-size: 1rem; font-weight: 800; margin: 0; letter-spacing: -0.01em;">Cisco Core, STP &amp; Routing</h4>
                     </div>
                     <ul class="pillar-list">
-                        <li class="pillar-item">
-                            <span class="pillar-bullet" style="color: var(--cyan);">▸</span>
-                            <div><strong style="color: #fff;">STP PortFast &amp; UplinkFast:</strong> Configured STP PortFast on edge ports for instant PC link transitions, backed by UplinkFast for rapid failover on distribution trunks.</div>
-                        </li>
-                        <li class="pillar-item">
-                            <span class="pillar-bullet" style="color: var(--cyan);">▸</span>
-                            <div><strong style="color: #fff;">VLAN &amp; SVI Architecture:</strong> Configured 802.1Q trunking and Inter-VLAN Routing (SVI) across the managed core, isolating lab subnets 10 through 60.</div>
-                        </li>
-                        <li class="pillar-item">
-                            <span class="pillar-bullet" style="color: var(--cyan);">▸</span>
-                            <div><strong style="color: #fff;">OSPF Dynamic Routing:</strong> Deployed multi-area OSPF dynamic routing across the 3 Cisco routers for reliable multi-campus packet delivery.</div>
-                        </li>
+                        <li class="pillar-item"><span class="pillar-bullet" style="color: var(--cyan);">▸</span><div><strong style="color: #fff;">STP PortFast &amp; UplinkFast:</strong> Configured STP PortFast on edge ports for instant PC link transitions, backed by UplinkFast for rapid failover on distribution trunks.</div></li>
+                        <li class="pillar-item"><span class="pillar-bullet" style="color: var(--cyan);">▸</span><div><strong style="color: #fff;">VLAN &amp; SVI Architecture:</strong> Configured 802.1Q trunking and Inter-VLAN Routing (SVI) across the managed core, isolating lab subnets 10 through 60.</div></li>
+                        <li class="pillar-item"><span class="pillar-bullet" style="color: var(--cyan);">▸</span><div><strong style="color: #fff;">OSPF Dynamic Routing:</strong> Deployed multi-area OSPF dynamic routing across the 3 Cisco routers for reliable multi-campus packet delivery.</div></li>
                     </ul>
                 </div>
 
-                <div class="pillar-card pillar-card--emerald">
+                <div class="pillar-card pillar-card--emerald" data-tilt>
                     <div class="pillar-header">
                         <span class="pillar-icon">🛡️</span>
                         <h4 style="color: var(--emerald); font-size: 1rem; font-weight: 800; margin: 0; letter-spacing: -0.01em;">L2/L3 Security &amp; Isolation</h4>
                     </div>
                     <ul class="pillar-list">
-                        <li class="pillar-item">
-                            <span class="pillar-bullet" style="color: var(--emerald);">▸</span>
-                            <div><strong style="color: #fff;">Port Security Hardening:</strong> Restricted switch ports via MAC-sticky learning with immediate shutdown triggers against unauthorized physical device taps.</div>
-                        </li>
-                        <li class="pillar-item">
-                            <span class="pillar-bullet" style="color: var(--emerald);">▸</span>
-                            <div><strong style="color: #fff;">DHCP Snooping &amp; DAI:</strong> Enforced trust-boundary inspection to stop rogue DHCP injection and mitigate Man-In-The-Middle (MITM) ARP spoofing.</div>
-                        </li>
-                        <li class="pillar-item">
-                            <span class="pillar-bullet" style="color: var(--emerald);">▸</span>
-                            <div><strong style="color: #fff;">Extended ACL Enforcement:</strong> Applied Layer 3/4 filtering policies to secure the examination and administrative subnets from untrusted workstation traffic.</div>
-                        </li>
+                        <li class="pillar-item"><span class="pillar-bullet" style="color: var(--emerald);">▸</span><div><strong style="color: #fff;">Port Security Hardening:</strong> Restricted switch ports via MAC-sticky learning with immediate shutdown triggers against unauthorized physical device taps.</div></li>
+                        <li class="pillar-item"><span class="pillar-bullet" style="color: var(--emerald);">▸</span><div><strong style="color: #fff;">DHCP Snooping &amp; DAI:</strong> Enforced trust-boundary inspection to stop rogue DHCP injection and mitigate Man-In-The-Middle (MITM) ARP spoofing.</div></li>
+                        <li class="pillar-item"><span class="pillar-bullet" style="color: var(--emerald);">▸</span><div><strong style="color: #fff;">Extended ACL Enforcement:</strong> Applied Layer 3/4 filtering policies to secure the examination and administrative subnets from untrusted workstation traffic.</div></li>
                     </ul>
                 </div>
 
-                <div class="pillar-card pillar-card--purple">
+                <div class="pillar-card pillar-card--purple" data-tilt>
                     <div class="pillar-header">
                         <span class="pillar-icon">⚡</span>
                         <h4 style="color: var(--purple); font-size: 1rem; font-weight: 800; margin: 0; letter-spacing: -0.01em;">NEXUS Services &amp; Port Mapping</h4>
                     </div>
                     <ul class="pillar-list">
-                        <li class="pillar-item">
-                            <span class="pillar-bullet" style="color: var(--purple);">▸</span>
-                            <div><strong style="color: #fff;">Ports 8080 &amp; 8000:</strong> Offline Exam &amp; Attendance automation platform alongside low-latency multicast screen streaming to 120 client PCs.</div>
-                        </li>
-                        <li class="pillar-item">
-                            <span class="pillar-bullet" style="color: var(--purple);">▸</span>
-                            <div><strong style="color: #fff;">Port 9090 (Fleet Control):</strong> Remote station management to power down, lock screens, and regulate network adapters across all labs.</div>
-                        </li>
-                        <li class="pillar-item">
-                            <span class="pillar-bullet" style="color: var(--purple);">▸</span>
-                            <div><strong style="color: #fff;">Ports 9996–9999:</strong> Boot-level anti-tamper persistence daemon and localized Windows Server storage distribution.</div>
-                        </li>
+                        <li class="pillar-item"><span class="pillar-bullet" style="color: var(--purple);">▸</span><div><strong style="color: #fff;">Ports 8080 &amp; 8000:</strong> Offline Exam &amp; Attendance automation platform alongside low-latency multicast screen streaming to 120 client PCs.</div></li>
+                        <li class="pillar-item"><span class="pillar-bullet" style="color: var(--purple);">▸</span><div><strong style="color: #fff;">Port 9090 (Fleet Control):</strong> Remote station management to power down, lock screens, and regulate network adapters across all labs.</div></li>
+                        <li class="pillar-item"><span class="pillar-bullet" style="color: var(--purple);">▸</span><div><strong style="color: #fff;">Ports 9996–9999:</strong> Boot-level anti-tamper persistence daemon and localized Windows Server storage distribution.</div></li>
                     </ul>
                 </div>
-
             </div>
 
             <div class="project-visual-grid">
@@ -3170,7 +452,7 @@
         </div>
 
         <div class="cards-grid">
-            <div class="card reveal reveal-delay-1">
+            <div class="card reveal reveal-delay-1" data-tilt>
                 <div class="icon-wrap" style="color: var(--cyan);">💼</div>
                 <div style="font-size:0.75rem; color:var(--cyan); font-weight:700; text-transform:uppercase; margin-bottom:4px;">Dec 2025 – May 2026</div>
                 <h3>Network Engineer Intern</h3>
@@ -3185,7 +467,7 @@
                 </div>
             </div>
 
-            <div class="card reveal reveal-delay-2">
+            <div class="card reveal reveal-delay-2" data-tilt>
                 <div class="icon-wrap" style="color: var(--purple);">🛡️</div>
                 <div style="font-size:0.75rem; color:var(--purple); font-weight:700; text-transform:uppercase; margin-bottom:4px;">Aug – Sep 2026</div>
                 <h3>Cybersecurity Trainee (CyberOps)</h3>
@@ -3212,9 +494,7 @@
 
         <div class="education-card-pro reveal">
             <div class="edu-hero-block">
-                <div class="edu-badge-icon" title="Computer Networks Degree">
-                    🎓
-                </div>
+                <div class="edu-badge-icon" title="Computer Networks Degree">🎓</div>
                 <div class="edu-hero-details">
                     <div class="edu-status-pill">
                         <span class="pulse-mini"></span> Class of 2026 · First Class Honors
@@ -3228,18 +508,18 @@
             </div>
 
             <div class="edu-metrics-grid">
-                <div class="edu-metric-box edu-metric-box--emerald">
+                <div class="edu-metric-box edu-metric-box--emerald" data-tilt>
                     <div class="metric-header">
                         <div class="metric-icon-wrap metric-icon-wrap--emerald">⭐</div>
                         <span class="metric-badge-tag metric-badge-tag--emerald">Highest Honors</span>
                     </div>
                     <div>
-                        <div class="metric-primary-val emerald">95.6%</div>
+                        <div class="metric-primary-val emerald" data-counter-target="95.6" data-counter-decimals="1" data-counter-suffix="%">0%</div>
                         <div class="metric-desc-text">Overall Cumulative Grade: <strong>Excellent with Honors</strong></div>
                     </div>
                 </div>
 
-                <div class="edu-metric-box edu-metric-box--gold">
+                <div class="edu-metric-box edu-metric-box--gold" data-tilt>
                     <div class="metric-header">
                         <div class="metric-icon-wrap metric-icon-wrap--gold">🏆</div>
                         <span class="metric-badge-tag metric-badge-tag--gold">Rank #1</span>
@@ -3250,7 +530,7 @@
                     </div>
                 </div>
 
-                <div class="edu-metric-box edu-metric-box--purple">
+                <div class="edu-metric-box edu-metric-box--purple" data-tilt>
                     <div class="metric-header">
                         <div class="metric-icon-wrap metric-icon-wrap--purple">📊</div>
                         <span class="metric-badge-tag metric-badge-tag--purple">Top 1%</span>
@@ -3297,7 +577,6 @@
                         <span class="dot-yellow"></span>
                         <span class="dot-green"></span>
                     </div>
-
                     <div class="file-name-badge">
                         <span class="pdf-badge-icon">PDF</span>
                         <span class="file-title">Ahmed Attia Mohamed.pdf</span>
@@ -3350,7 +629,7 @@
         </div>
     </section>
 
-    <!-- ─── 7. CONTACT SECTION WITH CUSTOM-THEMED ACTION BUTTONS ─── -->
+    <!-- ─── 7. CONTACT ─── -->
     <section id="contact">
         <div class="sec-head reveal">
             <span class="section-label">Get In Touch</span>
@@ -3360,9 +639,7 @@
 
         <div class="contact-box reveal">
             <div class="contact-details-col">
-
-                <!-- 1. Direct Email (Copy Button with Gmail Identity) -->
-                <div class="contact-card">
+                <div class="contact-card" data-tilt>
                     <div class="contact-card-info">
                         <div class="contact-icon-box contact-icon-box--gmail" title="Google Gmail">
                             <svg width="28" height="28" viewBox="0 0 48 48">
@@ -3389,8 +666,7 @@
                     </div>
                 </div>
 
-                <!-- 2. Phone & WhatsApp (Call Button with Telecom Identity) -->
-                <div class="contact-card">
+                <div class="contact-card" data-tilt>
                     <div class="contact-card-info">
                         <div class="contact-icon-box contact-icon-box--phone" title="Phone & WhatsApp">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
@@ -3418,8 +694,7 @@
                     </div>
                 </div>
 
-                <!-- 3. LinkedIn Network (Visit Button with LinkedIn Identity) -->
-                <div class="contact-card">
+                <div class="contact-card" data-tilt>
                     <div class="contact-card-info">
                         <div class="contact-icon-box contact-icon-box--linkedin" title="LinkedIn">
                             <svg width="28" height="28" viewBox="0 0 24 24">
@@ -3444,37 +719,35 @@
                     </div>
                 </div>
 
-                <!-- 4. Location (مع أيقونة Google Maps الأصلية الفخمة) -->
-				<div class="contact-card">
-					<div class="contact-card-info">
-						<div class="contact-icon-box contact-icon-box--location" title="Google Maps Location">
-							<svg width="24" height="30" viewBox="0 0 92.3 132.3">
-								<path fill="#1a73e8" d="M60.2 2.2C55.8.8 51 0 46.1 0 32 0 19.3 6.4 10.8 16.5l21.8 18.3L60.2 2.2z"/>
-								<path fill="#ea4335" d="M10.8 16.5C4.1 24.5 0 34.9 0 46.1c0 8.7 1.7 15.7 4.6 22l28-33.3-21.8-18.3z"/>
-								<path fill="#4285f4" d="M46.2 28.5c9.8 0 17.7 7.9 17.7 17.7 0 4.3-1.6 8.3-4.2 11.4 0 0 13.9-16.6 27.5-32.7-5.6-10.8-15.3-19-27-22.7L32.6 34.8c3.3-3.8 8.1-6.3 13.6-6.3"/>
-								<path fill="#fbbc04" d="M46.2 63.8c-9.8 0-17.7-7.9-17.7-17.7 0-4.3 1.5-8.3 4.1-11.3l-28 33.3c4.8 10.6 12.8 19.2 21 29.9l34.1-40.5c-3.3 3.9-8.1 6.3-13.5 6.3"/>
-								<path fill="#34a853" d="M59.1 109.2c15.4-24.1 33.3-35 33.3-63 0-7.7-1.9-14.9-5.2-21.3L25.6 98c2.6 3.4 5.3 7.3 7.9 11.3 9.4 14.5 6.8 23.1 12.8 23.1s3.4-8.7 12.8-23.2"/>
-							</svg>
-						</div>
-						<div class="contact-text-meta">
-							<span class="label">LOCATION</span>
-							<h5 class="value">Borg El Arab, Alexandria, Egypt</h5>
-						</div>
-					</div>
-					<div class="contact-actions">
-						<div class="badge-relocation" title="Ready for immediate national and international relocation">
-							<span class="relocation-radar">
-								<span class="radar-ping"></span>
-								<span class="radar-core"></span>
-							</span>
-							<svg class="relocation-plane" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-								<path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
-							</svg>
-							<h5>Open to Relocation</h5>
-						</div>
-					</div>
-				</div>
-
+                <div class="contact-card" data-tilt>
+                    <div class="contact-card-info">
+                        <div class="contact-icon-box contact-icon-box--location" title="Google Maps Location">
+                            <svg width="24" height="30" viewBox="0 0 92.3 132.3">
+                                <path fill="#1a73e8" d="M60.2 2.2C55.8.8 51 0 46.1 0 32 0 19.3 6.4 10.8 16.5l21.8 18.3L60.2 2.2z"/>
+                                <path fill="#ea4335" d="M10.8 16.5C4.1 24.5 0 34.9 0 46.1c0 8.7 1.7 15.7 4.6 22l28-33.3-21.8-18.3z"/>
+                                <path fill="#4285f4" d="M46.2 28.5c9.8 0 17.7 7.9 17.7 17.7 0 4.3-1.6 8.3-4.2 11.4 0 0 13.9-16.6 27.5-32.7-5.6-10.8-15.3-19-27-22.7L32.6 34.8c3.3-3.8 8.1-6.3 13.6-6.3"/>
+                                <path fill="#fbbc04" d="M46.2 63.8c-9.8 0-17.7-7.9-17.7-17.7 0-4.3 1.5-8.3 4.1-11.3l-28 33.3c4.8 10.6 12.8 19.2 21 29.9l34.1-40.5c-3.3 3.9-8.1 6.3-13.5 6.3"/>
+                                <path fill="#34a853" d="M59.1 109.2c15.4-24.1 33.3-35 33.3-63 0-7.7-1.9-14.9-5.2-21.3L25.6 98c2.6 3.4 5.3 7.3 7.9 11.3 9.4 14.5 6.8 23.1 12.8 23.1s3.4-8.7 12.8-23.2"/>
+                            </svg>
+                        </div>
+                        <div class="contact-text-meta">
+                            <span class="label">LOCATION</span>
+                            <h5 class="value">Borg El Arab, Alexandria, Egypt</h5>
+                        </div>
+                    </div>
+                    <div class="contact-actions">
+                        <div class="badge-relocation" title="Ready for immediate national and international relocation">
+                            <span class="relocation-radar">
+                                <span class="radar-ping"></span>
+                                <span class="radar-core"></span>
+                            </span>
+                            <svg class="relocation-plane" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                            </svg>
+                            <h5>Open to Relocation</h5>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div id="contactFormContainer" class="form-side-container">
@@ -3489,7 +762,7 @@
                     <input type="text" name="name" id="senderName" class="form-ctrl" placeholder="Your Name" required>
                     <input type="email" name="email" class="form-ctrl" placeholder="Your Email Address" required>
                     <textarea name="message" rows="4" class="form-ctrl" placeholder="Provide message details, inquiry, or project proposal..." required></textarea>
-                    
+
                     <button type="submit" id="submitBtn" class="btn btn-submit-contact" style="width:100%;">
                         <span>Send Message</span>
                         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
@@ -3519,6 +792,30 @@
         <span id="toastCopyText">Copied to clipboard!</span>
     </div>
 
+    <!-- ═══ FLOATING QUICK DOCK ═══ -->
+    <div class="quick-dock" id="quickDock">
+        <a href="mailto:ahmedattia20041120mm@gmail.com" class="dock-item" aria-label="Email" title="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        </a>
+        <a href="https://wa.me/201274477946" target="_blank" rel="noopener" class="dock-item dock-item--wa" aria-label="WhatsApp" title="WhatsApp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+        </a>
+        <a href="https://linkedin.com/in/ahmedattiahemada" target="_blank" rel="noopener" class="dock-item dock-item--li" aria-label="LinkedIn" title="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 19h-2.8v-4.4c0-1.05-.02-2.4-1.46-2.4-1.46 0-1.68 1.14-1.68 2.32V19H10.2V10h2.7v1.23h.04c.38-.72 1.3-1.48 2.68-1.48 2.87 0 3.4 1.89 3.4 4.35V19zM7.2 8.76c-.9 0-1.63-.73-1.63-1.63s.73-1.63 1.63-1.63 1.63.73 1.63 1.63-.73 1.63-1.63 1.63zM8.6 19H5.8V10h2.8V19z"/></svg>
+        </a>
+    </div>
+
+    <!-- ═══ BACK TO TOP ═══ -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top" title="Back to Top">
+        <svg class="back-to-top-ring" viewBox="0 0 44 44">
+            <circle class="back-to-top-track" cx="22" cy="22" r="19" fill="none" stroke-width="2"/>
+            <circle class="back-to-top-fill" id="backToTopFill" cx="22" cy="22" r="19" fill="none" stroke-width="2.5" stroke-dasharray="119.4" stroke-dashoffset="119.4"/>
+        </svg>
+        <svg class="back-to-top-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
     <div class="modal-overlay" id="cvModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -3538,314 +835,9 @@
     </div>
 
     <footer>
-        <p>© 2026 Ahmed Attia Mohamed &nbsp;·&nbsp; Engineered for Clean Performance <span class="heart">♥</span></p>
+        <p>© 2026 <strong>Ahmed Attia Mohamed</strong> &nbsp;·&nbsp; Connecting Networks, Empowering Infrastructure <span class="heart">♥</span></p>
     </footer>
 
-    <script>
-        const form = document.getElementById('contactForm');
-        const successBox = document.getElementById('successBox');
-        const submitBtn = document.getElementById('submitBtn');
-        const senderName = document.getElementById('senderName');
-        const confirmedName = document.getElementById('confirmedName');
-
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const nameVal = senderName.value.trim();
-            submitBtn.innerHTML = 'Sending Message...';
-            submitBtn.disabled = true;
-            const formData = new FormData(form);
-            try {
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: { 'Accept': 'application/json' }
-                });
-                if (response.ok) {
-                    confirmedName.textContent = nameVal || 'Visitor';
-                    form.style.display = 'none';
-                    successBox.style.display = 'block';
-                    form.reset();
-                } else {
-                    alert('Sending failed. Please check connection and retry.');
-                }
-            } catch (error) {
-                alert('Network connection error. Please try again.');
-            } finally {
-                submitBtn.innerHTML = '<span>Send Message</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>';
-                submitBtn.disabled = false;
-            }
-        });
-
-        function resetContactForm() {
-            successBox.style.display = 'none';
-            form.style.display = 'block';
-        }
-
-        /* ─── وظيفة نسخ الإيميل التفاعلية مع تغيير حالة الزرار ─── */
-        function copyEmailAddress(btnEl, text) {
-            navigator.clipboard.writeText(text).then(() => {
-                const label = btnEl.querySelector('.btn-copy-label');
-                const origText = label.textContent;
-                btnEl.classList.add('copied-success');
-                label.textContent = 'Copied! ✓';
-
-                const toast = document.getElementById('toastCopy');
-                const toastText = document.getElementById('toastCopyText');
-                toastText.textContent = 'Email address copied!';
-                toast.classList.add('show');
-                setTimeout(() => toast.classList.remove('show'), 2400);
-
-                setTimeout(() => {
-                    btnEl.classList.remove('copied-success');
-                    label.textContent = origText;
-                }, 2200);
-            }).catch(() => prompt('Copy this email:', text));
-        }
-
-        function copyToClipboard(text, msg = 'Copied to clipboard!') {
-            navigator.clipboard.writeText(text).then(() => {
-                const toast = document.getElementById('toastCopy');
-                const toastText = document.getElementById('toastCopyText');
-                toastText.textContent = msg;
-                toast.classList.add('show');
-                setTimeout(() => toast.classList.remove('show'), 2400);
-            }).catch(() => prompt('Copy this text:', text));
-        }
-
-        (function() {
-            const roles = [
-                "Network & Infrastructure Engineer",
-                "CCNA, CCNP Enterprise (R&S) & MCSA Track",
-                "Enterprise Routing & Switching Specialist",
-                "Windows Server & MCSA Systems Administrator",
-                "Network Security & High-Availability Practitioner"
-            ];
-            let rIdx = 0, cIdx = 0, isDel = false;
-            const twEl = document.getElementById('tw-text');
-            function typeLoop() {
-                const current = roles[rIdx];
-                if (!isDel) {
-                    twEl.textContent = current.substring(0, cIdx++);
-                    if (cIdx > current.length) { isDel = true; setTimeout(typeLoop, 1700); return; }
-                } else {
-                    twEl.textContent = current.substring(0, cIdx--);
-                    if (cIdx < 0) { isDel = false; rIdx = (rIdx + 1) % roles.length; cIdx = 0; setTimeout(typeLoop, 280); return; }
-                }
-                const speed = isDel ? 18 : 40;
-                setTimeout(typeLoop, speed);
-            }
-            typeLoop();
-        })();
-
-        function openCVModal() {
-            if (window.innerWidth <= 768) {
-                window.open("{{ url_for('download_cv') }}", "_blank");
-                return;
-            }
-            document.getElementById('cvModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeCVModal() {
-            document.getElementById('cvModal').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeCVModal(); });
-        document.getElementById('cvModal').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeCVModal(); });
-
-        const navToggle = document.getElementById('navToggle');
-        const navLinks = document.getElementById('navLinks');
-        navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
-        document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('open')));
-
-        (function() {
-            const reveals = document.querySelectorAll('.reveal:not(.visible)');
-            if ('IntersectionObserver' in window) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-                }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-                reveals.forEach(el => observer.observe(el));
-            } else {
-                reveals.forEach(el => el.classList.add('visible'));
-            }
-        })();
-
-        (function() {
-            const canvas = document.getElementById('bg-canvas');
-            const ctx = canvas.getContext('2d');
-            let w, h;
-            let nodes = [];
-            let packets = [];
-            const NODE_COUNT = 55;
-            const MAX_DIST = 145;
-            let mouse = { x: null, y: null, radius: 140 };
-
-            function resize() {
-                w = canvas.width = window.innerWidth;
-                h = canvas.height = window.innerHeight;
-            }
-            window.addEventListener('resize', resize);
-            resize();
-
-            window.addEventListener('mousemove', (e) => {
-                mouse.x = e.clientX;
-                mouse.y = e.clientY;
-            });
-            window.addEventListener('mouseleave', () => {
-                mouse.x = null;
-                mouse.y = null;
-            });
-
-            class NetNode {
-                constructor() {
-                    this.x = Math.random() * w;
-                    this.y = Math.random() * h;
-                    this.vx = (Math.random() - 0.5) * 0.35;
-                    this.vy = (Math.random() - 0.5) * 0.35;
-                    this.isCore = Math.random() > 0.82;
-                    this.radius = this.isCore ? 3.2 : (1.4 + Math.random() * 1.4);
-                    this.baseColor = this.isCore ? '56, 189, 248' : (Math.random() > 0.5 ? '168, 85, 247' : '99, 102, 241');
-                    this.pulse = Math.random() * Math.PI;
-                }
-
-                update() {
-                    this.x += this.vx;
-                    this.y += this.vy;
-                    this.pulse += 0.025;
-
-                    if (this.x < 0 || this.x > w) this.vx *= -1;
-                    if (this.y < 0 || this.y > h) this.vy *= -1;
-
-                    if (mouse.x !== null) {
-                        const dx = mouse.x - this.x;
-                        const dy = mouse.y - this.y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        if (dist < mouse.radius) {
-                            const force = (mouse.radius - dist) / mouse.radius;
-                            this.x -= (dx / dist) * force * 1.5;
-                            this.y -= (dy / dist) * force * 1.5;
-                        }
-                    }
-                }
-
-                draw() {
-                    ctx.beginPath();
-                    const r = this.radius + Math.sin(this.pulse) * (this.isCore ? 0.9 : 0.4);
-                    ctx.arc(this.x, this.y, Math.max(0.6, r), 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(${this.baseColor}, 0.85)`;
-                    ctx.fill();
-
-                    if (this.isCore) {
-                        ctx.beginPath();
-                        ctx.arc(this.x, this.y, r * 2.8, 0, Math.PI * 2);
-                        ctx.strokeStyle = `rgba(56, 189, 248, ${0.18 + Math.sin(this.pulse) * 0.1})`;
-                        ctx.lineWidth = 1;
-                        ctx.stroke();
-                    }
-                }
-            }
-
-            class DataPacket {
-                constructor(source, target) {
-                    this.source = source;
-                    this.target = target;
-                    this.progress = 0;
-                    this.speed = 0.008 + Math.random() * 0.012;
-                    this.color = Math.random() > 0.5 ? '#38bdf8' : '#10b981';
-                }
-
-                update() {
-                    this.progress += this.speed;
-                    return this.progress < 1;
-                }
-
-                draw() {
-                    const currX = this.source.x + (this.target.x - this.source.x) * this.progress;
-                    const currY = this.source.y + (this.target.y - this.source.y) * this.progress;
-                    ctx.beginPath();
-                    ctx.arc(currX, currY, 2, 0, Math.PI * 2);
-                    ctx.fillStyle = this.color;
-                    ctx.shadowColor = this.color;
-                    ctx.shadowBlur = 8;
-                    ctx.fill();
-                    ctx.shadowBlur = 0;
-                }
-            }
-
-            for (let i = 0; i < NODE_COUNT; i++) {
-                nodes.push(new NetNode());
-            }
-
-            function animate() {
-                ctx.clearRect(0, 0, w, h);
-
-                for (let i = 0; i < nodes.length; i++) {
-                    const n1 = nodes[i];
-                    n1.update();
-                    n1.draw();
-
-                    for (let j = i + 1; j < nodes.length; j++) {
-                        const n2 = nodes[j];
-                        const dx = n1.x - n2.x;
-                        const dy = n1.y - n2.y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-
-                        if (dist < MAX_DIST) {
-                            const alpha = (1 - dist / MAX_DIST) * 0.16;
-                            ctx.beginPath();
-                            ctx.moveTo(n1.x, n1.y);
-                            ctx.lineTo(n2.x, n2.y);
-                            ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
-                            ctx.lineWidth = 0.65;
-                            ctx.stroke();
-
-                            if (Math.random() < 0.0006 && packets.length < 18) {
-                                packets.push(new DataPacket(n1, n2));
-                            }
-                        }
-                    }
-
-                    if (mouse.x !== null) {
-                        const dx = n1.x - mouse.x;
-                        const dy = n1.y - mouse.y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        if (dist < mouse.radius) {
-                            const alpha = (1 - dist / mouse.radius) * 0.35;
-                            ctx.beginPath();
-                            ctx.moveTo(n1.x, n1.y);
-                            ctx.lineTo(mouse.x, mouse.y);
-                            ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
-                            ctx.lineWidth = 0.8;
-                            ctx.stroke();
-                        }
-                    }
-                }
-
-                for (let i = packets.length - 1; i >= 0; i--) {
-                    if (packets[i].update()) {
-                        packets[i].draw();
-                    } else {
-                        packets.splice(i, 1);
-                    }
-                }
-
-                requestAnimationFrame(animate);
-            }
-            animate();
-        })();
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                const target = document.querySelector(targetId);
-                if (target) {
-                    e.preventDefault();
-                    const offset = 70;
-                    const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
-                    window.scrollTo({ top, behavior: 'smooth' });
-                }
-            });
-        });
-    </script>
+    <script src="/js.js" defer></script>
 </body>
 </html>
