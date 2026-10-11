@@ -224,4 +224,3 @@ def delete_project(proj_id):
 if __name__ == '__main__':
     # use_reloader=False تمنع قفل الـ socket على ويندوز وخطأ WinError 10038
     app.run(debug=True, port=8080, use_reloader=False)
- 
