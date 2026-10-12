@@ -32,7 +32,9 @@
       align-items: center; gap: 6px; transition: 0.2s;
     }
     .btn-primary { background: var(--primary); color: #070a13; }
+    .btn-primary:hover { background: #0ea5e9; }
     .btn-danger { background: var(--danger); color: #fff; }
+    .btn-danger:hover { background: #dc2626; }
     .btn-outline { background: transparent; border-color: var(--border); color: var(--text); }
     .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
 
@@ -51,6 +53,13 @@
       border-radius: 6px; color: #fff; outline: none; font-size: 0.9rem;
     }
     .form-ctrl:focus { border-color: var(--primary); }
+    input[type="file"].form-ctrl { padding: 8px; cursor: pointer; }
+    input[type="file"].form-ctrl::file-selector-button {
+      background: var(--primary); color: #070a13; border: none;
+      padding: 6px 12px; border-radius: 4px; font-weight: 700;
+      cursor: pointer; margin-right: 10px; font-size: 0.85rem;
+    }
+    input[type="file"].form-ctrl::file-selector-button:hover { background: #0ea5e9; }
 
     table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
     th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
@@ -69,7 +78,62 @@
     .preview-box img { width: 100%; height: 100%; object-fit: cover; }
     .preview-placeholder { font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono); }
 
-    @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+    /* ═══ Avatar Preview Rings ═══ */
+    .avatar-row {
+      display: flex; align-items: center; gap: 15px; margin-bottom: 1rem;
+      padding: 12px; border-radius: 12px; background: rgba(5,7,13,0.4);
+      border: 1px solid rgba(56,189,248,0.08);
+    }
+    .avatar-row img {
+      width: 72px; height: 72px; border-radius: 50%;
+      object-fit: cover; flex-shrink: 0;
+    }
+    .avatar-row .meta { flex: 1; min-width: 0; }
+    .avatar-row .meta .title { font-size: 0.92rem; font-weight: 700; color: #fff; margin-bottom: 3px; }
+    .avatar-row .meta .desc { font-size: 0.76rem; font-family: var(--font-mono); color: var(--text-muted); }
+    .avatar-row--primary { border-color: rgba(56,189,248,0.30); }
+    .avatar-row--primary img { border: 2.5px solid var(--primary); box-shadow: 0 0 20px rgba(56,189,248,0.3); }
+    .avatar-row--secondary { border-color: rgba(168,85,247,0.35); }
+    .avatar-row--secondary img { border: 2.5px solid var(--purple); box-shadow: 0 0 20px rgba(168,85,247,0.35); }
+    .avatar-row--secondary .meta .desc { color: var(--purple); }
+
+    .empty-state {
+      text-align: center; padding: 1.2rem; border-radius: 10px;
+      background: rgba(5,7,13,0.35); border: 1px dashed rgba(56,189,248,0.15);
+      color: var(--text-muted); font-size: 0.85rem;
+    }
+
+    .section-divider {
+      border: none;
+      border-top: 1px dashed rgba(56,189,248,0.20);
+      margin: 1.5rem 0;
+    }
+
+    .badge-live {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 2px 9px; border-radius: 999px;
+      font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700;
+      background: rgba(168,85,247,0.15);
+      border: 1px solid rgba(168,85,247,0.4);
+      color: #c084fc;
+      letter-spacing: 0.04em;
+      animation: pulseLive 1.6s ease-in-out infinite;
+    }
+    .badge-live .dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: #a855f7;
+      box-shadow: 0 0 8px #a855f7;
+    }
+    @keyframes pulseLive {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.55; }
+    }
+
+    @media (max-width: 768px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      header { padding: 1rem 5%; flex-wrap: wrap; gap: 10px; }
+      .brand { font-size: 0.9rem; }
+    }
   </style>
 </head>
 <body>
@@ -90,23 +154,74 @@
     {% endwith %}
 
     <div class="grid-2">
-      <!-- Upload Profile Picture -->
+      <!-- ═══════════════════════════════════════════════════════
+           Profile Pictures (Primary + Secondary Auto-Swap)
+           ═══════════════════════════════════════════════════════ -->
       <div class="card">
-        <h3>Profile Picture (Avatar)</h3>
-        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 1rem;">
-          {% if profile.profile_base64 %}
-            <img src="data:image/jpeg;base64,{{ profile.profile_base64 }}" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary);" alt="Profile">
-          {% else %}
-            <span style="color: var(--text-muted); font-size: 0.85rem;">No custom photo uploaded yet</span>
-          {% endif %}
+        <h3>Profile Pictures · Auto-Swap</h3>
+
+        <!-- ─── Primary ─── -->
+        {% if profile.profile_base64 %}
+        <div class="avatar-row avatar-row--primary">
+          <img src="data:image/jpeg;base64,{{ profile.profile_base64 }}" alt="Primary">
+          <div class="meta">
+            <div class="title">Primary Photo</div>
+            <div class="desc">Shown first · Base avatar</div>
+          </div>
         </div>
+        {% else %}
+        <div class="empty-state" style="margin-bottom:1rem;">No primary photo uploaded yet</div>
+        {% endif %}
+
         <form action="{{ url_for('update_profile_pic') }}" method="POST" enctype="multipart/form-data">
           <input type="file" name="profile_image" class="form-ctrl" accept="image/*" required style="margin-bottom: 10px;">
-          <button type="submit" class="btn btn-primary">Update Profile Image</button>
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">
+            {% if profile.profile_base64 %}Replace{% else %}Upload{% endif %} Primary Photo
+          </button>
         </form>
+
+        <!-- ─── Divider ─── -->
+        <hr class="section-divider">
+
+        <!-- ─── Secondary ─── -->
+        {% if profile.profile_base64_2 %}
+        <div class="avatar-row avatar-row--secondary">
+          <img src="data:image/jpeg;base64,{{ profile.profile_base64_2 }}" alt="Secondary">
+          <div class="meta">
+            <div class="title">Secondary Photo</div>
+            <div class="desc" style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+              <span class="badge-live"><span class="dot"></span> AUTO-SWAP</span>
+              <span>every 2s</span>
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="empty-state" style="margin-bottom:1rem;">
+          No secondary photo · Upload one to enable auto-swap every 2s
+        </div>
+        {% endif %}
+
+        <form action="{{ url_for('update_profile_pic_2') }}" method="POST" enctype="multipart/form-data">
+          <input type="file" name="profile_image_2" class="form-ctrl" accept="image/*" required style="margin-bottom: 10px;">
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">
+            {% if profile.profile_base64_2 %}Replace{% else %}Upload{% endif %} Secondary Photo
+          </button>
+        </form>
+
+        {% if profile.profile_base64_2 %}
+        <form action="{{ url_for('delete_profile_pic_2') }}" method="POST"
+              style="margin-top:8px;"
+              onsubmit="return confirm('Remove secondary photo? Auto-swap will be disabled.');">
+          <button type="submit" class="btn btn-danger" style="width:100%; justify-content:center; font-size:0.8rem; padding:7px;">
+            Delete Secondary Photo
+          </button>
+        </form>
+        {% endif %}
       </div>
 
-      <!-- Upload CV -->
+      <!-- ═══════════════════════════════════════════════════════
+           CV Upload
+           ═══════════════════════════════════════════════════════ -->
       <div class="card">
         <h3>Curriculum Vitae (PDF)</h3>
         <div style="margin-bottom: 1rem; font-size: 0.9rem;">
@@ -119,7 +234,7 @@
         </div>
         <form action="{{ url_for('update_cv') }}" method="POST" enctype="multipart/form-data">
           <input type="file" name="cv_file" class="form-ctrl" accept=".pdf" required style="margin-bottom: 10px;">
-          <button type="submit" class="btn btn-primary">Upload & Save PDF</button>
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Upload & Save PDF</button>
         </form>
       </div>
     </div>
@@ -133,7 +248,7 @@
 
       <form action="{{ url_for('update_project_images') }}" method="POST" enctype="multipart/form-data">
         <div class="grid-2" style="margin-bottom:1rem;">
-          
+
           <!-- Image 1: Network Topology -->
           <div style="background:rgba(5,7,13,0.5); padding:1rem; border-radius:8px; border:1px solid var(--border);">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
@@ -142,7 +257,7 @@
                 <span style="color:var(--success); font-size:0.75rem; font-family:var(--font-mono);">[Active]</span>
               {% endif %}
             </div>
-            
+
             <div class="preview-box">
               {% if profile.proj_img_topology %}
                 <img src="data:image/jpeg;base64,{{ profile.proj_img_topology }}" alt="Network Topology">
@@ -152,7 +267,7 @@
             </div>
 
             <input type="file" name="topology_image" class="form-ctrl" accept="image/*" style="margin-bottom:10px;">
-            
+
             {% if profile.proj_img_topology %}
               <button type="submit" formaction="{{ url_for('delete_project_image', img_key='proj_img_topology') }}" class="btn btn-danger" style="width:100%; justify-content:center; padding:6px; font-size:0.8rem;" onclick="return confirm('Delete topology image?');">
                 Delete Topology Image
@@ -178,7 +293,7 @@
             </div>
 
             <input type="file" name="nexus_image" class="form-ctrl" accept="image/*" style="margin-bottom:10px;">
-            
+
             {% if profile.proj_img_nexus %}
               <button type="submit" formaction="{{ url_for('delete_project_image', img_key='proj_img_nexus') }}" class="btn btn-danger" style="width:100%; justify-content:center; padding:6px; font-size:0.8rem;" onclick="return confirm('Delete NEXUS image?');">
                 Delete NEXUS Image
