@@ -8,12 +8,23 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from pymongo import MongoClient
 
 app = Flask(__name__)
-app.secret_key = os.urandom(32).hex()
 
-# ==========================================
-# MongoDB Connection (Stable & Optimized Pool)
-# ==========================================
-MONGO_URI = "mongodb+srv://admin:3DYZunMvuyVbvipl@aws.rhgcybe.mongodb.net/?retryWrites=true&w=majority&appName=aws"
+# ═══════════════════════════════════════════════════════════
+#  ✅ SECRET KEY — ثابت من Environment Variable
+#  على Vercel: Settings → Environment Variables → أضف SECRET_KEY
+# ═══════════════════════════════════════════════════════════
+app.secret_key = os.environ.get(
+    "SECRET_KEY",
+    "ahmed_attia_portfolio_2026_default_secret_key_change_me_in_production_9f8a7b6c5d4e3f2a1b0c"
+)
+
+# ═══════════════════════════════════════════════════════════
+#  MongoDB Connection (Stable & Optimized Pool)
+# ═══════════════════════════════════════════════════════════
+MONGO_URI = os.environ.get(
+    "MONGO_URI",
+    "mongodb+srv://admin:3DYZunMvuyVbvipl@aws.rhgcybe.mongodb.net/?retryWrites=true&w=majority&appName=aws"
+)
 
 try:
     client = MongoClient(
@@ -34,7 +45,9 @@ ADMIN_USERNAME = "Admin"
 ADMIN_PASSWORD_HASH = generate_password_hash("Ahmed123")
 
 
-# دالة لضغط الصور تلقائياً وتصغير حجمها
+# ═══════════════════════════════════════════════════════════
+#  Helper: ضغط الصور تلقائيًا
+# ═══════════════════════════════════════════════════════════
 def compress_and_encode_image(file_storage, max_width=1280, quality=75):
     img = Image.open(file_storage)
     if img.mode in ("RGBA", "P"):
@@ -66,15 +79,15 @@ def get_site_profile_fast():
         "has_cv": bool(doc.get("has_cv_flag", False) or doc.get("cv_filename")),
         "cv_filename": doc.get("cv_filename", "Ahmed_Attia_Mohamed.pdf"),
         "profile_base64": doc.get("profile_base64", ""),
-        "profile_base64_2": doc.get("profile_base64_2", ""),   # ⬅️ الصورة الثانية
+        "profile_base64_2": doc.get("profile_base64_2", ""),
         "proj_img_topology": doc.get("proj_img_topology", ""),
         "proj_img_nexus": doc.get("proj_img_nexus", "")
     }
 
 
-# ==========================================
-# Routes
-# ==========================================
+# ═══════════════════════════════════════════════════════════
+#  Routes — Main
+# ═══════════════════════════════════════════════════════════
 @app.route('/')
 def index():
     projects = list(projects_col.find().sort("created_at", -1).limit(20))
@@ -125,14 +138,15 @@ def admin():
     return render_template('admin.html', projects=projects, profile=profile_data)
 
 
-# ═══════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════
 #  🖼️  Profile Pictures (Primary + Secondary / Auto-Swap)
-# ═══════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════
 
 @app.route('/admin/update_profile_pic', methods=['POST'])
 def update_profile_pic():
     """الصورة الأساسية (Primary)"""
-    if not session.get('admin_logged_in'): return redirect(url_for('login'))
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('login'))
     file = request.files.get('profile_image')
     if file and file.filename != '':
         try:
@@ -150,8 +164,9 @@ def update_profile_pic():
 
 @app.route('/admin/update_profile_pic_2', methods=['POST'])
 def update_profile_pic_2():
-    """الصورة الثانية (Secondary) — تتبدل تلقائياً كل ثانيتين"""
-    if not session.get('admin_logged_in'): return redirect(url_for('login'))
+    """الصورة الثانية (Secondary) — تتبدل تلقائيًا"""
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('login'))
     file = request.files.get('profile_image_2')
     if file and file.filename != '':
         try:
@@ -170,7 +185,8 @@ def update_profile_pic_2():
 @app.route('/admin/delete_profile_pic_2', methods=['POST'])
 def delete_profile_pic_2():
     """حذف الصورة الثانية — يوقف التبديل التلقائي"""
-    if not session.get('admin_logged_in'): return redirect(url_for('login'))
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('login'))
     settings_col.update_one(
         {"_id": "profile_data"},
         {"$set": {"profile_base64_2": ""}}
@@ -179,13 +195,14 @@ def delete_profile_pic_2():
     return redirect(url_for('admin'))
 
 
-# ═══════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════
 #  📄 CV Upload
-# ═══════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════
 
 @app.route('/admin/update_cv', methods=['POST'])
 def update_cv():
-    if not session.get('admin_logged_in'): return redirect(url_for('login'))
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('login'))
     file = request.files.get('cv_file')
     if file and file.filename.lower().endswith('.pdf'):
         encoded_pdf = base64.b64encode(file.read()).decode('utf-8')
@@ -202,13 +219,14 @@ def update_cv():
     return redirect(url_for('admin'))
 
 
-# ═══════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════
 #  🖼️  Project Images (Topology & NEXUS)
-# ═══════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════
 
 @app.route('/admin/update_project_images', methods=['POST'])
 def update_project_images():
-    if not session.get('admin_logged_in'): return redirect(url_for('login'))
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('login'))
 
     topology_file = request.files.get('topology_image')
     nexus_file = request.files.get('nexus_image')
@@ -216,9 +234,13 @@ def update_project_images():
     update_fields = {}
     try:
         if topology_file and topology_file.filename != '':
-            update_fields["proj_img_topology"] = compress_and_encode_image(topology_file, max_width=1200, quality=75)
+            update_fields["proj_img_topology"] = compress_and_encode_image(
+                topology_file, max_width=1200, quality=75
+            )
         if nexus_file and nexus_file.filename != '':
-            update_fields["proj_img_nexus"] = compress_and_encode_image(nexus_file, max_width=1200, quality=75)
+            update_fields["proj_img_nexus"] = compress_and_encode_image(
+                nexus_file, max_width=1200, quality=75
+            )
 
         if update_fields:
             settings_col.update_one(
@@ -237,7 +259,8 @@ def update_project_images():
 
 @app.route('/admin/delete_project_image/<img_key>', methods=['POST'])
 def delete_project_image(img_key):
-    if not session.get('admin_logged_in'): return redirect(url_for('login'))
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('login'))
     if img_key in ['proj_img_topology', 'proj_img_nexus']:
         settings_col.update_one(
             {"_id": "profile_data"},
@@ -247,13 +270,14 @@ def delete_project_image(img_key):
     return redirect(url_for('admin'))
 
 
-# ═══════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════
 #  📦 Projects (Add / Delete)
-# ═══════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════
 
 @app.route('/admin/add_project', methods=['POST'])
 def add_project():
-    if not session.get('admin_logged_in'): return redirect(url_for('login'))
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('login'))
     title = request.form.get('title')
     category = request.form.get('category')
     description = request.form.get('description')
@@ -276,11 +300,16 @@ def add_project():
 
 @app.route('/admin/delete_project/<proj_id>', methods=['POST'])
 def delete_project(proj_id):
-    if not session.get('admin_logged_in'): return redirect(url_for('login'))
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('login'))
     projects_col.delete_one({"_id": proj_id})
     flash('Project deleted!', 'success')
     return redirect(url_for('admin'))
 
 
+# ═══════════════════════════════════════════════════════════
+#  Entrypoint — للتشغيل المحلي فقط
+# ═══════════════════════════════════════════════════════════
 if __name__ == '__main__':
+    # use_reloader=False تمنع قفل الـ socket على ويندوز وخطأ WinError 10038
     app.run(debug=True, port=8080, use_reloader=False)
