@@ -16,7 +16,6 @@ app.secret_key = os.urandom(32).hex()
 MONGO_URI = "mongodb+srv://admin:3DYZunMvuyVbvipl@aws.rhgcybe.mongodb.net/?retryWrites=true&w=majority&appName=aws"
 
 try:
-    # تم رفع المهلة لتفادي انقطاع الاتصال أثناء رفع الملفات (Timeout 30s)
     client = MongoClient(
         MONGO_URI,
         maxPoolSize=20,
@@ -34,22 +33,23 @@ except Exception as e:
 ADMIN_USERNAME = "Admin"
 ADMIN_PASSWORD_HASH = generate_password_hash("Ahmed123")
 
-# دالة لضغط الصور تلقائياً وتصغير حجمها لتفادي مشاكل الاتصال
+
+# دالة لضغط الصور تلقائياً وتصغير حجمها
 def compress_and_encode_image(file_storage, max_width=1280, quality=75):
     img = Image.open(file_storage)
     if img.mode in ("RGBA", "P"):
         img = img.convert("RGB")
-    
-    # تصغير الأبعاد مع الحفاظ على النسبة
+
     if img.width > max_width:
         ratio = max_width / float(img.width)
         new_height = int(float(img.height) * float(ratio))
         img = img.resize((max_width, new_height), Image.Resampling.LANCZOS)
-    
+
     buffer = BytesIO()
     img.save(buffer, format="JPEG", quality=quality, optimize=True)
     buffer.seek(0)
     return base64.b64encode(buffer.read()).decode('utf-8')
+
 
 def get_site_profile_fast():
     doc = settings_col.find_one({"_id": "profile_data"}, {"cv_base64": 0})
@@ -58,6 +58,7 @@ def get_site_profile_fast():
             "has_cv": False,
             "cv_filename": "",
             "profile_base64": "",
+            "profile_base64_2": "",
             "proj_img_topology": "",
             "proj_img_nexus": ""
         }
@@ -65,9 +66,11 @@ def get_site_profile_fast():
         "has_cv": bool(doc.get("has_cv_flag", False) or doc.get("cv_filename")),
         "cv_filename": doc.get("cv_filename", "Ahmed_Attia_Mohamed.pdf"),
         "profile_base64": doc.get("profile_base64", ""),
+        "profile_base64_2": doc.get("profile_base64_2", ""),   # ⬅️ الصورة الثانية
         "proj_img_topology": doc.get("proj_img_topology", ""),
         "proj_img_nexus": doc.get("proj_img_nexus", "")
     }
+
 
 # ==========================================
 # Routes
@@ -78,12 +81,13 @@ def index():
     profile_data = get_site_profile_fast()
     return render_template('index.html', projects=projects, profile=profile_data)
 
+
 @app.route('/cv/download')
 def download_cv():
     doc = settings_col.find_one({"_id": "profile_data"}, {"cv_base64": 1, "cv_filename": 1})
     if not doc or not doc.get("cv_base64"):
         return redirect(url_for('index'))
-    
+
     cv_bytes = base64.b64decode(doc["cv_base64"])
     filename = doc.get("cv_filename", "Ahmed_Attia_Mohamed.pdf")
     return send_file(
@@ -92,6 +96,7 @@ def download_cv():
         as_attachment=False,
         download_name=filename
     )
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -104,10 +109,12 @@ def login():
         return jsonify({"status": "error", "message": "Invalid credentials"}), 401
     return render_template('login.html')
 
+
 @app.route('/logout')
 def logout():
     session.pop('admin_logged_in', None)
     return redirect(url_for('index'))
+
 
 @app.route('/admin')
 def admin():
@@ -117,23 +124,64 @@ def admin():
     profile_data = get_site_profile_fast()
     return render_template('admin.html', projects=projects, profile=profile_data)
 
+
+# ═══════════════════════════════════════════════════
+#  🖼️  Profile Pictures (Primary + Secondary / Auto-Swap)
+# ═══════════════════════════════════════════════════
+
 @app.route('/admin/update_profile_pic', methods=['POST'])
 def update_profile_pic():
+    """الصورة الأساسية (Primary)"""
     if not session.get('admin_logged_in'): return redirect(url_for('login'))
     file = request.files.get('profile_image')
     if file and file.filename != '':
         try:
-            # ضغط صورة البروفايل بحجم خفيف جداً
             encoded_img = compress_and_encode_image(file, max_width=500, quality=80)
             settings_col.update_one(
                 {"_id": "profile_data"},
                 {"$set": {"profile_base64": encoded_img}},
                 upsert=True
             )
-            flash('Profile picture updated successfully!', 'success')
+            flash('Primary profile picture updated successfully!', 'success')
         except Exception as e:
             flash(f'Error processing image: {e}', 'error')
     return redirect(url_for('admin'))
+
+
+@app.route('/admin/update_profile_pic_2', methods=['POST'])
+def update_profile_pic_2():
+    """الصورة الثانية (Secondary) — تتبدل تلقائياً كل ثانيتين"""
+    if not session.get('admin_logged_in'): return redirect(url_for('login'))
+    file = request.files.get('profile_image_2')
+    if file and file.filename != '':
+        try:
+            encoded_img = compress_and_encode_image(file, max_width=500, quality=80)
+            settings_col.update_one(
+                {"_id": "profile_data"},
+                {"$set": {"profile_base64_2": encoded_img}},
+                upsert=True
+            )
+            flash('Alternate profile picture uploaded! Auto-swap enabled.', 'success')
+        except Exception as e:
+            flash(f'Error processing image: {e}', 'error')
+    return redirect(url_for('admin'))
+
+
+@app.route('/admin/delete_profile_pic_2', methods=['POST'])
+def delete_profile_pic_2():
+    """حذف الصورة الثانية — يوقف التبديل التلقائي"""
+    if not session.get('admin_logged_in'): return redirect(url_for('login'))
+    settings_col.update_one(
+        {"_id": "profile_data"},
+        {"$set": {"profile_base64_2": ""}}
+    )
+    flash('Alternate profile picture removed. Auto-swap disabled.', 'success')
+    return redirect(url_for('admin'))
+
+
+# ═══════════════════════════════════════════════════
+#  📄 CV Upload
+# ═══════════════════════════════════════════════════
 
 @app.route('/admin/update_cv', methods=['POST'])
 def update_cv():
@@ -153,20 +201,25 @@ def update_cv():
         flash('CV uploaded and saved to DB!', 'success')
     return redirect(url_for('admin'))
 
+
+# ═══════════════════════════════════════════════════
+#  🖼️  Project Images (Topology & NEXUS)
+# ═══════════════════════════════════════════════════
+
 @app.route('/admin/update_project_images', methods=['POST'])
 def update_project_images():
     if not session.get('admin_logged_in'): return redirect(url_for('login'))
-    
+
     topology_file = request.files.get('topology_image')
     nexus_file = request.files.get('nexus_image')
-    
+
     update_fields = {}
     try:
         if topology_file and topology_file.filename != '':
             update_fields["proj_img_topology"] = compress_and_encode_image(topology_file, max_width=1200, quality=75)
         if nexus_file and nexus_file.filename != '':
             update_fields["proj_img_nexus"] = compress_and_encode_image(nexus_file, max_width=1200, quality=75)
-            
+
         if update_fields:
             settings_col.update_one(
                 {"_id": "profile_data"},
@@ -178,8 +231,9 @@ def update_project_images():
             flash('No new images selected.', 'error')
     except Exception as e:
         flash(f'Error processing project images: {e}', 'error')
-        
+
     return redirect(url_for('admin'))
+
 
 @app.route('/admin/delete_project_image/<img_key>', methods=['POST'])
 def delete_project_image(img_key):
@@ -192,6 +246,11 @@ def delete_project_image(img_key):
         flash('Image removed successfully!', 'success')
     return redirect(url_for('admin'))
 
+
+# ═══════════════════════════════════════════════════
+#  📦 Projects (Add / Delete)
+# ═══════════════════════════════════════════════════
+
 @app.route('/admin/add_project', methods=['POST'])
 def add_project():
     if not session.get('admin_logged_in'): return redirect(url_for('login'))
@@ -199,7 +258,7 @@ def add_project():
     category = request.form.get('category')
     description = request.form.get('description')
     tags = request.form.get('tags')
-    
+
     if title and description:
         tag_list = [t.strip() for t in tags.split(',') if t.strip()] if tags else []
         project_data = {
@@ -214,6 +273,7 @@ def add_project():
         flash('Project added!', 'success')
     return redirect(url_for('admin'))
 
+
 @app.route('/admin/delete_project/<proj_id>', methods=['POST'])
 def delete_project(proj_id):
     if not session.get('admin_logged_in'): return redirect(url_for('login'))
@@ -221,6 +281,6 @@ def delete_project(proj_id):
     flash('Project deleted!', 'success')
     return redirect(url_for('admin'))
 
+
 if __name__ == '__main__':
-    # use_reloader=False تمنع قفل الـ socket على ويندوز وخطأ WinError 10038
     app.run(debug=True, port=8080, use_reloader=False)
