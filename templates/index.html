@@ -848,25 +848,54 @@ section {
     100% { background-position: 0% 50%; }
 }
 
+/* ═══════════════════════════════════════════════════════
+   ✅ AVATAR HALO + CROSSFADE BETWEEN 2 PHOTOS
+   ═══════════════════════════════════════════════════════ */
 .avatar-halo {
     position: relative; width: 100%; height: 100%;
     border-radius: 50%; padding: 4px;
     background: var(--bg-primary); overflow: hidden;
 }
 
-.avatar-img {
+/* حاوية الصورتين */
+.avatar-images {
+    position: relative;
     width: 100%;
     height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.avatar-images .avatar-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.avatar-img {
     border-radius: 50%;
     object-fit: cover;
     object-position: 50% 10%;
     display: block;
     background: #0a1020;
     border: 2px solid rgba(56,189,248,0.08);
-    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transition: opacity 1.1s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
                 border-color 0.4s ease;
+    will-change: opacity;
 }
-.avatar-img:hover {
+
+/* الصورة الأساسية فوق */
+.avatar-img--primary   { z-index: 2; opacity: 1; }
+/* الصورة الثانية تحت */
+.avatar-img--secondary { z-index: 1; opacity: 0; }
+
+/* عند التبديل — اخفِ الأساسية وأظهر الثانية */
+.avatar-images.alt-active .avatar-img--primary   { opacity: 0; }
+.avatar-images.alt-active .avatar-img--secondary { opacity: 1; }
+
+/* الزوم عند المرور */
+.avatar-halo:hover .avatar-img {
     transform: scale(1.03);
     border-color: rgba(56,189,248,0.35);
 }
@@ -2827,9 +2856,22 @@ footer .heart {
                 <div class="avatar-ring"></div>
                 <div class="avatar-halo">
                     {% if profile.profile_base64 %}
-                    <img src="data:image/jpeg;base64,{{ profile.profile_base64 }}" alt="Ahmed Attia Mohamed" class="avatar-img" loading="eager">
+                    <div class="avatar-images" id="avatarImages">
+                        <img src="data:image/jpeg;base64,{{ profile.profile_base64 }}"
+                             alt="Ahmed Attia Mohamed"
+                             class="avatar-img avatar-img--primary"
+                             loading="eager">
+                        {% if profile.profile_base64_2 %}
+                        <img src="data:image/jpeg;base64,{{ profile.profile_base64_2 }}"
+                             alt="Ahmed Attia Mohamed — Alternate"
+                             class="avatar-img avatar-img--secondary"
+                             loading="lazy">
+                        {% endif %}
+                    </div>
                     {% else %}
-                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=AhmedAttia" alt="Ahmed Attia Avatar" class="avatar-img">
+                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=AhmedAttia"
+                         alt="Ahmed Attia Avatar"
+                         class="avatar-img">
                     {% endif %}
                 </div>
                 <div class="status-ping-corner" title="Available for Work"></div>
@@ -4087,6 +4129,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    /* ═══════════════════════════════════════════════════════
+       15) AVATAR AUTO-SWAP — تبديل صورة البروفايل كل ثانيتين
+    ═══════════════════════════════════════════════════════ */
+    (function avatarSwap() {
+        const container = document.getElementById('avatarImages');
+        if (!container) return;
+
+        const secondary = container.querySelector('.avatar-img--secondary');
+        if (!secondary) return;   // ← لو مفيش صورة ثانية، مفيش تبديل
+
+        /* كل ثانيتين، ضيف/شيل الكلاس اللي بيعمل الـ crossfade */
+        setInterval(() => {
+            container.classList.toggle('alt-active');
+        }, 2000);
+    })();
 
 });
     </script>
